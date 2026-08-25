@@ -1,0 +1,5 @@
+.env
+remotion/node_modules/
+remotion/out/
+clips/
+FLOW-PLAYBOOK.md

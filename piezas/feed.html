@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sin Talar · Feed 1:1</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--amber:#e0a45f}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#0c0a08;height:100%;overflow:hidden}
+  body{display:flex;align-items:center;justify-content:center}
+  #fit{transform-origin:center center}
+  .card{position:relative;width:1080px;height:1080px;overflow:hidden;font-family:'Inter',sans-serif;background:#0c0a08}
+  .photo{position:absolute;inset:0;width:1080px;height:1080px;object-fit:cover;object-position:center}
+  .grad{position:absolute;inset:0;background:
+     linear-gradient(180deg,rgba(8,6,4,.72) 0%,rgba(8,6,4,.12) 24%,rgba(8,6,4,.12) 38%,rgba(8,6,4,.62) 60%,rgba(8,6,4,.90) 82%,rgba(8,6,4,.97) 100%)}
+  .top{position:absolute;top:52px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:center;z-index:5}
+  .brand{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:38px;color:#fff;letter-spacing:.02em;text-shadow:0 2px 16px rgba(0,0,0,.6)}
+  .brand span{color:var(--amber)}
+  .tag{font-size:20px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#efe0cd;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+  .body{position:absolute;left:56px;right:56px;bottom:56px;z-index:5}
+  .kick{display:inline-flex;align-items:center;gap:12px;font-size:22px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:20px;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+  .kick::before{content:"";width:34px;height:2px;background:var(--amber)}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;color:#fff;font-size:82px;line-height:.98;letter-spacing:-.01em;text-shadow:0 4px 30px rgba(0,0,0,.7);max-width:900px}
+  h1 em{font-style:italic;color:var(--amber)}
+  .sub{font-size:30px;color:#e9dcc9;margin-top:20px;max-width:760px;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+  .cta{display:inline-flex;align-items:center;gap:12px;margin-top:34px;background:var(--amber);color:#2a1a0c;font-weight:800;font-size:28px;padding:20px 40px;border-radius:100px}
+  .cta::after{content:"→"}
+</style>
+</head>
+<body>
+<div id="fit"><div class="card" id="card">
+  <img class="photo" id="photo" src="">
+  <div class="grad"></div>
+  <div class="top">
+    <div class="brand">Sin Talar<span>&#174;&#xFE0E;</span></div>
+    <div class="tag">Tandil</div>
+  </div>
+  <div class="body">
+    <div class="kick" id="kick"></div>
+    <h1 id="h1"></h1>
+    <div class="sub" id="sub"></div>
+    <div class="cta">Pedí tu presupuesto</div>
+  </div>
+</div></div>
+
+<script>
+var CARDS=[
+  {photo:'../img/life-deck.jpg', kick:'Sin talar un árbol', h1:'La calidez de la madera, <em>sin talar</em>.', sub:'Deck WPC hecho de madera reciclada y plástico recuperado.'},
+  {photo:'../img/life-pool.jpg', kick:'Cero mantenimiento', h1:'Nunca más <em>lijar ni barnizar</em> el deck.', sub:'Se limpia con agua y jabón neutro. Y listo, para siempre.'},
+  {photo:'../img/life-facade.jpg', kick:'Resiste la sierra', h1:'El clima de Tandil <em>no lo toca</em>.', sub:'Humedad, sol y heladas: no se pudre, no se astilla, no pierde color.'},
+  {photo:'../img/life-wall.jpg', kick:'Estética premium', h1:'Transformá tu ambiente <em>en un finde</em>.', sub:'Paneles de pared acanalados WPC. La calidez de la madera, sin obra.'}
+];
+function fit(){var f=document.getElementById('fit');var s=Math.min(window.innerWidth/1080,window.innerHeight/1080);f.style.transform='scale('+s+')';}
+window.addEventListener('resize',fit);fit();
+var n=parseInt((location.search.match(/card=(\d+)/)||[])[1]||'1',10);
+var c=CARDS[(n-1+CARDS.length)%CARDS.length];
+document.getElementById('photo').src=c.photo;
+document.getElementById('kick').textContent=c.kick;
+document.getElementById('h1').innerHTML=c.h1;
+document.getElementById('sub').textContent=c.sub;
+</script>
+</body>
+</html>

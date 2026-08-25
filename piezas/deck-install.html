@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sin Talar · Instalación de deck</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--amber:#e0a45f}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#0c0a08;overflow:hidden;height:100%}
+  body{display:flex;align-items:center;justify-content:center}
+  #fit{transform-origin:center center}
+  .stage{position:relative;width:1080px;height:1920px;background:#0c0a08;font-family:'Inter',sans-serif;overflow:hidden}
+
+  /* foto ÚNICA sin cortes + tapas que se levantan (reveal tabla por tabla) */
+  #reveal{position:absolute;inset:0}
+  #reveal .full{position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover;object-position:center;will-change:transform}
+  #covers{position:absolute;inset:0}
+  .cover{position:absolute;left:0;width:1082px;margin-left:-1px;will-change:transform,opacity;background:#0c0a08}
+  .vig{position:absolute;inset:0;pointer-events:none;
+     background:linear-gradient(180deg,rgba(8,6,4,.55) 0%,rgba(8,6,4,0) 22%,rgba(8,6,4,0) 50%,rgba(8,6,4,.9) 100%)}
+
+  .scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+
+  /* HOOK */
+  .kick{font-weight:700;font-size:26px;letter-spacing:.28em;text-transform:uppercase;color:var(--amber)}
+  .hook{font-family:'Cormorant Garamond',serif;font-weight:700;color:#fff;font-size:104px;line-height:1.02;margin:22px 60px 0;text-shadow:0 4px 30px rgba(0,0,0,.6)}
+  .hook em{font-style:italic;color:var(--amber)}
+
+  /* contador durante el armado */
+  .counter{position:absolute;left:0;right:0;bottom:250px;text-align:center;color:#fff;z-index:20}
+  .counter .n{font-family:'Cormorant Garamond',serif;font-size:76px;font-weight:700;line-height:1;text-shadow:0 4px 24px rgba(0,0,0,.7)}
+  .counter .t{font-size:28px;color:#e9dcc9;letter-spacing:.02em;margin-top:4px;text-shadow:0 2px 12px rgba(0,0,0,.7)}
+
+  /* caption sobre la foto terminada */
+  .cap{position:absolute;left:60px;right:60px;bottom:190px;color:#fff;z-index:20}
+  .cap .big{font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:700;line-height:1.02;text-shadow:0 4px 30px rgba(0,0,0,.7)}
+  .cap .big em{font-style:italic;color:var(--amber)}
+  .cap .small{font-size:34px;color:#e9dcc9;margin-top:10px;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+
+  /* PAYOFF */
+  #end{background:radial-gradient(120% 80% at 50% 20%,#241c14,#0c0907)}
+  .brand{font-family:'Cormorant Garamond',serif;font-weight:700;color:#fff;font-size:116px}
+  .brand span{color:var(--amber)}
+  .sub{font-size:34px;color:#cbb89f;margin-top:2px;letter-spacing:.02em}
+  .chips{display:flex;gap:16px;margin-top:46px;flex-wrap:wrap;justify-content:center;padding:0 60px}
+  .chip{border:1.5px solid rgba(224,164,95,.5);color:#f0e2d0;border-radius:100px;padding:14px 26px;font-size:26px;font-weight:600}
+  .cta{margin-top:56px;background:var(--amber);color:#2a1a0c;font-weight:800;font-size:34px;padding:26px 54px;border-radius:100px}
+  .wa{margin-top:24px;font-size:28px;color:#cbb89f}
+
+  .brandmark{position:absolute;top:54px;left:0;right:0;text-align:center;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:40px;color:#fff;letter-spacing:.04em;z-index:40;opacity:0;text-shadow:0 2px 16px rgba(0,0,0,.7)}
+  .brandmark span{color:var(--amber)}
+</style>
+</head>
+<body>
+<div id="fit"><div class="stage" id="stage">
+
+  <div id="reveal"><img class="full" src="../img/life-deck.jpg" alt="deck"><div id="covers"></div></div>
+  <div class="vig"></div>
+  <div class="brandmark" id="bm">Sin Talar<span>&#174;&#xFE0E;</span> · Tandil</div>
+
+  <!-- HOOK -->
+  <div class="scene" id="hook" style="background:radial-gradient(120% 80% at 50% 30%,#221a12,#0b0806)">
+    <div class="kick">Deck WPC · Tandil</div>
+    <div class="hook">Se <em>instala</em><br>tabla por tabla.</div>
+  </div>
+
+  <!-- contador -->
+  <div class="counter" id="counter" style="opacity:0"><div class="n" id="cn">0%</div><div class="t">instalado</div></div>
+
+  <!-- caption foto terminada -->
+  <div class="cap" id="cap" style="opacity:0"><div class="big"><em>Impecable.</em></div><div class="small">Cero mantenimiento. Para siempre.</div></div>
+
+  <!-- END -->
+  <div class="scene" id="end" style="opacity:0">
+    <div class="brand">Sin Talar<span>®</span></div>
+    <div class="sub">Deck · Wall Panel · Perfilería</div>
+    <div class="chips">
+      <div class="chip">Sin talar un árbol</div>
+      <div class="chip">Resiste la sierra</div>
+    </div>
+    <div class="cta">Pedí tu presupuesto</div>
+    <div class="wa">WhatsApp · Tandil</div>
+  </div>
+
+</div></div>
+
+<script>
+function fit(){var f=document.getElementById('fit');var s=Math.min(window.innerWidth/1080,window.innerHeight/1920);f.style.transform='scale('+s+')';}
+window.addEventListener('resize',fit);fit();
+
+// tapas oscuras sobre la foto única: se levantan de abajo hacia arriba (tabla por tabla)
+var N=9, H=1920, sh=Math.ceil(H/N);
+var cwrap=document.getElementById('covers'), covers=[];
+for(var i=0;i<N;i++){
+  var c=document.createElement('div'); c.className='cover';
+  c.style.top=(i*sh)+'px'; c.style.height=(sh+1)+'px'; // +1 evita costura sub-pixel
+  cwrap.appendChild(c); covers.push(c);
+}
+// orden de "colocado": de abajo hacia arriba
+var order=covers.slice().reverse();
+gsap.set(covers,{opacity:1,yPercent:0});
+gsap.set('.full',{scale:1.08});
+
+var prog={v:0};
+var tl=gsap.timeline({paused:true,defaults:{ease:'power3.out'}});
+
+// HOOK 0 - 2.0
+tl.from('.kick',{opacity:0,y:20,duration:.5},0.1)
+  .from('.hook',{opacity:0,y:30,duration:.6},0.25)
+  .to('#hook',{opacity:0,duration:.5,ease:'power2.in'},1.7)
+  .to('#bm',{opacity:.9,duration:.5},1.6);
+
+// BUILD 2.0 - 6.5  (cada tabla se coloca: la tapa se levanta y revela la foto)
+tl.to('#counter',{opacity:1,duration:.3},2.0);
+// leve zoom-out de la foto durante todo el armado
+tl.to('.full',{scale:1,duration:5.0,ease:'power1.out'},2.1);
+order.forEach(function(c,i){
+  var t=2.1+i*0.4;
+  tl.to(c,{yPercent:-100,opacity:0,duration:.55,ease:'power2.inOut'},t)
+    .to(prog,{v:Math.round((i+1)/N*100),duration:.4,onUpdate:function(){document.getElementById('cn').textContent=Math.round(prog.v)+'%';}},t);
+});
+tl.to('#counter',{opacity:0,duration:.4},6.4);
+
+// HOLD foto terminada (limpia, sin costuras) + caption 6.5 - 9.4
+tl.fromTo('#cap',{opacity:0,y:30},{opacity:1,y:0,duration:.6},6.7)
+  .to(['#reveal','.vig','#cap','#bm'],{opacity:0,duration:.6,ease:'power2.in'},9.3);
+
+// END 9.6 - 12.6
+tl.to('#end',{opacity:1,duration:.5},9.6)
+  .from('.brand',{opacity:0,y:26,duration:.6},9.8)
+  .from('.sub',{opacity:0,y:16,duration:.5},10.1)
+  .from('.chip',{opacity:0,y:16,scale:.9,stagger:.12,duration:.45},10.4)
+  .from('.cta',{opacity:0,y:20,scale:.92,duration:.5,ease:'back.out(1.5)'},10.9)
+  .from('.wa',{opacity:0,duration:.4},11.3)
+  .to('.cta',{scale:1.05,duration:.6,yoyo:true,repeat:2,ease:'sine.inOut'},11.6)
+  .to({},{duration:.5},12.3);
+
+window.__TL=tl; window.__DUR=tl.duration();
+function play(){tl.restart();}
+// en modo render (?render=1) NO autoplaya: queda pausado para capturar frames exactos
+if(!/render/.test(location.search)){
+  tl.eventCallback('onComplete',function(){setTimeout(play,900);});
+  window.addEventListener('load',function(){setTimeout(play,400);});
+}else{ tl.pause(0); }
+</script>
+</body>
+</html>

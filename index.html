@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sin Talar WPC en Tandil — Deck, revestimientos y perfilería sin mantenimiento</title>
+<meta name="description" content="Deck, paneles de pared y perfilería WPC en Tandil. La estética de la madera sin talar un árbol: cero mantenimiento, no se pudre, resiste el clima de la sierra. Pedí tu presupuesto por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf7f2; --ink:#1b1813; --mut:#6d6357; --line:#e8e0d3;
+  --wood:#a9713f; --wood-d:#7c4f27; --amber:#c98a3d; --amber-l:#e0a45f;
+  --dark:#161009; --card:#ffffff; --shadow:0 24px 60px rgba(40,28,12,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.05;letter-spacing:-.015em}
+img,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--wood),var(--amber-l));z-index:300}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--amber)}
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--wood);color:#fff;padding:15px 26px;border-radius:100px;font-weight:600;font-size:15px;transition:transform .15s,box-shadow .15s;border:none;cursor:pointer}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(169,113,63,.4)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{box-shadow:0 12px 28px rgba(0,0,0,.08)}
+.btn-lg{padding:18px 34px;font-size:17px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(250,247,242,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{font-family:'Cormorant Garamond',serif;font-size:27px;font-weight:700;letter-spacing:.01em}
+.brand b{color:var(--wood)}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{font-size:14.5px;font-weight:500;color:var(--mut)}
+.nav-links a:hover{color:var(--ink)}
+.menu-btn{display:none;background:none;border:none;font-size:26px;cursor:pointer}
+
+/* HERO */
+.hero{position:relative;padding:0;overflow:hidden}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media img{width:100%;height:100%;object-fit:cover}
+.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(14,10,6,.92) 0%,rgba(14,10,6,.72) 42%,rgba(14,10,6,.30) 72%,rgba(14,10,6,.15) 100%)}
+.hero .wrap{position:relative;z-index:2;min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding-top:60px;padding-bottom:60px}
+.hero .eyebrow{color:var(--amber-l)}
+.hero .eyebrow::before{background:var(--amber-l)}
+.hero h1{color:#fff;font-size:clamp(46px,7vw,88px);max-width:900px;margin-bottom:24px}
+.hero h1 em{font-style:italic;color:var(--amber-l)}
+.hero p.lead{font-size:clamp(18px,2.1vw,22px);color:#e6dccd;max-width:560px;margin-bottom:34px}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-note{display:flex;gap:22px;flex-wrap:wrap;margin-top:30px}
+.hero-note span{display:flex;align-items:center;gap:8px;font-size:14px;color:#d8ccb9}
+.hero-note span::before{content:"✓";color:var(--amber-l);font-weight:800}
+
+/* STATS */
+.stats{background:var(--dark);color:#f2ebdf}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:38px 24px}
+.stat b{font-family:'Cormorant Garamond',serif;font-size:56px;color:#fff;line-height:1;display:block}
+.stat b .count{font-size:56px;font-weight:700}
+.stat b .u{font-size:30px;color:var(--amber-l);vertical-align:top}
+.stat span{font-size:14px;color:#b6a993}
+
+/* SECTIONS */
+section.pad{padding:96px 0}
+.sec-head{max-width:660px;margin:0 auto 56px;text-align:center}
+.sec-head .eyebrow{justify-content:center}
+.sec-head h2{font-size:clamp(34px,4.6vw,52px);margin-bottom:14px}
+.sec-head p{color:var(--mut);font-size:18px}
+
+/* VIDEO */
+.videosec{background:var(--dark);color:#f2ebdf}
+.videosec .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:90px 24px}
+.videosec .eyebrow{color:var(--amber-l)}.videosec .eyebrow::before{background:var(--amber-l)}
+.videosec h2{color:#fff;font-size:clamp(32px,4.4vw,48px);margin-bottom:16px}
+.videosec p{color:#c9bca7;font-size:17px;margin-bottom:26px}
+.videobox{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.5);aspect-ratio:9/16;max-height:640px;margin:0 auto;background:#0c0a08}
+.videobox video{width:100%;height:100%;object-fit:cover}
+.vlist{list-style:none;display:flex;flex-direction:column;gap:12px}
+.vlist li{display:flex;gap:12px;font-size:16px;color:#e6dccd;align-items:flex-start}
+.vlist li::before{content:"→";color:var(--amber-l);font-weight:800}
+
+/* BENEFITS */
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.bcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px 24px;transition:transform .2s,box-shadow .2s}
+.bcard:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.bcard .ic{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#f3ebdd,#e9dcc4);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.bcard .ic svg{width:28px;height:28px;stroke:var(--wood-d);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.bcard h3{font-size:24px;margin-bottom:8px}
+.bcard p{font-size:15px;color:var(--mut)}
+
+/* COMPARISON */
+.compare{background:#f3ede2}
+.ctable{max-width:900px;margin:0 auto;background:var(--card);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+.crow{display:grid;grid-template-columns:1.5fr 1fr 1fr}
+.crow>div{padding:20px 24px;display:flex;align-items:center;gap:10px;font-size:15.5px;border-bottom:1px solid var(--line)}
+.crow.head>div{background:var(--dark);color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;border:none}
+.crow.head .win{background:linear-gradient(135deg,var(--wood),var(--wood-d))}
+.crow .lbl{font-weight:600;color:var(--ink);background:#faf7f2}
+.crow .win{background:#f6ead4;font-weight:600;box-shadow:inset 0 0 0 1px rgba(169,113,63,.12)}
+.crow .yes{color:#2f7a43;font-weight:700}
+.crow .no{color:#b23b3b;font-weight:600}
+.crow:last-child>div{border-bottom:none}
+
+/* PRODUCTS */
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.pcard:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.pcard .ph{aspect-ratio:4/3;overflow:hidden;background:#141210}
+.pcard .ph img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.pcard:hover .ph img{transform:scale(1.06)}
+.pcard .pb{padding:26px}
+.pcard h3{font-size:27px;margin-bottom:8px}
+.pcard p{font-size:15px;color:var(--mut);margin-bottom:16px}
+.pcard a{font-weight:600;color:var(--wood);font-size:14.5px}
+
+/* PROCESS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.step{position:relative;padding:30px 26px;border:1px solid var(--line);border-radius:18px;background:var(--card)}
+.step .num{font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:700;color:var(--amber-l);line-height:1}
+.step h3{font-size:24px;margin:8px 0 8px}
+.step p{font-size:15px;color:var(--mut)}
+
+/* COLORS */
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.sw{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.sw .chip{height:150px}
+.sw .nm{padding:16px 18px;font-weight:600;font-size:16px}
+.sw .nm small{display:block;color:var(--mut);font-weight:400;font-size:13px;margin-top:2px}
+
+/* TANDIL */
+.tandil{background:linear-gradient(135deg,#221a12,#3a2c1e);color:#efe7dc}
+.tandil .wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;padding:90px 24px}
+.tandil .eyebrow{color:var(--amber-l)}.tandil .eyebrow::before{background:var(--amber-l)}
+.tandil h2{font-size:clamp(32px,4.4vw,48px);color:#fff;margin-bottom:20px}
+.tandil ul{list-style:none;display:flex;flex-direction:column;gap:16px}
+.tandil li{display:flex;gap:13px;font-size:16.5px;align-items:flex-start}
+.tandil li::before{content:"✓";color:var(--amber-l);font-weight:800;margin-top:1px}
+.tandil-img{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:3/2;background:#141210}
+.tandil-img img{width:100%;height:100%;object-fit:cover}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:230px;gap:14px}
+.gallery a{border-radius:14px;overflow:hidden;background:#141210}
+.gallery a img{width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.gallery a:hover img{transform:scale(1.05)}
+.gallery .big{grid-column:span 2;grid-row:span 2}
+
+/* FAQ */
+.faq{max-width:800px;margin:0 auto}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 24px;margin-bottom:14px}
+.faq summary{font-weight:600;padding:18px 0;cursor:pointer;list-style:none;font-size:17px;display:flex;justify-content:space-between;gap:16px}
+.faq summary::after{content:"+";color:var(--wood);font-size:24px;line-height:1}
+.faq details[open] summary::after{content:"–"}
+.faq details p{padding:0 0 20px;color:var(--mut);font-size:15.5px}
+
+/* CTA FINAL */
+.cta-final{position:relative;text-align:center;border-radius:28px;padding:80px 30px;margin:0 24px;overflow:hidden;color:#f3eee6}
+.cta-final .bgimg{position:absolute;inset:0;z-index:0}
+.cta-final .bgimg img{width:100%;height:100%;object-fit:cover}
+.cta-final .bgimg::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(14,10,6,.82),rgba(14,10,6,.9))}
+.cta-final .in{position:relative;z-index:2}
+.cta-final .eyebrow{color:var(--amber-l);justify-content:center}.cta-final .eyebrow::before{background:var(--amber-l)}
+.cta-final h2{font-size:clamp(36px,5vw,56px);color:#fff;margin-bottom:16px}
+.cta-final p{color:#d8ccb9;font-size:19px;max-width:540px;margin:0 auto 30px}
+
+/* FOOTER */
+footer{padding:56px 0 40px;background:var(--dark);color:#b6a993;font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:20px;align-items:center}
+footer .brand{color:#fff}
+footer a{color:var(--amber-l)}
+
+/* FLOAT WA */
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:150;background:#25d366;color:#fff;padding:14px 22px;border-radius:100px;display:flex;align-items:center;gap:10px;font-weight:700;box-shadow:0 10px 30px rgba(37,211,102,.5);transition:transform .15s}
+.wa-float:hover{transform:translateY(-2px)}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:920px){
+  .nav-links{position:fixed;inset:70px 0 auto 0;background:var(--bg);flex-direction:column;padding:22px;gap:18px;border-bottom:1px solid var(--line);display:none}
+  .nav-links.open{display:flex}
+  .menu-btn{display:block}
+  .videosec .wrap,.tandil .wrap{grid-template-columns:1fr;gap:36px}
+  .benefits,.swatches{grid-template-columns:repeat(2,1fr)}
+  .products,.steps{grid-template-columns:1fr}
+  .stats .wrap{grid-template-columns:repeat(2,1fr);gap:30px}
+  .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:180px}
+  .gallery .big{grid-column:span 2;grid-row:span 1}
+  .crow{grid-template-columns:1.3fr .85fr .85fr}
+  .crow.head>div{font-size:17px;padding:16px}
+  .crow>div{padding:14px 12px;font-size:13.5px}
+  .hero .wrap{min-height:auto;padding:84px 24px 120px}
+  .hero-note{flex-direction:column;gap:11px;margin-top:26px}
+  .wa-float{right:14px;bottom:14px;padding:14px;font-size:0;gap:0}
+  .wa-float::after{content:"🟢";font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <div class="brand">Sin&nbsp;Talar<b>®</b> · Tandil</div>
+    <div class="nav-links" id="navlinks">
+      <a href="#video">El deck</a>
+      <a href="#beneficios">Por qué WPC</a>
+      <a href="#productos">Productos</a>
+      <a href="#tandil">En Tandil</a>
+      <a href="#faq">Preguntas</a>
+      <a class="btn" href="#contacto">Pedí tu presupuesto</a>
+    </div>
+    <button class="menu-btn" id="menuBtn">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-media"><img src="img/life-pool.jpg" alt="Deck WPC junto a una pileta con vista a las sierras de Tandil"></div>
+  <div class="wrap">
+    <div class="reveal in">
+      <span class="eyebrow">WPC Argentino · Ahora en Tandil</span>
+      <h1>La calidez de la madera,<br><em>sin talar</em> un solo árbol.</h1>
+      <p class="lead">Deck, revestimientos y perfilería de madera plástica: la estética natural que buscás, con cero mantenimiento y resistencia total al clima de la sierra.</p>
+      <div class="hero-cta">
+        <a class="btn btn-lg" href="#contacto">Pedí tu presupuesto</a>
+        <a class="btn btn-ghost btn-lg" style="color:#fff;border-color:rgba(255,255,255,.4)" href="#video">Ver cómo queda ▸</a>
+      </div>
+      <div class="hero-note">
+        <span>No se pinta</span><span>No se pudre</span><span>No le entran termitas</span><span>No pierde color</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap">
+    <div class="stat reveal"><b><span class="count" data-to="25">25</span><span class="u">+</span></b><span>Años de vida útil estimada</span></div>
+    <div class="stat reveal"><b><span class="count" data-to="100">100</span><span class="u">%</span></b><span>Madera reciclada + plástico recuperado</span></div>
+    <div class="stat reveal"><b><span class="count" data-to="0">0</span></b><span>Barnizado, sellado o pintura</span></div>
+    <div class="stat reveal"><b>Tandil</b><span>Asesoramiento y entrega local</span></div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<section class="videosec" id="video">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Tabla por tabla</span>
+      <h2>Mirá cómo se arma tu deck.</h2>
+      <p>Un sistema simple de perfilería y tablas que se encastra sobre cualquier base. En una instalación queda listo — y no lo tocás nunca más.</p>
+      <ul class="vlist">
+        <li>Se monta sobre rastreles, sin obra húmeda.</li>
+        <li>Terminación antideslizante, fresca al pie.</li>
+        <li>Cero mantenimiento: ni lija, ni barniz, ni pintura.</li>
+      </ul>
+      <div style="margin-top:30px"><a class="btn btn-lg" href="#contacto">Quiero uno así</a></div>
+    </div>
+    <div class="videobox reveal">
+      <video src="out/deck-install.mp4" poster="img/video-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="pad" id="beneficios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Por qué elegir WPC</span>
+      <h2>La madera de verdad daba trabajo. Esto no.</h2>
+      <p>El WPC combina fibra de madera y polímeros: la belleza de la madera, sin ninguno de sus problemas.</p>
+    </div>
+    <div class="benefits">
+      <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22v-6"/><path d="M12 16c-3 0-5-2-5-5 0-1 .5-2 .5-2C6 8.5 6 7 7 6c1-1 2.5-1 3-2 .5-1 1.3-2 2-2s1.5 1 2 2c.5 1 2 1 3 2 1 1 1 2.5-.5 3 0 0 .5 1 .5 2 0 3-2 5-5 5z"/></svg></div><h3>Sin talar</h3><p>Fabricado con madera reciclada y plásticos recuperados. Estética natural con conciencia ambiental.</p></div>
+      <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.3L3 18l3 3 6.4-6.3a4 4 0 0 0 5.3-5.4l-2.6 2.6-2.3-.3-.3-2.3z"/></svg></div><h3>Cero mantenimiento</h3><p>No se pinta, no se barniza, no se sella. Se limpia con agua y jabón neutro. Y listo.</p></div>
+      <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 15a4 4 0 1 1 1-7.9 5.5 5.5 0 0 1 10.7 1.6A3.5 3.5 0 0 1 17.5 15z"/><path d="M8 19l-1 2"/><path d="M12 19l-1 2"/><path d="M16 19l-1 2"/></svg></div><h3>Resiste la sierra</h3><p>Humedad, lluvia, sol y heladas: no se pudre, no se astilla, no se deforma ni pierde color.</p></div>
+      <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/><path d="M9.5 12l1.8 1.8 3.4-3.6"/></svg></div><h3>Anti termitas</h3><p>No es alimento para insectos ni hongos. La plaga que arruina la madera real, acá no existe.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="pad compare">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">La comparación honesta</span>
+      <h2>WPC vs. madera tradicional</h2>
+      <p>Lo que cambia cuando dejás de pelear con la madera todos los años.</p>
+    </div>
+    <div class="ctable reveal">
+      <div class="crow head"><div>&nbsp;</div><div class="win">Sin Talar WPC</div><div>Madera tradicional</div></div>
+      <div class="crow"><div class="lbl">Mantenimiento anual</div><div class="win"><span class="yes">Ninguno</span></div><div><span class="no">Lija + barniz</span></div></div>
+      <div class="crow"><div class="lbl">Vida útil</div><div class="win"><span class="yes">+25 años</span></div><div>5–10 años</div></div>
+      <div class="crow"><div class="lbl">Termitas y hongos</div><div class="win"><span class="yes">Inmune</span></div><div><span class="no">Vulnerable</span></div></div>
+      <div class="crow"><div class="lbl">Se pudre / astilla</div><div class="win"><span class="yes">Nunca</span></div><div><span class="no">Sí, con el tiempo</span></div></div>
+      <div class="crow"><div class="lbl">Color al sol</div><div class="win"><span class="yes">Estable</span></div><div>Se decolora</div></div>
+      <div class="crow"><div class="lbl">Impacto ambiental</div><div class="win"><span class="yes">Reciclado</span></div><div>Tala de árboles</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="pad" id="productos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Línea de productos</span>
+      <h2>Todo para tu exterior, en un solo material</h2>
+      <p>Del piso del quincho a la fachada de tu casa. Distintos perfiles y colores de madera.</p>
+    </div>
+    <div class="products">
+      <div class="pcard reveal">
+        <div class="ph"><img src="img/deck-1.webp" alt="Deck WPC"></div>
+        <div class="pb"><h3>Deck</h3><p>Para pisos de exterior: galerías, bordes de pileta, quinchos y balcones. Antideslizante y siempre fresco al pie.</p><a href="#contacto">Pedí precio de deck →</a></div>
+      </div>
+      <div class="pcard reveal">
+        <div class="ph"><img src="img/wall-panel-1.webp" alt="Wall Panel WPC"></div>
+        <div class="pb"><h3>Wall Panel</h3><p>Revestimiento de paredes interiores y fachadas. Transforma un ambiente con la calidez de la madera y sin obra pesada.</p><a href="#contacto">Pedí precio de panel →</a></div>
+      </div>
+      <div class="pcard reveal">
+        <div class="ph"><img src="img/perfil-60-1.webp" alt="Perfilería WPC"></div>
+        <div class="pb"><h3>Perfilería</h3><p>Perfiles estructurales y de terminación (40 y 60) para montar tu proyecto completo con el mismo sistema.</p><a href="#contacto">Pedí precio de perfiles →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLORS -->
+<section class="pad" style="background:#f3ede2">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Terminaciones</span><h2>Elegí tu tono de madera</h2><p>Colores cálidos y estables que no se decoloran con el sol.</p></div>
+    <div class="swatches">
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(135deg,#d8b283,#b9884f)"></div><div class="nm">Teca<small>Beige cálido natural</small></div></div>
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(135deg,#c68a4e,#9a5f2e)"></div><div class="nm">Caramelo<small>Marrón medio</small></div></div>
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(135deg,#9a5230,#6f3a20)"></div><div class="nm">Coñac<small>Marrón profundo</small></div></div>
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(135deg,#9c968b,#736c60)"></div><div class="nm">Greige<small>Gris arena moderno</small></div></div>
+    </div>
+    <p style="text-align:center;color:var(--mut);margin-top:26px;font-size:14px">*Tonos ilustrativos. Consultanos por las muestras físicas disponibles.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Cómo trabajamos</span><h2>De la idea al deck, en 3 pasos</h2></div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01</div><h3>Contanos tu proyecto</h3><p>Escribinos por WhatsApp con los metros aproximados y una foto del lugar. Te asesoramos sin compromiso.</p></div>
+      <div class="step reveal"><div class="num">02</div><h3>Presupuesto y color</h3><p>Te pasamos precio cerrado, opciones de terminación y todo lo que necesitás para el proyecto completo.</p></div>
+      <div class="step reveal"><div class="num">03</div><h3>Instalación y a disfrutar</h3><p>Coordinamos la entrega en Tandil. El sistema se monta rápido y no lo mantenés nunca más.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TANDIL -->
+<section class="tandil" id="tandil">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Pensado para acá</span>
+      <h2>¿Por qué WPC es ideal en Tandil?</h2>
+      <ul>
+        <li>El clima de sierra —humedad, niebla, heladas y sol fuerte— destruye la madera tratada en pocos años. El WPC ni se inmuta.</li>
+        <li>Olvidate de lijar y barnizar el deck cada temporada. Recuperás los findes.</li>
+        <li>Ideal para quinchos, galerías, bordes de pileta y fachadas de casas y cabañas de la zona.</li>
+        <li>Asesoramiento, medición y entrega local. Te acompaño en todo el proyecto.</li>
+      </ul>
+      <div style="margin-top:30px"><a class="btn btn-lg" href="#contacto">Quiero asesoramiento en Tandil</a></div>
+    </div>
+    <div class="tandil-img reveal"><img src="img/life-deck.jpg" alt="Deck WPC amplio con vista a las sierras de Tandil al atardecer"></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Galería</span><h2>Proyectos y terminaciones</h2></div>
+    <div class="gallery reveal">
+      <a class="big"><img src="img/life-deck.jpg" alt="Deck WPC exterior con vista a las sierras"></a>
+      <a><img src="img/life-deckpool.jpg" alt="Deck WPC junto a la pileta"></a>
+      <a><img src="img/life-wall.jpg" alt="Pared revestida en panel WPC acanalado"></a>
+      <a><img src="img/life-facade.jpg" alt="Fachada revestida en paneles WPC"></a>
+      <a><img src="img/life-pool.jpg" alt="Deck WPC borde de pileta"></a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="pad" id="faq" style="background:#f3ede2">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="eyebrow">Preguntas frecuentes</span><h2>Lo que todos consultan</h2></div>
+    <div class="faq reveal">
+      <details><summary>¿Cuánto dura y qué mantenimiento lleva?</summary><p>Vida útil estimada de +25 años. Mantenimiento: limpieza ocasional con agua, jabón neutro y cepillo de cerdas blandas. No requiere pintura, barniz ni sellador nunca.</p></details>
+      <details><summary>¿Se calienta al sol o resbala con lluvia?</summary><p>El deck tiene terminación antideslizante y disipa mejor el calor que otras alternativas sintéticas. Para zonas de mucho sol se recomiendan los tonos claros.</p></details>
+      <details><summary>¿Ustedes lo instalan?</summary><p>Te damos asesoramiento, medición y todo el sistema de perfilería para una instalación simple. Coordinamos la mejor opción para tu proyecto en Tandil.</p></details>
+      <details><summary>¿Cuánto sale?</summary><p>Depende de los metros y la terminación. Escribinos por WhatsApp con la medida aproximada y una foto del lugar y te pasamos precio cerrado a la brevedad.</p></details>
+      <details><summary>¿Sirve para interior y exterior?</summary><p>Sí. El deck es para pisos de exterior; los wall panels sirven para revestir paredes de interior y fachadas. Todo con el mismo sistema.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="pad" id="contacto">
+  <div class="wrap">
+    <div class="cta-final reveal">
+      <div class="bgimg"><img src="img/life-deck.jpg" alt=""></div>
+      <div class="in">
+        <span class="eyebrow">Pedí tu presupuesto</span>
+        <h2>Tu próximo deck, sin talar un árbol.</h2>
+        <p>Mandanos los metros aproximados y una foto del lugar, y te pasamos precio y colores. Sin compromiso.</p>
+        <a class="btn btn-lg" href="https://wa.me/5492494209464?text=Hola!%20Quiero%20un%20presupuesto%20de%20WPC%20Sin%20Talar%20en%20Tandil." target="_blank" rel="noopener" style="background:var(--amber-l);color:#2a1a0c;font-weight:800">Escribinos por WhatsApp →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700">Sin Talar® · Tandil</div>
+    <div>Deck · Wall Panel · Perfilería — Madera plástica argentina · <a href="https://www.instagram.com/sintalar.wpc/" target="_blank" rel="noopener">@sintalar.wpc</a></div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5492494209464?text=Hola!%20Quiero%20info%20de%20WPC%20Sin%20Talar%20en%20Tandil." target="_blank" rel="noopener">🟢 WhatsApp</a>
+
+<script>
+var pr=document.getElementById('progress');
+addEventListener('scroll',function(){var h=document.documentElement;pr.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';});
+var mb=document.getElementById('menuBtn'),nl=document.getElementById('navlinks');
+mb.onclick=function(){nl.classList.toggle('open');};
+nl.querySelectorAll('a').forEach(function(a){a.onclick=function(){nl.classList.remove('open');};});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');if(e.target.querySelector){var c=e.target.querySelectorAll('.count');c.forEach(cnt);}io.unobserve(e.target);}});},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+function cnt(el){var to=+el.dataset.to,s=performance.now();(function step(t){var p=Math.min((t-s)/900,1);el.textContent=Math.round(to*(p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2));if(p<1)requestAnimationFrame(step);})(s);}
+</script>
+</body>
+</html>

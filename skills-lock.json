@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "ai-video-generation": {
+      "source": "prime-skills/runcomfy-agent-skills",
+      "sourceType": "github",
+      "skillPath": "ai-video-generation/SKILL.md",
+      "computedHash": "e7a373961e0196280ecf1de3ddbfb10c5a74f3f5305cb2718284e6f06b1c7d65"
+    },
+    "higgsfield-video-explainer": {
+      "source": "higgsfield-ai/skills",
+      "sourceType": "github",
+      "skillPath": "higgsfield-video-explainer/SKILL.md",
+      "computedHash": "d8643f2e983acde62e2e2d0c047912f295851dff5f967d7214fbaedadc3bc5ad"
+    },
+    "image-to-video": {
+      "source": "prime-skills/runcomfy-agent-skills",
+      "sourceType": "github",
+      "skillPath": "image-to-video/SKILL.md",
+      "computedHash": "0b513e14dfeb425a5288a79b551a7cf101a44b25763f7bd6b588d529f40d48c2"
+    },
+    "remotion-video-creation": {
+      "source": "affaan-m/ecc",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-video-creation/SKILL.md",
+      "computedHash": "bc1054b481bf128749aeb5ecacabd6529e87657dfd84c8f3ec0c4c4fd5111daf"
+    },
+    "veo-3": {
+      "source": "social-media-skills/skills",
+      "sourceType": "github",
+      "skillPath": "skills/veo-3/SKILL.md",
+      "computedHash": "aeeded88626698ed81f57bd61326de09809a941c1f316ba481d72ae767488a61"
+    }
+  }
+}
