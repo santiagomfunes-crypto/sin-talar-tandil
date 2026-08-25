@@ -1,5 +1,8 @@
 .env
-remotion/node_modules/
-remotion/out/
+.agents/
+.claude/
+remotion/
 clips/
 FLOW-PLAYBOOK.md
+img/gen*
+*.DS_Store
