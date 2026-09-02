@@ -34,9 +34,12 @@
   ],
   "adsets": [
     {
-      "name": "A · Abierto (Tandil 40km)",
+      "name": "Prospecting · Tandil 40km · abierto",
       "interests": []
-    },
+    }
+  ],
+  "_nota_intereses": "IDs verificados a mano contra la API en español (sep 2026). NO resolver por nombre en runtime: buscar 'Construction' devolvia 'Juguetes' (480M) y 'Swimming pool' una pelicula.",
+  "adsets_guardados_para_despues": [
     {
       "name": "B · Intereses (hogar/obra/jardin)",
       "interests": [
@@ -70,6 +73,5 @@
         }
       ]
     }
-  ],
-  "_nota_intereses": "IDs verificados a mano contra la API en español (sep 2026). NO resolver por nombre en runtime: buscar 'Construction' devolvia 'Juguetes' (480M) y 'Swimming pool' una pelicula."
+  ]
 }

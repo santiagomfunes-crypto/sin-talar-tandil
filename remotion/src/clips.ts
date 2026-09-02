@@ -29,8 +29,8 @@ export const CLIPS: ClipCfg[] = [
   {
     id: 'wpc-3',
     src: 'clip-3.mp4',
-    kicker: 'Cero mantenimiento',
-    headline: 'Ni lijar, ni barnizar,\nni volver a hacerlo.',
+    kicker: 'Plata bien puesta',
+    headline: 'Invertís una vez.\nDura más de 25 años.',
   },
   {
     id: 'wpc-7',

@@ -57,7 +57,15 @@
 - Cableado por lección de Redacta: **Audience Network OFF**, **Advantage+ audiencia OFF**,
   **nunca optimizar por Landing Page Views**.
 - Geo: **Tandil + 40 km** (custom location por lat/lon, no por ciudad). Edad 30-60. Solo mobile.
-- Presupuesto: `daily_budget_usd` es **por conjunto**. Con 2 conjuntos a 13 → USD 26/día.
+- Presupuesto: `daily_budget_usd` es **por conjunto**. Hoy hay **un solo conjunto, abierto, USD 13/día**.
+- **Por qué un solo conjunto:** medido con `delivery_estimate`, Tandil + 40 km (30-60, mobile, FB+IG)
+  tiene **90.100-106.000 personas/mes** abierto y **57.600-67.700** con los 7 intereses. El filtro
+  saca apenas un tercio de un pozo ya chico; partir el presupuesto en dos conjuntos que se pisan
+  frena el aprendizaje de Meta. Los intereses verificados quedaron en `config.json` bajo
+  `adsets_guardados_para_despues`.
+- **Los intereses NO se resuelven por nombre en runtime.** Buscar "Construction" devolvía
+  *Juguetes* (480M personas) y "Swimming pool" una *película*. Los IDs están verificados a mano
+  contra la API en español y viven en `config.json`.
 - **El repo es público**: token e IDs van en `meta-api/.env.meta` (gitignored). `config.json`
   solo lleva copy, presupuesto y targeting.
 - **Ground-truth de leads = el WhatsApp de Santi**, no un dashboard. El webview de Meta rompe el
@@ -66,13 +74,18 @@
 
 ## Lo que falta de Santi
 
-1. **Pixel ID** → `index.html` + `meta-api/.env.meta`.
-2. **Token de system user** (ads_management, business_management, pages_show_list, pages_read_engagement).
-3. **Ad account ID**, **Page ID**, **IG user ID**.
-4. **WhatsApp conectado a la Página** en Meta Business Suite (sin esto no hay Click-to-WhatsApp).
+1. ~~Pixel ID~~ **HECHO** — `1063781786398885`, creado por API en `act_859031260510247` y ya vivo
+   en la landing. (No confundir con el de Redacta ni con el de Real Estate.)
+2. ~~Token~~ **HECHO** (Explorer, dura 1-2 h — si venció, se regenera igual).
+3. ~~Ad account / Page / IG~~ **HECHO**: `act_859031260510247` · `1327636333759585` · `17841435576809277`.
+4. **WhatsApp conectado a la Página de WPC Tandil** — ÚNICO BLOQUEANTE. Sin esto Meta rechaza el
+   destino Click-to-WhatsApp. Se hace a mano en Business Suite; no hay API.
+   ⚠ Ojo: si `+54 9 2494 20-9464` sigue registrado en la WhatsApp Business Platform (Wati),
+   no se puede conectar como número de app común. Verificar antes.
 5. Generar en Flow la tanda nueva de `GUIONES-FLOW.md` y bajar los mp4 a `clips/`.
 
-Con (1)-(4): `cd meta-api && python3 check-setup.py` valida todo sin gastar un peso.
+`cd meta-api && python3 check-setup.py` valida los seis requisitos sin gastar un peso.
+Hoy da 5 de 6 en verde; el que falta es el WhatsApp.
 
 ---
 ## Progreso 2-sep (sesión creativos/Flow)
