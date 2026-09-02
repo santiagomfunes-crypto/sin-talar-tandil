@@ -18,8 +18,10 @@ nada sale al aire hasta que Santi lo aprueba a mano.
 
 ```bash
 cd ~/Desktop/sin-talar-tandil/meta-api
-cp .env.meta.example .env.meta   # y completar adentro: token + ad account + page id + ig id + pixel id
+cp .env.meta.example .env.meta   # y pegar SOLO el token adentro
 
+python3 descubrir-ids.py            # con el token solo: descubre cuenta, página, IG y pixel
+                                    # y te imprime las líneas listas para pegar en .env.meta
 python3 check-setup.py              # NO crea nada: valida token, cuenta, página, IG, WhatsApp y pixel
 python3 create-campaign.py --dry-run  # muestra el targeting exacto que se enviaría
 python3 create-campaign.py          # crea 2 conjuntos × 3 creativos = 6 anuncios, TODO EN PAUSA
