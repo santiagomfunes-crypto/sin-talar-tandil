@@ -73,3 +73,11 @@
 5. Generar en Flow la tanda nueva de `GUIONES-FLOW.md` y bajar los mp4 a `clips/`.
 
 Con (1)-(4): `cd meta-api && python3 check-setup.py` valida todo sin gastar un peso.
+
+---
+## Progreso 2-sep (sesión creativos/Flow)
+- **Template video ClipAd FUNCIONA (8/10, publicable).** Fixes aplicados hoy: SAFE_BOTTOM=560 (caption más arriba, zona segura Reels), EndCard translateY -30 (placa centrada, no top-heavy), contacto WhatsApp/@ en CREAM (antes verde bajo contraste), caption fade-in antes (fps*0.4). Sumar clip = mp4 a remotion/public/ + entrada en clips.ts con `seconds` = duración REAL del clip (el #1 de Flow salió 10s, no 8).
+- **REGLA VO CLAVE:** el clip de Flow tiene que generarse con la línea `Voz en off en español argentino ... dice: "..."` o sale MUDO. La VO nativa de Veo le gustó a Santi (mejor que macOS/ElevenLabs). El montaje conserva el audio del clip con fade-out.
+- **Estado clips:** clip-1 (galería/hartazgo) se generó SIN voz (mudo, -49dB) → Santi lo REGENERA con la versión con VO. clip-3 generado. clip-2 (antes/después) NO se puede con Frames-to-Video (no aparece la opción en su Flow) → usar prompt text-to-video (guardado en GUIONES-FLOW.md). Faltan 2,4,5,6,7,8. Hay un "Deck_installation_at_sunrise" (18:00) en Downloads = candidato a clip-7 (obra).
+- **Anuncio wpc-1 v2** renderizado en remotion/out/ (diseño aprobado, pero mudo hasta que llegue el clip con VO → re-montar).
+- Flow dio error una vez al generar; se destrabó. Config Flow: Veo 3.1 Fast, "por 2", confirmar siempre, directriz del agente cargada, ingredientes real-svg + real-beta.

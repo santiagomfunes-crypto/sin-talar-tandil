@@ -20,7 +20,7 @@ const CREAM = '#f4f1e6';      // el ÚNICO claro del sistema: logo, titulares, c
 
 // Zonas seguras de Reels (sobre 1920): la UI de IG/FB tapa ~180px arriba y ~420px abajo.
 const SAFE_TOP = 275;
-const SAFE_BOTTOM = 480;
+const SAFE_BOTTOM = 560;
 
 // ── Marca de agua: logo crema arriba, con scrim para que no flote desnudo ───
 const BrandTop: React.FC = () => {
@@ -47,7 +47,7 @@ const Caption: React.FC<{kicker: string; headline: string; vidFrames: number}> =
   const outStart = vidFrames - fps * 1.4;   // se va justo antes de la placa, sin hueco mudo
   const op = interpolate(
     frame,
-    [fps * 0.9, fps * 1.5, outStart, outStart + fps * 0.8],
+    [fps * 0.4, fps * 1.0, outStart, outStart + fps * 0.8],
     [0, 1, 1, 0],
     {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'},
   );
@@ -82,7 +82,7 @@ const EndCard: React.FC = () => {
       background: `radial-gradient(130% 90% at 50% 32%, ${GREEN_HI} 0%, ${GREEN} 55%, ${GREEN_LO} 100%)`,
       justifyContent: 'center', alignItems: 'center', textAlign: 'center', opacity: fadeIn}}>
       {/* Centro óptico: la UI de Reels come arriba y abajo, así que el bloque sube. */}
-      <div style={{transform: `translateY(${interpolate(s, [0, 1], [38, -110], {extrapolateRight: 'clamp'})}px) scale(1.08)`,
+      <div style={{transform: `translateY(${interpolate(s, [0, 1], [38, -30], {extrapolateRight: 'clamp'})}px) scale(1.08)`,
         display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <Img src={staticFile('logo-wpc-cream.png')} style={{width: 620}} />
         <div style={{fontFamily: serif, color: CREAM, fontSize: 44, letterSpacing: 3,
@@ -100,10 +100,10 @@ const EndCard: React.FC = () => {
           padding: '28px 62px', borderRadius: 100, marginTop: 56, transform: `scale(${pulse})`}}>
           Pedí tu presupuesto
         </div>
-        <div style={{fontFamily: sans, color: GREEN_SOFT, fontSize: 30, marginTop: 28}}>
+        <div style={{fontFamily: sans, color: CREAM, opacity: .92, fontSize: 30, marginTop: 28}}>
           WhatsApp · Tandil
         </div>
-        <div style={{fontFamily: sans, color: GREEN_SOFT, fontSize: 30, marginTop: 12, letterSpacing: 2}}>
+        <div style={{fontFamily: sans, color: CREAM, opacity: .92, fontSize: 30, marginTop: 12, letterSpacing: 2}}>
           @wpc.tandil
         </div>
       </div>

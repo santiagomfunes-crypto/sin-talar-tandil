@@ -80,8 +80,101 @@ Video vertical 9:16, 8s, fotorrealista. Deck WPC color madera caramelo mate junt
 
 ---
 
+## 3-EXT · PLATA TIRADA — versión extendida (test de prompt largo)
+
+Prueba para ver si Veo responde mejor a un prompt exhaustivo que a uno corto. Mismo guion que
+el #3, mismo texto de voz en off. Diferencias: **sin personas y sin objetos sobre el deck**
+(el patio vacío evita los errores de anatomía y deja al producto solo), y *timestamp prompting*
+para clavar los tres planos dentro de los ocho segundos.
+
+**Cómo cargarlo:** Flow → proyecto "WPC Tandil – Pauta" → Escenas → **Text to Video** →
+9:16 · 8s · 1080p · Veo 3.1 Fast · generaciones "por 2". Cargar los ingredientes de siempre
+(`img/reales/real-svg.jpeg` para color y `img/reales/real-beta.jpg` para textura instalada).
+
+```
+Video vertical 9:16, ocho segundos, UNA SOLA TOMA CONTINUA, sin cortes, sin transiciones, sin saltos de plano. Fotografía real, publicitaria, de arquitectura de alta gama.
+
+=== CÓMO SE FILMA ===
+Metraje real capturado con cámara de cine full frame montada en grúa robotizada con cabezal estabilizado. Lente gran angular de veinticuatro milímetros, luminoso, SIN distorsión de barril: las líneas rectas se mantienen rectas en todo el encuadre. Sensor de alto rango dinámico: las sombras conservan detalle y el cielo no se quema. Grano de película de treinta y cinco milímetros, fino y apenas perceptible. Es metraje real de una casa real filmado por un director de fotografía de publicidad. NO es una animación, NO es un render tridimensional, NO es una imagen de videojuego, NO tiene aspecto plástico ni sintético.
+
+=== MOVIMIENTO DE CÁMARA (lo más importante después del producto) ===
+Un único movimiento continuo, lento, fluido y perfectamente estabilizado, que sube y retrocede a velocidad constante. Sin temblores, sin rebotes, sin correcciones bruscas, sin zoom digital.
+
+[00:00 - 00:02] La cámara arranca MUY BAJA Y MUY CERCA, a quince centímetros por encima de la superficie del deck, casi apoyada sobre las tablas, mirando a lo largo de la veta. Foco selectivo cerrado: solo las dos tablas más cercanas están nítidas, el resto se disuelve suave. El sol bajo raspa la superficie de costado y hace visible el relieve de la veta y la sombra fina que cae dentro de cada junta.
+
+[00:02 - 00:05] La cámara empieza a subir y a retroceder al mismo tiempo, en un movimiento único y parejo. Va ganando altura hasta un metro ochenta. El foco se va abriendo y cada vez entra más deck nítido en cuadro. Se revela la extensión completa del deck: una superficie amplia, continua y sólida.
+
+[00:05 - 00:08] La cámara termina en plano general, a tres metros de altura, mostrando el deck completo, la casa detrás y las sierras al fondo. TODO nítido. El deck ocupa la mitad inferior del encuadre y sigue siendo el protagonista; la casa y las sierras quedan en el tercio superior. La cámara NUNCA se levanta hacia el cielo, NUNCA pierde el deck de vista, y termina el movimiento con suavidad, sin frenar de golpe.
+
+=== EL PRODUCTO (protagonista absoluto — mantener idéntico los ocho segundos) ===
+Un deck de madera plástica (material compuesto de madera y polímero) instalado en el patio.
+
+COLOR: madera teca cálida, tirando a caramelo tostado, con variación sutil y natural de tono entre una tabla y otra, como la madera real. El color es EXACTAMENTE EL MISMO del primer al último fotograma: no vira a naranja, no vira a rojo, no vira a gris, no se lava, no se satura.
+
+TERMINACIÓN: mate absoluto. La superficie absorbe la luz en vez de reflejarla. Sin brillo especular, sin reflejos de espejo, sin destellos. No parece plástico, no parece laqueado, no parece barnizado, no parece mojado, no parece encerado.
+
+TEXTURA: veta de madera fina, lineal y continua, corriendo a lo largo de cada tabla en el sentido largo. Cuando la luz rasante la toca se ve el relieve del cepillado, tabla por tabla.
+
+GEOMETRÍA: tablas rectas y perfectamente paralelas entre sí, todas del mismo ancho, alineadas. Junta regular de cinco milímetros entre tabla y tabla, constante de punta a punta. Ninguna tabla torcida, arqueada, levantada, hundida ni desalineada. Las juntas no se abren ni se cierran a lo largo del plano. La perspectiva de las tablas es coherente y estable durante todo el movimiento de cámara.
+
+FIJACIÓN: sistema de clip oculto. En la superficie NO se ve un solo tornillo, clavo, grampa ni cabeza metálica.
+
+PERÍMETRO: el borde del deck termina con un perfil de terminación en L del mismo color, prolijo y continuo, sin cantos vivos ni cortes irregulares.
+
+ESTADO: impecable, recién instalado. Sin manchas, sin astillas, sin grietas, sin rayones, sin decoloración, sin hojas, sin polvo, sin marcas de pisadas.
+
+=== LA ESCENA ===
+Patio trasero de una casa moderna en las afueras de Tandil, provincia de Buenos Aires, Argentina.
+
+EL PATIO ESTÁ COMPLETAMENTE VACÍO Y EN SILENCIO. No hay ninguna persona en cuadro, ni de cuerpo entero, ni parcial, ni de espaldas, ni una mano, ni un pie, ni una silueta, ni una sombra humana, ni un reflejo de persona en los vidrios. No hay animales. No hay muebles, ni reposeras, ni sillones, ni mesas, ni sombrillas, ni objetos apoyados sobre el deck. El deck está limpio y despejado: esa es la idea, mostrar la superficie sola.
+
+LA CASA: arquitectura contemporánea de una planta. Muros de hormigón visto gris claro, con la textura del encofrado de madera marcada. Un paño grande de vidrio fijo con carpintería negra delgada, que refleja el cielo del atardecer y la vegetación (nunca personas). Alero recto de hormigón que proyecta una sombra limpia y horizontal.
+
+LA VEGETACIÓN: cortaderas y pastos ornamentales altos de tono dorado moviéndose apenas con la brisa en el borde del deck, algún cantero bajo de lavanda. Vegetación de la zona serrana, nada tropical, nada de palmeras.
+
+EL FONDO: las sierras de Tandil, lomas graníticas bajas y redondeadas, de perfil suave, en tonos azulados y violáceos por la distancia, ocupando la franja del horizonte. Cielo despejado con algunas nubes altas y finas encendidas de naranja y rosa por el sol bajo.
+
+=== LUZ Y CLIMA ===
+Hora dorada de un atardecer de verano, sol muy bajo, entrando casi horizontal desde la izquierda del cuadro. La luz raspa la superficie del deck y le saca la textura, y proyecta sombras largas, suaves y de bordes definidos. Luz cálida, dorada, limpia. Cielo claro. Aire quieto, apenas una brisa. Es de día: NUNCA de noche, NUNCA con luces artificiales encendidas, NUNCA nublado ni gris ni lluvioso.
+
+=== COLOR Y MOOD ===
+Colorimetría cinematográfica cálida y natural, tipo comercial de arquitectura premium. Verdes ligeramente desaturados, madera cálida y saturada, hormigón neutro. Sin el contraste naranja-turquesa exagerado. Sin viñeteo marcado. Sin filtros de época. Mood: calma, permanencia, solidez, algo que se hizo bien una vez y va a quedar así por décadas.
+
+=== AUDIO ===
+AMBIENTE: brisa suave entre los pastos altos, algún pájaro lejano de campo al atardecer. Volumen bajo, natural, sin música.
+
+VOZ EN OFF: una sola voz masculina, español argentino rioplatense, de entre treinta y cinco y cuarenta y cinco años, cálida, tranquila y confiable. Ritmo pausado, tono de alguien que sabe de lo que habla y no necesita levantar la voz. Entra al segundo uno y termina antes del segundo ocho. Dice EXACTAMENTE esto, sin agregar ni cambiar ni una palabra:
+
+"¿Rehacer el deck cada cinco años? Con este invertís una vez y dura más de veinticinco."
+
+Los números se pronuncian como palabras: "cinco" y "veinticinco". La voz NUNCA deletrea siglas ni dice letras sueltas. La voz NUNCA menciona marcas.
+
+=== LO QUE TIENE QUE PASAR (no ambigüedades) ===
+La pantalla está limpia de principio a fin: la imagen es solo la fotografía. No aparece ningún texto, ningún cartel, ningún subtítulo, ningún logo, ninguna marca de agua, ningún número, ninguna interfaz ni gráfico sobreimpreso. Todo lo que se ve es el patio filmado.
+El encuadre es siempre vertical y el deck está presente en todos los fotogramas.
+La imagen es continua: la escena, la luz, el color y la posición de cada tabla se mantienen coherentes de principio a fin.
+```
+
+### Qué mirar en las dos tomas que devuelve
+1. **Las juntas entre tablas**: que se mantengan parejas durante todo el movimiento de cámara.
+   Es lo primero que Veo rompe cuando la cámara se mueve mucho.
+2. **El brillo**: si la superficie espeja, la toma no sirve — tiene que leerse mate.
+3. **El color entre el primer y el último segundo**: si vira a naranja o a gris, descartar.
+4. **Que no se cuele nadie**: una silueta o un reflejo de persona en el vidrio.
+5. **La voz**: que diga "cinco" y "veinticinco" como palabras y que entre completa antes del final.
+
+Si sale bien: el prompt largo se vuelve la plantilla y reescribimos los otros siete igual.
+Si sale peor que el corto, el hallazgo también sirve: quiere decir que Veo se satura y hay que
+volver a prompts breves con el detalle puesto en los ingredientes.
+
 ## VARIANTE NEGRO (test, opcional)
 Repetí el #1 y el #3 cambiando "color madera caramelo" por "color NEGRO grafito mate, sobre arquitectura de hormigón a la vista" → 2 clips extra para testear el look negro+hormigón.
 
 ## ORDEN
 #1 y #2 primero → mirás → #3, #4, #5 → después retargeting #6, #7, #8. Cada aprobado → `clips/`.
+
+
+> NOTA #2: si NO aparece 'Frames to Video' en tu Flow, generá el antes/después con este prompt de texto normal:
+```
+Video vertical 9:16, 8s, fotorrealista, cinematográfico. Un deck de madera comun viejo, gris y astillado se transforma progresivamente ante la camara en un deck de madera plastica nuevo color caramelo calido, liso y perfecto; la luz pasa de fria y opaca a dorada. Travelling lento hacia adelante sobre las tablas. Voz en off en espanol argentino, calida: "La madera comun se pone gris y se astilla. Este deck se ve siempre nuevo, mas de veinticinco anos." Sonido ambiente suave. Sin texto en pantalla, no render 3D.
+```

@@ -18,6 +18,7 @@ export const CLIPS: ClipCfg[] = [
     src: 'clip-1.mp4',
     kicker: 'Deck WPC · Tandil',
     headline: 'Ponelo una vez.\nOlvidate para siempre.',
+    seconds: 10,
   },
   {
     id: 'wpc-2',
