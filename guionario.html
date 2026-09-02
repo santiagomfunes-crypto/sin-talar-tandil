@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WPC Tandil · Guionario Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1ea;--card:#fff;--ink:#1b2018;--mut:#5f6a58;--line:#dfe3d8;--green:#2f5133;--soft:#eaf2e6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;padding:34px 22px 80px}
+.wrap{max-width:1150px;margin:0 auto}
+h1{font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:700}
+h1 b{color:var(--green)}
+.sub{color:var(--mut);margin:4px 0 24px}
+.bar{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px;font-family:'Inter';font-size:13px;color:var(--mut)}
+.bar b{color:var(--green)}
+details.dir{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 18px;margin-bottom:22px}
+details.dir summary{font-weight:700;padding:12px 0;cursor:pointer}
+details.dir pre{white-space:pre-wrap;font-family:'Inter';font-size:13.5px;color:var(--mut);padding:0 0 14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px;display:flex;flex-direction:column;gap:10px}
+.card.done{opacity:.62}
+.card.done .tt{text-decoration:line-through}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.tt{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:700;line-height:1.05}
+.tag{font-family:'Inter';font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;border-radius:100px;white-space:nowrap}
+.tag.frio{background:#e6eefc;color:#2b5aa8}.tag.tibio{background:#fdeede;color:#a5671f}.tag.extra{background:#eee;color:#666}
+textarea{width:100%;min-height:120px;resize:vertical;font-family:'Inter';font-size:13px;color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:11px;background:#fbfcfa;line-height:1.45}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button{font-family:'Inter';font-weight:600;font-size:13px;border:none;border-radius:8px;padding:9px 14px;cursor:pointer}
+.copy{background:var(--green);color:#fff;flex:1}
+.st{background:transparent;border:1px solid var(--line);color:var(--mut)}
+.st.on{background:var(--green);border-color:var(--green);color:#fff}
+.add{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.add input{font-family:'Inter';font-size:14px;border:1px solid var(--line);border-radius:9px;padding:11px}
+.add button{background:var(--green);color:#fff}
+.count{font-family:'Inter';font-weight:700;color:var(--green)}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:12px 22px;border-radius:100px;font-size:14px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+</style></head>
+<body>
+<div class="wrap">
+  <h1><b>WPC</b> Tandil · Guionario de Flow</h1>
+  <div class="sub">Pegá guiones, copialos a Flow y marcá el estado. Se guarda solo en este navegador.</div>
+  <div class="bar">
+    <span>Generados: <b id="cGen">0</b></span><span>Montados: <b id="cMon">0</b></span><span>Total: <b id="cTot">0</b></span>
+    <span>· Ingredientes: <b>real-svg + real-beta</b> · Veo 3.1 Fast · "por 2"</span>
+  </div>
+  <details class="dir"><summary>📋 Directriz del agente (pegar una vez en Flow)</summary>
+  <pre id="dir"></pre><button class="copy" style="flex:none;max-width:220px" onclick="cp(document.getElementById('dir').textContent,this)">Copiar directriz</button></details>
+  <div class="grid" id="grid"></div>
+  <div style="margin-top:26px">
+    <h1 style="font-size:26px">Agregar guion</h1>
+    <div class="add" style="margin-top:12px;max-width:560px">
+      <input id="nT" placeholder="Título (ej. Antes/después)">
+      <select id="nG" style="font-family:Inter;font-size:14px;padding:11px;border:1px solid var(--line);border-radius:9px">
+        <option value="frio">Frío · Prospecting</option><option value="tibio">Tibio · Retargeting</option><option value="extra">Extra / test</option>
+      </select>
+      <textarea id="nP" placeholder="Pegá acá el prompt completo para Flow..."></textarea>
+      <button onclick="addG()">+ Agregar al guionario</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+var DIR=`Sos director de fotografía de WPC Tandil, marca de deck y revestimientos de madera plástica en Tandil, Argentina.
+PRODUCTO: deck WPC MATE (nunca brillante ni plástico), veta fina lineal, tablas parejas. Color madera caramelo/teca (o negro grafito con hormigón). Respetá las imágenes de referencia.
+IMAGEN: 9:16, 8s, fotorrealista, no render 3D. Luz de día u hora dorada. Cámara en el deck. Ambientes de Tandil. Sin texto ni logos. Personas correctas.
+VOZ: español argentino, cálida, pausada. Números en palabras. Nunca deletrear siglas (decir "el deck", nunca "WPC"). Frases cortas.`;
+document.getElementById('dir').textContent=DIR;
+var SEED=[
+ {t:'1 · Hartazgo mantenimiento',g:'frio',p:'Video vertical 9:16, 8s, fotorrealista y cinematográfico. Amanecer dorado en una galería de casa moderna de Tandil: piso de deck de madera plástica color caramelo mate, veta lineal, junto a hormigón visto y ventanales; sierras con niebla al fondo. Travelling lento y continuo a ras del deck que asciende revelando la galería y el paisaje; luz rasante sobre la textura. Voz en off en español argentino, cálida y pausada: "¿Otra primavera lijando y barnizando el deck? Este no se mantiene nunca. Ponelo una vez, y olvidate." Sonido ambiente suave. Sin texto en pantalla, no render 3D.'},
+ {t:'2 · Antes/después (texto)',g:'frio',p:'Video vertical 9:16, 8s, fotorrealista, cinematográfico. Un deck de madera común, viejo, gris y astillado se transforma progresivamente ante la cámara en un deck de madera plástica nuevo, color caramelo cálido, liso y perfecto; la luz pasa de fría y opaca a dorada. Travelling lento hacia adelante sobre las tablas. Voz en off en español argentino, cálida: "La madera común se pone gris y se astilla. Este deck se ve siempre nuevo, más de veinticinco años." Sonido ambiente suave. Sin texto en pantalla, no render 3D.'},
+ {t:'3 · Plata tirada',g:'frio',p:'Video vertical 9:16, 8s, fotorrealista, cinematográfico. Deck de madera plástica color teca mate, amplio y premium, en el patio de una casa moderna de hormigón en Tandil al atardecer; grúa lenta y elegante que recorre las tablas y revela las sierras. Voz en off en español argentino, confiable: "¿Rehacer el deck cada cinco años? Con este invertís una vez, y dura más de veinticinco." Sonido ambiente. Sin texto en pantalla, no render 3D.'},
+ {t:'4 · Clima de sierra',g:'frio',p:'Video vertical 9:16, 8s, fotorrealista. Deck de madera plástica color caramelo mate bajo una llovizna fina de sierra; gotas que resbalan sobre la superficie sin penetrarla, cámara lenta macro, con niebla y sierras de Tandil detrás; luego abre y muestra el deck impecable. Voz en off en español argentino, cálida: "Humedad, heladas y termitas arruinan la madera en Tandil. A este deck, no lo toca nada." Sin texto en pantalla, no render.'},
+ {t:'5 · Disfrutar vs mantener',g:'frio',p:'Video vertical 9:16, 8s, fotorrealista, cálido. Una tarde de fin de semana en una galería con piso de deck de madera plástica color caramelo mate: una pareja y amigos charlan con un mate, luz dorada, hormigón y sierras de Tandil detrás; cámara suave y contemplativa a la altura del deck. Voz en off en español argentino, cálida: "El finde es para disfrutar el quincho, no para lijarlo. Deck de madera plástica: cero mantenimiento." Sin texto en pantalla, personas realistas, no render.'},
+ {t:'6 · Oferta',g:'tibio',p:'Video vertical 9:16, 8s, fotorrealista. Deck de madera plástica color caramelo mate recién instalado, impecable y acogedor, con reposeras, en una casa moderna de Tandil a media mañana; la cámara entra suave, invitando a pasar, y recorre las tablas. Voz en off en español argentino, cálida y amable: "¿Pensás en un deck? Te hacemos la medición y el presupuesto sin cargo, acá en Tandil." Sin texto en pantalla, no render 3D.'},
+ {t:'7 · Prueba / obra',g:'tibio',p:'Video vertical 9:16, 8s, fotorrealista, documental. Dos instaladores colocan tablas de deck de madera plástica color teca mate sobre rastreles de aluminio en una terraza soleada de Tandil; uno encastra una tabla y la presiona, el otro mide; primer plano de las manos y luego abre. Voz en off en español argentino, confiable: "Así instalamos tu deck en Tandil: prolijo, rápido, y no lo mantenés nunca más." Sin texto en pantalla, manos realistas, no render.'},
+ {t:'8 · Urgencia verano',g:'tibio',p:'Video vertical 9:16, 8s, fotorrealista, luminoso. Deck de madera plástica color caramelo mate junto a una pileta en pleno verano tandilense: agua turquesa, cielo despejado, plantas, clima vibrante; la cámara recorre lento el deck hacia la pileta. Voz en off en español argentino, entusiasta pero cálida: "El verano se disfruta afuera. Armá tu deck ahora y llegá listo. Consultá hoy." Sin texto en pantalla, no render 3D.'}
+];
+var KEY='wpc_guionario';
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||null}catch(e){return null}}
+var data=load()||SEED.map(function(x){return Object.assign({st:'pend'},x)});
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}}
+function toast(m){var t=document.getElementById('toast');t.textContent=m;t.className='toast show';setTimeout(function(){t.className='toast'},1400)}
+function cp(txt,btn){navigator.clipboard.writeText(txt).then(function(){toast('Copiado ✓');if(btn){var o=btn.textContent;btn.textContent='¡Copiado!';setTimeout(function(){btn.textContent=o},1200)}})}
+function setSt(i,s){data[i].st=data[i].st===s?'pend':s;save();render()}
+function render(){
+ var g=document.getElementById('grid');g.innerHTML='';
+ var gen=0,mon=0;
+ data.forEach(function(d,i){
+  if(d.st==='gen')gen++; if(d.st==='mon')mon++;
+  var c=document.createElement('div');c.className='card'+(d.st==='mon'?' done':'');
+  c.innerHTML='<div class="top"><div class="tt">'+d.t+'</div><span class="tag '+d.g+'">'+(d.g==='frio'?'Frío':d.g==='tibio'?'Tibio':'Extra')+'</span></div>'+
+   '<textarea readonly>'+d.p+'</textarea>'+
+   '<div class="row"><button class="copy">Copiar prompt</button>'+
+   '<button class="st'+(d.st==='gen'?' on':'')+'" data-s="gen">Generado</button>'+
+   '<button class="st'+(d.st==='mon'?' on':'')+'" data-s="mon">Montado</button></div>';
+  c.querySelector('.copy').onclick=function(){cp(d.p,this)};
+  c.querySelectorAll('.st').forEach(function(b){b.onclick=function(){setSt(i,b.dataset.s)}});
+  g.appendChild(c);
+ });
+ document.getElementById('cGen').textContent=gen;document.getElementById('cMon').textContent=mon;document.getElementById('cTot').textContent=data.length;
+}
+function addG(){var t=document.getElementById('nT').value.trim(),p=document.getElementById('nP').value.trim(),gg=document.getElementById('nG').value;
+ if(!t||!p){toast('Falta título o prompt');return}
+ data.push({t:t,g:gg,p:p,st:'pend'});save();render();
+ document.getElementById('nT').value='';document.getElementById('nP').value='';toast('Agregado ✓')}
+render();
+</script>
+</body></html>

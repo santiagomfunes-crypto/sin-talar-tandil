@@ -24,6 +24,78 @@ VOZ EN OFF (que se lea bien)
 - Frases cortas y naturales.
 ```
 
+## MODO BRIEF (probar esto primero — sep 2026)
+
+En vez de dictarle el plano a Veo, se le explica el negocio y se lo deja dirigir. Se pega
+**una sola vez** al arrancar el proyecto y después se le pide de a uno: *"Hacé el anuncio 3"*,
+*"Ahora el 5"*. Flow no genera los ocho solo — trabaja clip por clip — pero el brief le queda
+de contexto y deja de necesitar una shot list por anuncio.
+
+Lo que queda fijo es **la frase** de cada anuncio (ahí está el argumento de venta y las reglas
+fonéticas) y las reglas duras. La imagen la decide él.
+
+```
+goSos director creativo y director de fotografía de una agencia de publicidad. Te contrató WPC Tandil para hacer una campaña de ocho anuncios. Abajo está el brief completo. Leelo entero antes de generar nada. Después te voy a pedir los anuncios de a uno, por número; vos decidís la puesta en escena, el encuadre, el movimiento de cámara y la luz de cada uno. Yo no te voy a dictar planos: para eso te contraté.
+
+--- EL NEGOCIO ---
+WPC Tandil vende e instala deck de madera plástica en Tandil, una ciudad de ciento cincuenta mil habitantes en la provincia de Buenos Aires, Argentina, rodeada de sierras bajas. Es un negocio local: el dueño mide, presupuesta e instala él mismo en la zona. No es una cadena ni un e-commerce.
+
+--- EL PRODUCTO ---
+Deck de madera plástica: un compuesto de fibra de madera y polímero que se ve como madera pero no se comporta como madera. Color madera teca cálida, tirando a caramelo tostado. Terminación mate, nunca brillante: tiene que leerse como madera noble, jamás como plástico. Veta fina y lineal. Tablas paralelas con juntas parejas y fijación por clip oculto, sin tornillos a la vista. Se instala sobre rastreles de aluminio.
+Lo que lo hace distinto: no se lija, no se barniza, no se pinta, no se astilla, no se pudre, no le entran termitas, no le afectan la humedad ni las heladas, y no se pone gris con el sol. Dura más de veinticinco años viéndose igual.
+
+--- A QUIÉN LE HABLAMOS ---
+Dueños de casa de treinta a sesenta años, de Tandil y alrededores, con casa propia y patio, quincho o galería. Poder adquisitivo medio y medio-alto. Se dividen en dos:
+Los que YA TIENEN un deck de madera y lo están sufriendo. Cada primavera lijan y barnizan. Ya lo rehicieron una vez o están por hacerlo. Están cansados y saben exactamente de qué les hablás.
+Los que ESTÁN POR HACER uno: construyendo, ampliando o armando el quincho. Todavía no saben que existe la alternativa.
+A los dos les importa lo mismo: que la casa se vea linda y no les coma los fines de semana. No son gente que compre por impulso ni por precio: compran una vez y quieren que dure.
+
+--- DÓNDE SE VEN ESTOS ANUNCIOS ---
+Reels y Stories de Instagram y Facebook, en celular, vertical. Compiten contra el pulgar: los primeros dos segundos deciden si alguien sigue mirando. Muchos los van a ver sin sonido, así que la imagen sola tiene que comunicar; pero los que activan el audio tienen que escuchar la frase completa.
+
+--- EL TONO ---
+Cálido, tranquilo y confiable. Un vecino que sabe del tema y te lo cuenta, no un vendedor gritando una oferta. Nada de urgencia falsa, nada de música épica, nada de estética de folleto turístico: no estamos vendiendo Tandil, estamos vendiendo un deck. Aspiracional pero creíble: casas lindas de verdad, no mansiones de catálogo.
+
+--- REGLAS DURAS (no negociables) ---
+Vertical nueve por dieciséis, ocho segundos, mil ochenta pixeles.
+Fotografía real. Que parezca filmado con cámara de cine en una casa real. Nunca render tridimensional, nunca animación, nunca aspecto sintético.
+Sin texto, sin carteles, sin subtítulos y sin logos en pantalla. La marca la agregamos nosotros después.
+Sin personas en cuadro. Ni manos, ni pies, ni siluetas, ni reflejos de gente en los vidrios. Solo el producto, la arquitectura y el paisaje.
+De día siempre. Luz natural, preferentemente hora dorada o mañana. Nunca de noche.
+El deck tiene que estar en cuadro todo el tiempo y ser el protagonista. La cámara nunca se va al cielo ni se olvida del producto.
+La voz en off es en español argentino rioplatense, cálida y pausada. Los números se dicen con palabras. La voz NUNCA dice la sigla "WPC" ni deletrea letras: dice "el deck" o "la madera plástica".
+El ambiente de Tandil aparece de fondo, no de protagonista: sierras bajas y redondeadas, pastos altos, casas modernas de hormigón visto, vegetación de zona serrana. Nada tropical, nada de palmeras, nada de playa.
+
+--- LOS OCHO ANUNCIOS ---
+Cada uno tiene una idea y una frase. La frase es exacta y no se cambia ni una palabra. La imagen la decidís vos: elegí la escena que mejor haga sentir esa idea.
+
+1. EL HARTAZGO DEL MANTENIMIENTO. Que el que lija todas las primaveras sienta alivio. Frase: "¿Otra primavera lijando y barnizando el deck? Este no se mantiene nunca. Ponelo una vez y olvidate."
+
+2. EL DETERIORO. Contrastar cómo termina la madera común contra cómo se mantiene esta. Que se vea la diferencia, no que se explique. Frase: "La madera común se pone gris y se astilla. Este deck se ve siempre nuevo: más de veinticinco años."
+
+3. LA PLATA TIRADA. Que rehacer el deck cada cinco años se sienta como un error caro. La sensación es solidez y permanencia. Frase: "¿Rehacer el deck cada cinco años? Con este invertís una vez y dura más de veinticinco."
+
+4. EL CLIMA DE LA SIERRA. Tandil tiene humedad, heladas y termitas, y eso destruye la madera. Que se vea al material aguantando algo que a la madera la arruinaría. Frase: "Humedad, heladas y termitas arruinan la madera en Tandil. A este deck no lo toca nada."
+
+5. DISFRUTAR EN VEZ DE MANTENER. Un espacio listo para usarse, sin nadie usándolo: la galería esperando el fin de semana. Frase: "El finde es para disfrutar el quincho, no para lijarlo. Deck de madera plástica: cero mantenimiento."
+
+6. LA INVITACIÓN. Para gente que ya nos vio antes y está considerando. Cercano y sin presión. Frase: "¿Pensás en un deck? Te hacemos la medición y el presupuesto sin cargo, acá en Tandil."
+
+7. LA PRUEBA. Mostrar el oficio: cómo se instala, la prolijidad del sistema, el detalle del encastre y del rastrel. Documental, no publicitario. Sin que se vean personas: manos fuera, solo el trabajo y las piezas. Frase: "Así instalamos tu deck en Tandil: prolijo, rápido, y no lo mantenés nunca más."
+
+8. LA URGENCIA DEL VERANO. El verano se disfruta afuera y hay que llegar listo. Energía cálida, no ansiosa. Frase: "El verano se disfruta afuera. Armá tu deck ahora y llegá listo. Consultá hoy."
+
+--- CÓMO TRABAJAMOS ---
+Te voy a pedir los anuncios de a uno. Para cada uno, proponé la escena que a tu criterio mejor venda esa idea y generá dos versiones distintas entre sí, no dos variaciones del mismo plano: quiero poder elegir. Si una idea te parece que se cuenta mejor de otra manera que la obvia, hacelo — lo que no se cambia es la frase y las reglas duras.
+```
+
+### Los tres modos que estamos comparando
+| Modo | Qué es | Cuándo conviene |
+|---|---|---|
+| **Corto** (los 8 prompts de abajo) | 60 palabras, escena dictada | Cuando ya sabés exactamente qué plano querés |
+| **Extendido** (3-EXT) | 1.200 palabras, timestamp prompting | Cuando el plano corto salió mal y hay que forzar el detalle |
+| **Brief** (este) | Contexto del negocio, Veo dirige | Para explorar: te sorprende con escenas que no se te ocurrieron |
+
 ## SETUP
 - **Un proyecto**: "WPC Tandil – Pauta". Trabajás desde **Escenas** (no Caracteres).
 - **Ingredientes de referencia** (cargar en cada escena): `img/reales/real-svg.jpeg` (color madera + estructura real) + `img/reales/real-beta.jpg` (superficie instalada mate).

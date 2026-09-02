@@ -32,6 +32,12 @@ export const CLIPS: ClipCfg[] = [
     kicker: 'Cero mantenimiento',
     headline: 'Ni lijar, ni barnizar,\nni volver a hacerlo.',
   },
+  {
+    id: 'wpc-7',
+    src: 'clip-7.mp4',
+    kicker: 'Instalación en Tandil',
+    headline: 'Te lo dejamos listo.\nY no lo tocás más.',
+  },
 ];
 
 export const FPS = 24;
