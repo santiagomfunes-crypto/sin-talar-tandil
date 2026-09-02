@@ -47,7 +47,9 @@ else:
     else: print(f"   ✓ @{ig.get('username')}")
 
 print("▶ WhatsApp conectado a la página (necesario para Click-to-WhatsApp)")
-wa = api_get(TOKEN, PAGE, fields="whatsapp_number,connected_whatsapp_business_account")
+wa = api_get(TOKEN, PAGE, fields="whatsapp_number")
+if "error" in wa:
+    bad(f"no pude leer el WhatsApp de la página: {wa['error'].get('message')}")
 num = wa.get("whatsapp_number") or ""
 if num:
     print(f"   ✓ número conectado: {num}")

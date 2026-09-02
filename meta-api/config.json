@@ -2,7 +2,7 @@
   "_comentario": "WPC Tandil — Campaña 1: Prospecting Click-to-WhatsApp. Todo se crea EN PAUSA. Los IDs y el token van en .env.meta (fuera de git).",
   "campaign_name": "WPC Tandil | Prospecting | CTWA",
   "objective": "OUTCOME_ENGAGEMENT",
-  "whatsapp_phone_number": "+5492494209464",
+  "whatsapp_phone_number": "+5492494557754",
   "daily_budget_usd": 13,
   "age_min": 30,
   "age_max": 60,
@@ -73,5 +73,6 @@
         }
       ]
     }
-  ]
+  ],
+  "_nota_whatsapp": "Numero de los anuncios (sep 2026). Formato E.164 con el 9 de movil argentino. Antes era +5492494209464, que es el que sigue en los botones de la landing."
 }

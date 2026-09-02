@@ -38,6 +38,12 @@ export const CLIPS: ClipCfg[] = [
     kicker: 'Instalación en Tandil',
     headline: 'Te lo dejamos listo.\nY no lo tocás más.',
   },
+  {
+    id: 'wpc-4',
+    src: 'clip-4.mp4',
+    kicker: 'Resiste la sierra',
+    headline: 'Humedad, sol y heladas.\nNi se inmuta.',
+  },
 ];
 
 export const FPS = 24;
