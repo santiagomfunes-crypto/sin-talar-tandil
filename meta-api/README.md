@@ -7,11 +7,8 @@ nada sale al aire hasta que Santi lo aprueba a mano.
 
 | Dato | Dónde sale |
 |---|---|
-| **Token** (system user, durable) | Business Settings → Users → System Users → Generate token. Permisos: `ads_management`, `business_management`, `pages_show_list`, `pages_read_engagement` |
-| **Ad account ID** (`act_...`) | Ads Manager, arriba a la izquierda |
-| **Page ID** | Página de FB → Configuración → Información de la página |
-| **Instagram user ID** | Business Settings → Cuentas → Instagram (o dejarlo vacío = solo Facebook) |
-| **Pixel ID** | Orígenes de datos → Pixel. Va en `.env.meta` **y** en `index.html` (`META_PIXEL_ID`) |
+| **Token** | **Camino corto (el que usamos):** [Graph API Explorer](https://developers.facebook.com/tools/explorer) → Meta App `wpc tandil ads` → permisos `ads_management`, `ads_read`, `business_management`, `pages_show_list`, `pages_read_engagement`, `instagram_basic` → Generate Access Token. Dura 1-2 h, alcanza para crear la campaña. **Camino durable:** usuario del sistema con vencimiento "Nunca" — solo hace falta si después querés un dashboard de métricas corriendo solo. |
+| **Ad account ID**, **Page ID**, **Instagram user ID**, **Pixel ID** | No hace falta buscarlos: con el token pegado, `python3 descubrir-ids.py` los saca solo. (El Pixel ID va además en `index.html`.) |
 | **WhatsApp conectado a la Página** | Meta Business Suite → Configuración → WhatsApp → Conectar `+54 9 2494 20-9464` |
 
 ## Pasos
