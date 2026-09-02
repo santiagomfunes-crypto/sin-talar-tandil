@@ -33,6 +33,19 @@
   con fade-out en los últimos 0.6s.
 - Las composiciones viejas (`Ad1`/`Ad2`/`Reel`/`Explainer`) usan la marca vieja "Sin Talar" y están
   **des-registradas a propósito** en `Root.tsx`. Los archivos siguen en disco.
+- **Zonas seguras de Reels** (constantes `SAFE_TOP=250` / `SAFE_BOTTOM=480` en `ClipAd.tsx`):
+  la UI de IG/FB tapa ~180px arriba y ~420px abajo. En la primera versión el titular entero
+  caía debajo de la UI. Si cambiás el layout, respetá esas constantes.
+- **El titular tiene `maxWidth: 800`** a propósito: sin tope, una línea larga llega a x~905 y se
+  mete en el rail de botones de Reels (x~900-1050). Con el tope quedan 58px de aire.
+- **El degradado del caption NO puede ser un `AbsoluteFill`**: con `inset:0` se resuelve contra el
+  padding-box del padre y termina oscureciendo el frame entero (medido: 24% de oscurecimiento en
+  el centro exacto — el deck se veía embarrado justo donde tiene que lucir). Va como div de altura
+  fija anclado abajo, con sus stops en coordenadas propias.
+- **Los PNG del logo vienen del export con TODO el trazo a alpha ~143** (translúcido) y solo
+  15 píxeles llegan a 179 — normalizar por el máximo deja el cuerpo al 80%. Los de
+  `remotion/public/` se regeneran con **`cd remotion && python3 regen-logos.py`** (knee en 143
+  + relleno RGB del color de marca exacto). **No copiar `img/logo-wpc-*.png` crudo a `public/`.**
 - ⚠ Los 3 clips en `clips/` son del **playbook viejo** (25/ago). La tanda nueva con voz en off
   (`GUIONES-FLOW.md`, 8 guiones) todavía no está generada en Flow.
 
