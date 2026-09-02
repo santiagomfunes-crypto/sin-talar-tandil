@@ -3,16 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sin Talar WPC en Tandil — Deck, revestimientos y perfilería sin mantenimiento</title>
-<meta name="description" content="Deck, paneles de pared y perfilería WPC en Tandil. La estética de la madera sin talar un árbol: cero mantenimiento, no se pudre, resiste el clima de la sierra. Pedí tu presupuesto por WhatsApp.">
+<title>WPC Tandil — Deck, revestimientos y perfilería sin mantenimiento</title>
+<meta name="description" content="Deck, paneles de pared y perfilería WPC en Tandil. La calidez de la madera hecha de material reciclado: cero mantenimiento, no se pudre, resiste el clima de la sierra. Pedí tu presupuesto por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- ===== Meta Pixel — WPC Tandil =====
+     Para activar: poné el Pixel ID en META_PIXEL_ID (abajo) y pusheá.
+     Con el ID vacío el pixel NO carga (no ensucia la consola ni hace requests). -->
+<script>
+var META_PIXEL_ID = ''; // <-- pegar acá el Pixel ID (Eventos > Orígenes de datos en Meta Business)
+if (META_PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', META_PIXEL_ID);
+  fbq('track', 'PageView');
+}
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=&ev=PageView&noscript=1"/></noscript>
+<!-- ===== /Meta Pixel ===== -->
+
 <style>
 :root{
-  --bg:#faf7f2; --ink:#1b1813; --mut:#6d6357; --line:#e8e0d3;
-  --wood:#a9713f; --wood-d:#7c4f27; --amber:#c98a3d; --amber-l:#e0a45f;
-  --dark:#161009; --card:#ffffff; --shadow:0 24px 60px rgba(40,28,12,.12);
+  --bg:#f4f1e6; --ink:#1b2018; --mut:#5f6a58; --line:#e2e0d0;
+  --wood:#2f5133; --wood-d:#24402a; --amber:#3f6b43; --amber-l:#6f9a6d;
+  --dark:#17251b; --card:#ffffff; --shadow:0 24px 60px rgba(24,40,20,.12);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -25,7 +44,7 @@ a{color:inherit;text-decoration:none}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
 .eyebrow::before{content:"";width:28px;height:2px;background:var(--amber)}
 .btn{display:inline-flex;align-items:center;gap:9px;background:var(--wood);color:#fff;padding:15px 26px;border-radius:100px;font-weight:600;font-size:15px;transition:transform .15s,box-shadow .15s;border:none;cursor:pointer}
-.btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(169,113,63,.4)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(47,81,51,.4)}
 .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
 .btn-ghost:hover{box-shadow:0 12px 28px rgba(0,0,0,.08)}
 .btn-lg{padding:18px 34px;font-size:17px}
@@ -87,7 +106,7 @@ section.pad{padding:96px 0}
 .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
 .bcard{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:32px 24px;transition:transform .2s,box-shadow .2s}
 .bcard:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
-.bcard .ic{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#f3ebdd,#e9dcc4);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.bcard .ic{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#e7efe3,#d7e6d1);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
 .bcard .ic svg{width:28px;height:28px;stroke:var(--wood-d);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .bcard h3{font-size:24px;margin-bottom:8px}
 .bcard p{font-size:15px;color:var(--mut)}
@@ -100,7 +119,7 @@ section.pad{padding:96px 0}
 .crow.head>div{background:var(--dark);color:#fff;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;border:none}
 .crow.head .win{background:linear-gradient(135deg,var(--wood),var(--wood-d))}
 .crow .lbl{font-weight:600;color:var(--ink);background:#faf7f2}
-.crow .win{background:#f6ead4;font-weight:600;box-shadow:inset 0 0 0 1px rgba(169,113,63,.12)}
+.crow .win{background:#eaf2e6;font-weight:600;box-shadow:inset 0 0 0 1px rgba(47,81,51,.14)}
 .crow .yes{color:#2f7a43;font-weight:700}
 .crow .no{color:#b23b3b;font-weight:600}
 .crow:last-child>div{border-bottom:none}
@@ -132,7 +151,7 @@ section.pad{padding:96px 0}
 .sw .nm small{display:block;color:var(--mut);font-weight:400;font-size:13px;margin-top:2px}
 
 /* TANDIL */
-.tandil{background:linear-gradient(135deg,#221a12,#3a2c1e);color:#efe7dc}
+.tandil{background:linear-gradient(135deg,#17251b,#22392a);color:#e7efe0}
 .tandil .wrap{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;padding:90px 24px}
 .tandil .eyebrow{color:var(--amber-l)}.tandil .eyebrow::before{background:var(--amber-l)}
 .tandil h2{font-size:clamp(32px,4.4vw,48px);color:#fff;margin-bottom:20px}
@@ -205,7 +224,7 @@ footer a{color:var(--amber-l)}
 
 <nav class="nav">
   <div class="wrap">
-    <div class="brand">Sin&nbsp;Talar<b>®</b> · Tandil</div>
+    <div class="brand" style="display:flex;align-items:center;gap:11px"><img src="img/logo-wpc-green.png" alt="WPC" style="height:30px;display:block"><span>Tandil</span></div>
     <div class="nav-links" id="navlinks">
       <a href="#video">El deck</a>
       <a href="#beneficios">Por qué WPC</a>
@@ -224,7 +243,7 @@ footer a{color:var(--amber-l)}
   <div class="wrap">
     <div class="reveal in">
       <span class="eyebrow">WPC Argentino · Ahora en Tandil</span>
-      <h1>La calidez de la madera,<br><em>sin talar</em> un solo árbol.</h1>
+      <h1>La calidez de la madera,<br><em>sin cortar</em> un solo árbol.</h1>
       <p class="lead">Deck, revestimientos y perfilería de madera plástica: la estética natural que buscás, con cero mantenimiento y resistencia total al clima de la sierra.</p>
       <div class="hero-cta">
         <a class="btn btn-lg" href="#contacto">Pedí tu presupuesto</a>
@@ -262,7 +281,7 @@ footer a{color:var(--amber-l)}
       <div style="margin-top:30px"><a class="btn btn-lg" href="#contacto">Quiero uno así</a></div>
     </div>
     <div class="videobox reveal">
-      <video src="out/deck-install.mp4" poster="img/video-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+      <video src="out/deck-install.mp4" poster="img/life-deck.jpg" autoplay muted loop playsinline preload="auto"></video>
     </div>
   </div>
 </section>
@@ -276,7 +295,7 @@ footer a{color:var(--amber-l)}
       <p>El WPC combina fibra de madera y polímeros: la belleza de la madera, sin ninguno de sus problemas.</p>
     </div>
     <div class="benefits">
-      <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22v-6"/><path d="M12 16c-3 0-5-2-5-5 0-1 .5-2 .5-2C6 8.5 6 7 7 6c1-1 2.5-1 3-2 .5-1 1.3-2 2-2s1.5 1 2 2c.5 1 2 1 3 2 1 1 1 2.5-.5 3 0 0 .5 1 .5 2 0 3-2 5-5 5z"/></svg></div><h3>Sin talar</h3><p>Fabricado con madera reciclada y plásticos recuperados. Estética natural con conciencia ambiental.</p></div>
+      <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22v-6"/><path d="M12 16c-3 0-5-2-5-5 0-1 .5-2 .5-2C6 8.5 6 7 7 6c1-1 2.5-1 3-2 .5-1 1.3-2 2-2s1.5 1 2 2c.5 1 2 1 3 2 1 1 1 2.5-.5 3 0 0 .5 1 .5 2 0 3-2 5-5 5z"/></svg></div><h3>Material reciclado</h3><p>Fabricado con madera reciclada y plásticos recuperados. Estética natural con conciencia ambiental, sin cortar árboles.</p></div>
       <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.3L3 18l3 3 6.4-6.3a4 4 0 0 0 5.3-5.4l-2.6 2.6-2.3-.3-.3-2.3z"/></svg></div><h3>Cero mantenimiento</h3><p>No se pinta, no se barniza, no se sella. Se limpia con agua y jabón neutro. Y listo.</p></div>
       <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 15a4 4 0 1 1 1-7.9 5.5 5.5 0 0 1 10.7 1.6A3.5 3.5 0 0 1 17.5 15z"/><path d="M8 19l-1 2"/><path d="M12 19l-1 2"/><path d="M16 19l-1 2"/></svg></div><h3>Resiste la sierra</h3><p>Humedad, lluvia, sol y heladas: no se pudre, no se astilla, no se deforma ni pierde color.</p></div>
       <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/><path d="M9.5 12l1.8 1.8 3.4-3.6"/></svg></div><h3>Anti termitas</h3><p>No es alimento para insectos ni hongos. La plaga que arruina la madera real, acá no existe.</p></div>
@@ -293,7 +312,7 @@ footer a{color:var(--amber-l)}
       <p>Lo que cambia cuando dejás de pelear con la madera todos los años.</p>
     </div>
     <div class="ctable reveal">
-      <div class="crow head"><div>&nbsp;</div><div class="win">Sin Talar WPC</div><div>Madera tradicional</div></div>
+      <div class="crow head"><div>&nbsp;</div><div class="win">WPC</div><div>Madera tradicional</div></div>
       <div class="crow"><div class="lbl">Mantenimiento anual</div><div class="win"><span class="yes">Ninguno</span></div><div><span class="no">Lija + barniz</span></div></div>
       <div class="crow"><div class="lbl">Vida útil</div><div class="win"><span class="yes">+25 años</span></div><div>5–10 años</div></div>
       <div class="crow"><div class="lbl">Termitas y hongos</div><div class="win"><span class="yes">Inmune</span></div><div><span class="no">Vulnerable</span></div></div>
@@ -408,9 +427,9 @@ footer a{color:var(--amber-l)}
       <div class="bgimg"><img src="img/life-deck.jpg" alt=""></div>
       <div class="in">
         <span class="eyebrow">Pedí tu presupuesto</span>
-        <h2>Tu próximo deck, sin talar un árbol.</h2>
+        <h2>Tu próximo deck, sin cortar un árbol.</h2>
         <p>Mandanos los metros aproximados y una foto del lugar, y te pasamos precio y colores. Sin compromiso.</p>
-        <a class="btn btn-lg" href="https://wa.me/5492494209464?text=Hola!%20Quiero%20un%20presupuesto%20de%20WPC%20Sin%20Talar%20en%20Tandil." target="_blank" rel="noopener" style="background:var(--amber-l);color:#2a1a0c;font-weight:800">Escribinos por WhatsApp →</a>
+        <a class="btn btn-lg" href="https://wa.me/5492494209464?text=Hola!%20Quiero%20un%20presupuesto%20de%20WPC%20en%20Tandil." target="_blank" rel="noopener" style="background:var(--amber-l);color:#2a1a0c;font-weight:800">Escribinos por WhatsApp →</a>
       </div>
     </div>
   </div>
@@ -418,12 +437,12 @@ footer a{color:var(--amber-l)}
 
 <footer>
   <div class="wrap">
-    <div class="brand" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700">Sin Talar® · Tandil</div>
-    <div>Deck · Wall Panel · Perfilería — Madera plástica argentina · <a href="https://www.instagram.com/sintalar.wpc/" target="_blank" rel="noopener">@sintalar.wpc</a></div>
+    <div class="brand" style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700">WPC Tandil</div>
+    <div>Deck · Wall Panel · Perfilería — Madera plástica · <a href="https://www.instagram.com/wpc.tandil/" target="_blank" rel="noopener">@wpc.tandil</a></div>
   </div>
 </footer>
 
-<a class="wa-float" href="https://wa.me/5492494209464?text=Hola!%20Quiero%20info%20de%20WPC%20Sin%20Talar%20en%20Tandil." target="_blank" rel="noopener">🟢 WhatsApp</a>
+<a class="wa-float" href="https://wa.me/5492494209464?text=Hola!%20Quiero%20info%20de%20WPC%20en%20Tandil." target="_blank" rel="noopener">🟢 WhatsApp</a>
 
 <script>
 var pr=document.getElementById('progress');
@@ -434,6 +453,13 @@ nl.querySelectorAll('a').forEach(function(a){a.onclick=function(){nl.classList.r
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');if(e.target.querySelector){var c=e.target.querySelectorAll('.count');c.forEach(cnt);}io.unobserve(e.target);}});},{threshold:.15});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
 function cnt(el){var to=+el.dataset.to,s=performance.now();(function step(t){var p=Math.min((t-s)/900,1);el.textContent=Math.round(to*(p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2));if(p<1)requestAnimationFrame(step);})(s);}
+
+// --- Meta Pixel: evento Contact en cualquier clic a WhatsApp (botones + burbuja flotante) ---
+document.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"]').forEach(function(a){
+  a.addEventListener('click', function(){
+    if (window.fbq) fbq('track', 'Contact', {content_name: 'whatsapp_click', source: a.className || 'link'});
+  });
+});
 </script>
 </body>
 </html>

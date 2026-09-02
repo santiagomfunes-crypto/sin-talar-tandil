@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><title>Placa</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1080px;overflow:hidden}
+.placa{width:1080px;height:1080px;background:#f3efe4;padding:70px 76px 72px;
+  display:flex;flex-direction:column;justify-content:space-between;font-family:'Hanken Grotesk',sans-serif;color:#233a28}
+.top{display:flex;justify-content:space-between;align-items:center}
+.logo{height:60px}
+.loc{font-weight:700;font-size:23px;letter-spacing:.22em;text-transform:uppercase;color:#6a7b62}
+.mid{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;padding:36px 0}
+.kick{font-weight:800;font-size:25px;letter-spacing:.15em;text-transform:uppercase;color:#2f5133}
+.h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:98px;line-height:.98;letter-spacing:-.01em;margin-top:14px}
+.h1 em{font-style:italic;color:#3f6b43}
+.block{margin-top:44px}
+
+/* tabla */
+.tbl{background:#fff;border:1.5px solid #e0dccd;border-radius:20px;overflow:hidden}
+.row{display:grid;grid-template-columns:1.4fr 1fr 1fr}
+.row>div{padding:24px 26px;display:flex;align-items:center;font-size:29px;font-weight:600;border-bottom:1.5px solid #ece8db}
+.row:last-child>div{border-bottom:none}
+.row.head>div{background:#233a28;color:#f3efe4;font-family:'Cormorant Garamond',serif;font-size:33px;font-weight:700}
+.row.head .win{background:#2f5133}
+.lbl{color:#5c5142;background:#faf8f1;font-size:26px}
+.win{background:#eef5ea;font-weight:800;color:#2f5133}
+.mad{color:#9a5f4f}
+
+/* statement grande */
+.state{font-family:'Cormorant Garamond',serif;font-size:64px;line-height:1.1;color:#233a28}
+.state b{color:#2f5133}
+.big{font-family:'Cormorant Garamond',serif;font-size:230px;font-weight:700;color:#2f5133;line-height:.8;font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+.sub{font-size:30px;color:#3f4a39;margin-top:20px;max-width:30ch}
+
+/* usos 2x2 */
+.uses{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.use{background:#fff;border:1.5px solid #e0dccd;border-radius:16px;padding:26px 26px}
+.use b{display:block;font-family:'Cormorant Garamond',serif;font-size:38px;color:#2f5133;font-weight:700}
+.use span{font-size:23px;color:#5c5142}
+
+/* bullets */
+.bul{display:flex;flex-direction:column;gap:16px}
+.bul div{display:grid;grid-template-columns:auto 1fr;gap:16px;font-size:34px;font-weight:600;color:#233a28;align-items:baseline}
+.bul div::before{content:"✓";color:#2f5133;font-weight:800}
+
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:32px;font-size:25px;font-weight:600;color:#6a7b62}
+.wa{background:#2f5133;color:#f3efe4;padding:15px 30px;border-radius:100px;font-weight:800;font-size:25px}
+</style></head>
+<body>
+<div class="placa" id="placa"></div>
+<script>
+var P={
+ 1:{kick:'La cuenta a 10 años', title:'WPC o madera:<br><em>¿qué te conviene?</em>', block:
+   '<div class="tbl">'+
+   '<div class="row head"><div>&nbsp;</div><div class="win">WPC</div><div>Madera</div></div>'+
+   '<div class="row"><div class="lbl">Mantenimiento</div><div class="win">Ninguno</div><div class="mad">Todos los años</div></div>'+
+   '<div class="row"><div class="lbl">Vida útil</div><div class="win">+25 años</div><div class="mad">5–10 años</div></div>'+
+   '<div class="row"><div class="lbl">Termitas</div><div class="win">Inmune</div><div class="mad">Vulnerable</div></div>'+
+   '<div class="row"><div class="lbl">Se pudre</div><div class="win">Nunca</div><div class="mad">Sí</div></div>'+
+   '</div>'},
+ 2:{kick:'El mito más común', title:'"¿No es <em>plástico?</em>"', block:
+   '<div class="state">No. Es <b>madera reciclada + plástico recuperado</b> fundidos en una sola pieza: la calidez y la veta de la madera, con la resistencia de un material moderno.</div>'},
+ 3:{kick:'Un material, mil usos', title:'¿Dónde va el <em>WPC?</em>', block:
+   '<div class="uses">'+
+   '<div class="use"><b>Deck</b><span>Galerías, balcones, bordes de pileta</span></div>'+
+   '<div class="use"><b>Paredes</b><span>Revestimientos interiores y fachadas</span></div>'+
+   '<div class="use"><b>Quinchos</b><span>Pisos y cielorrasos de exterior</span></div>'+
+   '<div class="use"><b>Perfilería</b><span>El sistema completo, un solo material</span></div>'+
+   '</div>'},
+ 4:{kick:'El beneficio estrella', title:'Cero <em>mantenimiento.</em>', block:
+   '<div class="bul"><div>No se pinta ni se barniza</div><div>No se sella nunca</div><div>Se limpia con agua y jabón</div><div>Y listo — para siempre</div></div>'},
+ 5:{kick:'Con conciencia', title:'La calidez de la madera,<br><em>sin talar.</em>', block:
+   '<div class="big">100%</div><div class="sub">Hecho de madera reciclada y plásticos recuperados. Estética natural, sin talar un solo árbol.</div>'}
+};
+var n=parseInt((location.search.match(/p=(\d+)/)||[])[1]||'1',10);
+var d=P[n]||P[1];
+document.getElementById('placa').innerHTML=
+ '<div class="top"><img class="logo" src="../img/logo-wpc-green.png"><div class="loc">Tandil</div></div>'+
+ '<div class="mid"><div class="kick">'+d.kick+'</div>'+
+ '<div class="h1">'+d.title+'</div>'+
+ '<div class="block">'+d.block+'</div></div>'+
+ '<div class="foot"><span>@sintalar.tandil</span><span class="wa">Pedí tu presupuesto</span></div>';
+</script>
+</body></html>

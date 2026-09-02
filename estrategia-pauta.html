@@ -1,0 +1,297 @@
+<title>Plan de Campaña Sin Talar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4efe4; --surface:#fbf7ef; --surface-2:#efe7d8; --ink:#221a11; --mut:#6c5f4c;
+  --line:#e4dccb; --wood:#985c2b; --wood-d:#6d3f1c; --amber:#bd7f37;
+  --green:#4a6b46; --good:#3f7a4e; --warn:#a9662a; --crit:#a83a3a;
+  --shadow:0 18px 44px rgba(60,40,15,.10);
+}
+:root:not([data-theme="light"]){}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#14100a; --surface:#1d160d; --surface-2:#241c11; --ink:#efe7da; --mut:#a99b84;
+    --line:#2e2517; --wood:#cf9152; --wood-d:#b6743a; --amber:#e0a45f;
+    --green:#88a877; --good:#7fa86a; --warn:#d69a52; --crit:#d97b6f;
+    --shadow:0 22px 50px rgba(0,0,0,.5);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14100a; --surface:#1d160d; --surface-2:#241c11; --ink:#efe7da; --mut:#a99b84;
+  --line:#2e2517; --wood:#cf9152; --wood-d:#b6743a; --amber:#e0a45f;
+  --green:#88a877; --good:#7fa86a; --warn:#d69a52; --crit:#d97b6f;
+  --shadow:0 22px 50px rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:960px;margin:0 auto;padding:0 26px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;line-height:1.04;letter-spacing:-.01em;text-wrap:balance}
+p{max-width:68ch}
+a{color:var(--wood-d)}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--wood)}
+
+/* MASTHEAD */
+.mast{border-bottom:1px solid var(--line);padding:64px 0 46px;margin-bottom:8px}
+.mast .kick{margin-bottom:22px}
+.mast h1{font-size:clamp(40px,6.4vw,72px);margin:0 0 20px}
+.mast h1 em{font-style:italic;color:var(--wood)}
+.mast .thesis{font-size:20px;color:var(--ink);max-width:60ch;margin-bottom:28px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--mut);background:var(--surface);
+  border:1px solid var(--line);border-radius:100px;padding:7px 15px}
+.chip b{color:var(--ink);font-weight:600}
+
+/* SECTION */
+section{padding:52px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:26px}
+.sec-head .no{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--wood);font-weight:600;flex:0 0 auto}
+.sec-head h2{font-size:clamp(28px,3.8vw,40px);margin:0}
+.lead{color:var(--mut);font-size:18px;margin:-10px 0 26px}
+
+/* generic cards grid */
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 22px}
+.card h3{font-size:23px;margin:0 0 8px}
+.card p{font-size:15px;color:var(--mut);margin:0;max-width:none}
+.card .tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--wood);display:block;margin-bottom:10px}
+
+/* FUNNEL */
+.funnel{display:flex;flex-direction:column;gap:12px;align-items:center;margin-top:6px}
+.tier{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 24px;
+  display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center}
+.tier.t1{max-width:100%;border-left:5px solid var(--amber)}
+.tier.t2{max-width:82%;border-left:5px solid var(--wood)}
+.tier.t3{max-width:64%;border-left:5px solid var(--green)}
+.tier .stage{font-family:'IBM Plex Mono',monospace}
+.tier .stage b{display:block;font-size:15px;color:var(--ink);text-transform:uppercase;letter-spacing:.1em}
+.tier .stage span{font-size:12px;color:var(--mut)}
+.tier .body h4{font-family:'Hanken Grotesk';font-size:16px;margin:0 0 4px;font-weight:700}
+.tier .body p{font-size:14px;color:var(--mut);margin:0;max-width:none}
+.tier .body .aud{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--wood);margin-top:6px}
+
+/* budget bar */
+.split{display:flex;height:46px;border-radius:10px;overflow:hidden;border:1px solid var(--line);margin:8px 0 12px}
+.split div{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:#fff}
+.split .s1{background:var(--amber);flex:40}
+.split .s2{background:var(--wood);flex:40}
+.split .s3{background:var(--green);flex:20}
+.split-key{display:flex;flex-wrap:wrap;gap:18px;font-size:13.5px;color:var(--mut)}
+.split-key span{display:flex;align-items:center;gap:7px}
+.dot{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+
+/* rules / guardrails */
+.rules{display:grid;gap:14px}
+.rule{display:grid;grid-template-columns:auto 1fr;gap:16px;background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;padding:18px 20px}
+.rule .mark{font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:15px;padding:4px 10px;border-radius:7px;height:fit-content;white-space:nowrap}
+.rule.dont .mark{background:rgba(168,58,58,.13);color:var(--crit)}
+.rule.do .mark{background:rgba(63,122,78,.14);color:var(--good)}
+.rule h4{margin:0 0 3px;font-size:16.5px;font-weight:700}
+.rule p{margin:0;font-size:14.5px;color:var(--mut);max-width:none}
+
+/* timeline */
+.phases{display:grid;gap:0}
+.phase{display:grid;grid-template-columns:132px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--line)}
+.phase:first-child{border-top:none}
+.phase .when{font-family:'IBM Plex Mono',monospace}
+.phase .when b{display:block;color:var(--wood);font-size:14px}
+.phase .when span{font-size:12px;color:var(--mut)}
+.phase h4{margin:0 0 6px;font-size:19px}
+.phase ul{margin:0;padding-left:18px;color:var(--mut);font-size:15px}
+.phase li{margin-bottom:3px}
+
+/* KPI tiles */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.kpi .l{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mut)}
+.kpi .v{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--ink);line-height:1.1;margin-top:4px}
+.kpi .v small{font-size:15px;color:var(--wood);font-family:'IBM Plex Mono',monospace}
+
+ul.clean{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+ul.clean li{display:grid;grid-template-columns:auto 1fr;gap:13px;font-size:16px}
+ul.clean li::before{content:"→";color:var(--wood);font-family:'IBM Plex Mono',monospace;font-weight:700}
+ul.clean li b{color:var(--ink)}
+
+.callout{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin-top:8px}
+.callout .eyebrow{margin-bottom:8px;display:block}
+.callout p{margin:0;font-size:16px;max-width:none}
+
+footer{padding:44px 0 60px;color:var(--mut);font-size:14px;font-family:'IBM Plex Mono',monospace}
+footer b{color:var(--ink)}
+
+@media(max-width:720px){
+  .g2,.g3,.kpis{grid-template-columns:1fr}
+  .tier{grid-template-columns:1fr;gap:10px}
+  .tier.t2,.tier.t3{max-width:100%}
+  .phase{grid-template-columns:1fr;gap:6px}
+  .rule{grid-template-columns:1fr;gap:8px}
+}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="kick eyebrow">Estrategia de contenido + pauta · Sin Talar® WPC</div>
+    <h1>Vender deck en Tandil sin <em>quemar</em> el mercado.</h1>
+    <p class="thesis">Tandil es chico y el deck es una compra pensada. La estrategia no es gritarle a todos: es <b>educar, capturar la demanda que ya existe y remarketear</b> — porque en una ciudad así, el que te vio una vez vale oro.</p>
+    <div class="chips">
+      <span class="chip">Mercado: <b>Tandil + 30 km</b></span>
+      <span class="chip">Objetivo: <b>presupuestos por WhatsApp</b></span>
+      <span class="chip">Temporada: <b>primavera–verano</b></span>
+      <span class="chip">Rol: <b>distribuidor local</b></span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">01</span><h2>La lectura del terreno</h2></div>
+    <div class="grid g2">
+      <div class="card"><span class="tag">Naturaleza del producto</span><h3>Compra pensada, no impulso</h3><p>Un deck es una inversión de miles de dólares que se decide en semanas o meses. Nadie lo compra de un click. Por eso el embudo importa: primero confianza, después el presupuesto.</p></div>
+      <div class="card"><span class="tag">Tamaño del mercado</span><h3>Finito y enumerable</h3><p>Tandil + zona es un público chico. El pool frío se satura rápido: la palanca no es alcance infinito, es <b>frecuencia controlada + retargeting</b>. Cada persona que interactúa hay que reusarla.</p></div>
+      <div class="card"><span class="tag">Timing</span><h3>La estación juega a favor</h3><p>La demanda de exteriores (deck, quincho, pileta) despega en primavera y pico en verano. Arrancamos justo antes: el mejor momento del año para plantar la marca.</p></div>
+      <div class="card"><span class="tag">La tesis</span><h3>Educar y capturar, no gritar</h3><p>La objeción #1 es "¿no es plástico caro?". Se gana educando (qué es el WPC, honestamente) y estando presente cuando la persona ya está buscando resolver su exterior.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">02</span><h2>A quién le hablamos</h2></div>
+    <p class="lead">Dos audiencias con dos tácticas distintas. No se atacan igual.</p>
+    <div class="grid g2">
+      <div class="card"><span class="tag">Núcleo · B2C · con pauta</span><h3>Dueños de casa 30–60</h3>
+        <p>Propietarios en Tandil + 30 km. Intereses: mejoras del hogar, jardín, piletas, casas de campo, construcción, decoración, inmobiliaria. Comportamiento: propietarios de vivienda, mudanza reciente.</p>
+        <p style="margin-top:10px"><b style="color:var(--ink)">Test A/B de arranque:</b> un conjunto de <b>intereses manuales</b> vs. un conjunto <b>abierto (Advantage+)</b>. En mercados chicos el algoritmo de Meta suele ganarle a la segmentación fina — hay que dejarlo competir.</p>
+      </div>
+      <div class="card" style="border-color:var(--green)"><span class="tag" style="color:var(--green)">Prescriptores · B2B · sin pauta</span><h3>Arquitectos y constructoras</h3>
+        <p>Los que deciden materiales en Tandil (estudios, constructoras, corralones) son un grupo <b>finito y contactable uno por uno</b>. A ese público no se le pauta en frío: se lo lista y se lo visita.</p>
+        <p style="margin-top:10px"><b style="color:var(--ink)">Un arquitecto que adopta el WPC = decenas de obras.</b> Muestra física + WhatsApp + café. Esta jugada corre en paralelo a toda la pauta.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">03</span><h2>El embudo, con cada creativo en su lugar</h2></div>
+    <p class="lead">Nada de "un video para todo". Cada pieza trabaja en una etapa distinta de la decisión.</p>
+    <div class="funnel">
+      <div class="tier t1">
+        <div class="stage"><b>Reconocer</b><span>frío · barato · masivo</span></div>
+        <div class="body"><h4>Reel lifestyle + Explainer "¿Qué es el WPC?"</h4><p>Enganchan y educan. Su verdadero trabajo: dejar a la gente que los mira dentro de un pool para remarketear después.</p><div class="aud">Público amplio Tandil + 30 km</div></div>
+      </div>
+      <div class="tier t2">
+        <div class="stage"><b>Considerar</b><span>tibio · comparar</span></div>
+        <div class="body"><h4>Comparativa WPC vs madera + reel de obra</h4><p>Atacan la decisión: por qué conviene, cómo se instala, qué se ahorra en mantenimiento. Derriban la objeción del plástico.</p><div class="aud">Intereses + quienes ya vieron el TOFU</div></div>
+      </div>
+      <div class="tier t3">
+        <div class="stage"><b>Convertir</b><span>caliente · retargeting</span></div>
+        <div class="body"><h4>Obra + oferta clara → WhatsApp</h4><p>"Medición y presupuesto sin cargo." A quien ya te conoce. Es el clic-a-WhatsApp que trae la consulta.</p><div class="aud">Video 25%+ · engagers IG/FB · visitantes de la landing</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">04</span><h2>Arquitectura de campañas en Meta</h2></div>
+    <p class="lead">Tres campañas separadas, cada una con su objetivo real. Presupuesto sugerido de arranque: <b class="mono">USD 12–15/día</b> total — en un mercado chico alcanza para aprender.</p>
+    <div class="grid g3">
+      <div class="card"><span class="tag" style="color:var(--amber)">Campaña 1</span><h3>Reconocimiento</h3><p><b style="color:var(--ink)">Objetivo:</b> reproducciones de video (ThruPlay).<br><b style="color:var(--ink)">Creativos:</b> lifestyle + explainer.<br><b style="color:var(--ink)">Para qué:</b> alcance barato y construir el pool de retargeting.</p></div>
+      <div class="card"><span class="tag" style="color:var(--wood)">Campaña 2</span><h3>Mensajes</h3><p><b style="color:var(--ink)">Objetivo:</b> clic-a-WhatsApp (conversaciones).<br><b style="color:var(--ink)">Creativos:</b> obra + comparativa.<br><b style="color:var(--ink)">Ojo:</b> optimizar por conversación, <b>nunca por "vistas de landing"</b>.</p></div>
+      <div class="card" style="border-color:var(--green)"><span class="tag" style="color:var(--green)">Campaña 3</span><h3>Retargeting</h3><p><b style="color:var(--ink)">Objetivo:</b> mensajes, a públicos custom.<br><b style="color:var(--ink)">Creativos:</b> obra + oferta fuerte.<br><b style="color:var(--ink)">Arranca chica</b> y crece cuando el pool tiene tamaño.</p></div>
+    </div>
+    <div style="margin-top:24px">
+      <span class="eyebrow">Reparto del presupuesto</span>
+      <div class="split"><div class="s1">40% Reconocer</div><div class="s2">40% Mensajes</div><div class="s3">20% Retarget</div></div>
+      <div class="split-key">
+        <span><i class="dot" style="background:var(--amber)"></i> El retargeting arranca en 20% y sube a medida que hay pool para remarketear.</span>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:24px">
+      <span class="eyebrow">Config técnica (aprendida a los golpes)</span>
+      <p>Ubicaciones: Reels, Stories y Feed de IG + FB. <b>Audience Network APAGADO</b> (mete tráfico basura). Advantage+ placements OK salvo AN. Los videos van muteados: se les suma música de la biblioteca de Meta al publicar.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">05</span><h2>El orgánico sostiene a la pauta</h2></div>
+    <p class="lead">La regla de oro: <b>postear primero, pautar después.</b> El que hace clic en un anuncio chusmea el perfil — y un perfil vacío convierte peor.</p>
+    <div class="grid g2">
+      <div class="card"><span class="tag">Cadencia</span><h3>3–4 posts / semana + stories</h3><p>Alterná reel y placa. El reel que mejor rinda orgánico, subilo a pauta: el orgánico es tu laboratorio gratis de qué engancha.</p></div>
+      <div class="card"><span class="tag">5 pilares (rotá)</span><h3>De qué postear</h3><p><b style="color:var(--ink)">Educación</b> (qué es, mitos) · <b style="color:var(--ink)">Obra</b> (instalaciones, antes/después) · <b style="color:var(--ink)">Lifestyle</b> (decks lindos) · <b style="color:var(--ink)">Comparativa</b> (vs madera) · <b style="color:var(--ink)">Prueba social</b> (clientes, cuando haya).</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">06</span><h2>Medición y guardrails</h2></div>
+    <p class="lead">Reglas no negociables — todas aprendidas a costa de plata en campañas anteriores.</p>
+    <div class="rules">
+      <div class="rule dont"><span class="mark">NO</span><div><h4>No optimizar por "vistas de la landing" (LPV)</h4><p>Trae el tráfico más barato y más basura. Optimizá por conversación de WhatsApp o por video real.</p></div></div>
+      <div class="rule do"><span class="mark">SÍ</span><div><h4>Contá los leads en WhatsApp, no en el dashboard</h4><p>El navegador in-app de Meta rompe el tracking JS y sub-cuenta hasta 4×. La verdad está en cuántas conversaciones reales entraron.</p></div></div>
+      <div class="rule do"><span class="mark">SÍ</span><div><h4>Vigilá la frecuencia (mercado chico)</h4><p>Si una persona te ve más de ~2–3 veces por semana, quema. Cuando la frecuencia sube, rotá creativo o ampliá el radio.</p></div></div>
+      <div class="rule do"><span class="mark">SÍ</span><div><h4>Instalá el Meta Pixel en la landing</h4><p>Es lo que arma el retargeting de visitantes y te deja medir. Hoy la landing no lo tiene — se agrega apenas tengas el Pixel ID.</p></div></div>
+    </div>
+    <div style="margin-top:26px">
+      <span class="eyebrow">Qué mirar cada semana</span>
+      <div class="kpis" style="margin-top:12px">
+        <div class="kpi"><div class="l">Norte</div><div class="v">Costo / <small>presupuesto</small></div></div>
+        <div class="kpi"><div class="l">Creativo</div><div class="v">Hook rate <small>/ThruPlay</small></div></div>
+        <div class="kpi"><div class="l">Interés</div><div class="v">CTR <small>al link</small></div></div>
+        <div class="kpi"><div class="l">Salud</div><div class="v">Frecuencia <small>&lt;3</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">07</span><h2>Secuencia de lanzamiento</h2></div>
+    <div class="phases">
+      <div class="phase"><div class="when"><b>Fase 0</b><span>esta semana</span></div><div><h4>Preparar la casa</h4><ul><li>Crear cuenta IG + Página FB y conectarlas en Meta Business Suite.</li><li>Postear las 7 piezas de lanzamiento (orgánico).</li><li>Instalar el Pixel en la landing + WhatsApp Business listo.</li></ul></div></div>
+      <div class="phase"><div class="when"><b>Fase 1</b><span>semana 1–2</span></div><div><h4>Prender y aprender</h4><ul><li>Encender Reconocimiento + Mensajes con presupuesto bajo.</li><li>Dejar correr 4–5 días sin tocar. Leer qué ángulo engancha.</li></ul></div></div>
+      <div class="phase"><div class="when"><b>Fase 2</b><span>semana 3+</span></div><div><h4>Retargetear y duplicar</h4><ul><li>Armar el retargeting con el pool ya formado.</li><li>Duplicar el creativo/ángulo ganador; pausar el que no rinde.</li></ul></div></div>
+      <div class="phase"><div class="when"><b>Fase 3</b><span>temporada</span></div><div><h4>Empujar en primavera–verano</h4><ul><li>Subir presupuesto en el pico de demanda.</li><li>Sumar prueba social de las primeras obras reales.</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="no">08</span><h2>La jugada paralela que no depende de la pauta</h2></div>
+    <div class="callout">
+      <span class="eyebrow">Founder-led · prescriptores</span>
+      <p>Mientras la pauta hace su trabajo con dueños de casa, vos trabajás en paralelo a los <b>arquitectos, constructoras y corralones de Tandil</b>: lista finita, contacto directo, muestra física en la mano. No es alcance, es teléfono y café. Un solo prescriptor que adopta el WPC vale más que semanas de pauta.</p>
+    </div>
+  </div>
+</section>
+
+<section style="border-bottom:none">
+  <div class="wrap">
+    <div class="sec-head"><span class="no">→</span><h2>Lo que falta para arrancar</h2></div>
+    <ul class="clean">
+      <li><b>Crear las cuentas</b> IG + FB (tenés el kit listo: foto, bio, handle, posteos).</li>
+      <li><b>Definir el presupuesto</b> diario (arranque sugerido: USD 12–15/día).</li>
+      <li><b>Pixel de Meta</b> → pasame el ID y lo instalo en la landing para armar el retargeting.</li>
+      <li><b>Armar las campañas</b> en Meta con los 3 objetivos — se puede replicar el sistema por API que ya usamos en otro proyecto.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>Sin Talar® WPC · Tandil</b> — Plan de contenido + pauta · Deck · Wall Panel · Perfilería
+  </div>
+</footer>
