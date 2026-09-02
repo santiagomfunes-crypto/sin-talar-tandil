@@ -250,3 +250,25 @@ Repetí el #1 y el #3 cambiando "color madera caramelo" por "color NEGRO grafito
 ```
 Video vertical 9:16, 8s, fotorrealista, cinematográfico. Un deck de madera comun viejo, gris y astillado se transforma progresivamente ante la camara en un deck de madera plastica nuevo color caramelo calido, liso y perfecto; la luz pasa de fria y opaca a dorada. Travelling lento hacia adelante sobre las tablas. Voz en off en espanol argentino, calida: "La madera comun se pone gris y se astilla. Este deck se ve siempre nuevo, mas de veinticinco anos." Sonido ambiente suave. Sin texto en pantalla, no render 3D.
 ```
+
+---
+
+## ✅ TANDA DEFINITIVA (2 sep 2026) — VOZ ANCLADA + versión corta
+
+Novedad: en Flow → **Voces** se crea/ancla el **"Locutor WPC"** (voz masculina argentina rioplatense, cálida, cadencia pausada). Al estar anclada, el prompt ya NO describe la voz → más corto = menos "raro". Ingrediente de color = SOLO `img/reales/real-svg-web.jpg` (madera). real-beta (gris) queda EXCLUIDO de esta tanda.
+
+**Descripción de la voz (Voces → crear):**
+> Voz masculina argentina, acento rioplatense (bonaerense), ~40 años. Cálida, cercana y confiable —vecino que sabe del oficio, no locutor de radio ni vendedor exagerado. Seguridad tranquila, sin apuro, cadencia del voseo. Grave-media, relajada. Cierra frases hacia abajo. Nada de neutro latino ni mexicano.
+
+**Al generar cada clip:** elegir "Locutor WPC" + cargar real-svg. Descargar como `1.mp4`…`8.mp4`.
+
+1. HARTAZGO — Narración: "¿Otra primavera lijando y barnizando el deck? Este no se mantiene nunca. Ponelo una vez, y olvidate."
+2. ANTES/DESPUÉS — "La madera común se astilla y se pone gris. Este se ve siempre nuevo, más de veinticinco años."
+3. PLATA BIEN PUESTA — "¿Rehacer el deck cada cinco años? Con este invertís una vez, y dura más de veinticinco."
+4. CLIMA DE SIERRA — "Humedad, heladas y termitas arruinan la madera en Tandil. A este deck, no lo toca nada."
+5. DISFRUTAR — "El finde es para disfrutar el quincho, no para lijarlo. Cero mantenimiento."
+6. PRESUPUESTO SIN CARGO — "¿Pensás en un deck? Te hacemos la medición y el presupuesto sin cargo, acá en Tandil."
+7. OBRA/INSTALACIÓN — "Así instalamos tu deck en Tandil: prolijo, rápido, y no lo mantenés nunca más."
+8. URGENCIA VERANO — "El verano se disfruta afuera. Armá tu deck ahora y llegá listo. Consultá hoy."
+
+Cada prompt corto abre en plano medio/abierto (NUNCA close-up del deck), 1 movimiento de cámara, color madera caramelo/teca mate, + línea de Negativo (sin morphing/deformaciones/madera brillante/texto). Prompts completos en el chat del 2 sep 2026.

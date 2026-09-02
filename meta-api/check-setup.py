@@ -4,7 +4,7 @@ Verifica que el token, la cuenta, la página, el IG y el WhatsApp estén como co
 Uso: python3 check-setup.py
 """
 import json, os, sys
-from _meta import load_token, load_cfg, api_get, HERE
+from _meta import load_token, load_cfg, api_get, api_post, HERE
 
 TOKEN = load_token()
 CFG = load_cfg()
@@ -46,18 +46,38 @@ else:
     if "error" in ig: bad(f"IG id inválido: {ig['error'].get('message')}")
     else: print(f"   ✓ @{ig.get('username')}")
 
-print("▶ WhatsApp conectado a la página (necesario para Click-to-WhatsApp)")
-wa = api_get(TOKEN, PAGE, fields="whatsapp_number")
-if "error" in wa:
-    bad(f"no pude leer el WhatsApp de la página: {wa['error'].get('message')}")
-num = wa.get("whatsapp_number") or ""
-if num:
-    print(f"   ✓ número conectado: {num}")
-    esperado = CFG["whatsapp_phone_number"].replace("+", "").replace(" ", "").replace("-", "")
-    if esperado[-8:] not in num.replace(" ", ""):
-        print(f"   ⚠ ojo: config.json dice {CFG['whatsapp_phone_number']} y la página tiene {num}")
-else:
-    bad("la página NO tiene WhatsApp conectado → Meta Business Suite > Configuración > WhatsApp > Conectar")
+print("▶ WhatsApp para Click-to-WhatsApp")
+# No alcanza con mirar page.whatsapp_number: una cuenta de WhatsApp creada en el portfolio
+# NO es lo mismo que la Página vinculada, y el campo no distingue los casos. Así que le
+# preguntamos a Meta directamente: creamos una campaña en pausa, validamos el conjunto con
+# execution_options=["validate_only"] (no crea nada) y la borramos. La respuesta es la verdad.
+import json as _json, urllib.parse as _up, urllib.request as _ur, urllib.error as _ue
+from _meta import targeting, G
+
+_camp = api_post(TOKEN, f"{ACT}/campaigns", name="ZZZ check-setup (auto)",
+                 objective=CFG.get("objective", "OUTCOME_ENGAGEMENT"), status="PAUSED",
+                 is_adset_budget_sharing_enabled="false", special_ad_categories="[]")
+_params = {
+    "name": "ZZZ check-setup", "campaign_id": _camp["id"], "daily_budget": "1300",
+    "billing_event": "IMPRESSIONS", "optimization_goal": "CONVERSATIONS",
+    "destination_type": "WHATSAPP",
+    "promoted_object": _json.dumps({"page_id": PAGE,
+                                    "whatsapp_phone_number": CFG["whatsapp_phone_number"]}),
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": _json.dumps(targeting(CFG, [])),
+    "status": "PAUSED", "execution_options": _json.dumps(["validate_only"]),
+    "access_token": TOKEN,
+}
+try:
+    _ur.urlopen(_ur.Request(f"{G}/{ACT}/adsets", data=_up.urlencode(_params).encode()))
+    print(f"   ✓ Meta acepta el destino WhatsApp con {CFG['whatsapp_phone_number']}")
+except _ue.HTTPError as _e:
+    _err = _json.load(_e).get("error", {})
+    bad(_err.get("error_user_msg") or _err.get("error_user_title") or _err.get("message"))
+    print("     ↳ se conecta desde la PÁGINA (no alcanza con crear una cuenta en el portfolio):")
+    print(f"        facebook.com/{PAGE}/settings → WhatsApp → Conectar número")
+finally:
+    api_post(TOKEN, _camp["id"], status="DELETED")
 
 print("▶ Pixel(s) de la cuenta")
 px = api_get(TOKEN, f"{ACT}/adspixels", fields="id,name,last_fired_time").get("data", [])
