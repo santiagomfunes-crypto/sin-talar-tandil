@@ -38,14 +38,38 @@
       "interests": []
     },
     {
-      "name": "B · Intereses (hogar/jardin/obra)",
+      "name": "B · Intereses (hogar/obra/jardin)",
       "interests": [
-        "Home improvement",
-        "Gardening",
-        "Swimming pool",
-        "Construction",
-        "Interior design"
+        {
+          "id": "6003234413249",
+          "name": "Remodelaciones (hogar y jardinería)"
+        },
+        {
+          "id": "6002979893723",
+          "name": "Reformas (construcción)"
+        },
+        {
+          "id": "6003195091098",
+          "name": "Paisajismo (jardinería)"
+        },
+        {
+          "id": "6003309021676",
+          "name": "Terraza"
+        },
+        {
+          "id": "6003382107137",
+          "name": "Madera para la construcción"
+        },
+        {
+          "id": "6002951756355",
+          "name": "Material para la construcción"
+        },
+        {
+          "id": "6002920953955",
+          "name": "Diseño de interiores (diseño)"
+        }
       ]
     }
-  ]
+  ],
+  "_nota_intereses": "IDs verificados a mano contra la API en español (sep 2026). NO resolver por nombre en runtime: buscar 'Construction' devolvia 'Juguetes' (480M) y 'Swimming pool' una pelicula."
 }

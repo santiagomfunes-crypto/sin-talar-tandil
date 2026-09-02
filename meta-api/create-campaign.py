@@ -38,10 +38,16 @@ if acc.get("account_status") != 1:
 print(f"   ✓ {acc['name']} · {acc.get('currency')} · IG={'sí' if IG else 'NO (solo Facebook)'}")
 print(f"   ✓ presupuesto {CFG['daily_budget_usd']}/día por conjunto · {CFG['geo']['name']} + {CFG['geo']['radius_km']} km")
 
-print("▶ 2/6  Resolviendo intereses…")
+print("▶ 2/6  Intereses…")
 for a in CFG["adsets"]:
-    a["_interests"] = resolve_interests(TOKEN, a.get("interests", [])) if a.get("interests") else []
-    if not a["_interests"]:
+    # IDs verificados a mano en config.json. NO se resuelven por nombre en runtime:
+    # buscar "Construction" devolvía "Juguetes" (480M) y "Swimming pool" una película.
+    ints = a.get("interests", [])
+    a["_interests"] = [{"id": str(i["id"]), "name": i["name"]} for i in ints]
+    if a["_interests"]:
+        for i in a["_interests"]:
+            print(f"   • {a['name']}: {i['name']} ({i['id']})")
+    else:
         print(f"   • {a['name']}: sin intereses (audiencia abierta)")
 
 print(f"▶ 3/6  Subiendo {len(CFG['creatives'])} videos…")
