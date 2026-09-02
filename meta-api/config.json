@@ -1,0 +1,51 @@
+{
+  "_comentario": "WPC Tandil — Campaña 1: Prospecting Click-to-WhatsApp. Todo se crea EN PAUSA. Los IDs y el token van en .env.meta (fuera de git).",
+  "campaign_name": "WPC Tandil | Prospecting | CTWA",
+  "objective": "OUTCOME_ENGAGEMENT",
+  "whatsapp_phone_number": "+5492494209464",
+  "daily_budget_usd": 13,
+  "age_min": 30,
+  "age_max": 60,
+  "geo": {
+    "name": "Tandil",
+    "latitude": -37.3217,
+    "longitude": -59.1332,
+    "radius_km": 40
+  },
+  "creatives": [
+    {
+      "video_path": "../remotion/out/wpc-1.mp4",
+      "headline": "Deck que no se mantiene",
+      "primary_text": "¿Otra primavera lijando y barnizando el deck? El deck de madera plástica (WPC) se pone una vez y no se mantiene nunca más: no se astilla, no se pudre, no se pinta. Instalamos en Tandil. Escribinos y te pasamos presupuesto.",
+      "description": "Presupuesto sin cargo en Tandil"
+    },
+    {
+      "video_path": "../remotion/out/wpc-2.mp4",
+      "headline": "Se ve siempre nuevo",
+      "primary_text": "La madera común se pone gris y se astilla en dos inviernos de sierra. El deck WPC se ve igual de nuevo después de 25 años: humedad, heladas y termitas no lo tocan. Te lo instalamos en Tandil. Pedí tu presupuesto.",
+      "description": "Más de 25 años de vida útil"
+    },
+    {
+      "video_path": "../remotion/out/wpc-3.mp4",
+      "headline": "Invertís una sola vez",
+      "primary_text": "Rehacer el deck cada cinco años es plata tirada. Con WPC invertís una vez y dura más de veinticinco años, sin mantenimiento. Medición y presupuesto sin cargo en Tandil.",
+      "description": "Medición y presupuesto sin cargo"
+    }
+  ],
+  "adsets": [
+    {
+      "name": "A · Abierto (Tandil 40km)",
+      "interests": []
+    },
+    {
+      "name": "B · Intereses (hogar/jardin/obra)",
+      "interests": [
+        "Home improvement",
+        "Gardening",
+        "Swimming pool",
+        "Construction",
+        "Interior design"
+      ]
+    }
+  ]
+}

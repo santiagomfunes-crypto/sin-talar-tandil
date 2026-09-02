@@ -1,7 +1,9 @@
 .env
 .agents/
 .claude/
-remotion/
+remotion/node_modules/
+remotion/out/
+remotion/public/*.mp4
 clips/
 FLOW-PLAYBOOK.md
 img/gen*
