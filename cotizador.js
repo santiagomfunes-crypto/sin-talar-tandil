@@ -142,11 +142,18 @@ function filtrarCat(cat,btn){
   renderProductos();
 }
 
+function tono(hex,f){
+  var h=hex.replace('#',''), r=parseInt(h.substr(0,2),16), g=parseInt(h.substr(2,2),16), b=parseInt(h.substr(4,2),16);
+  function mix(c){ return Math.round(f>0 ? c+(255-c)*f : c*(1+f)); }
+  return 'rgb('+mix(r)+','+mix(g)+','+mix(b)+')';
+}
+function degradado(hex){ return 'linear-gradient(140deg,'+tono(hex,.28)+' 0%,'+hex+' 52%,'+tono(hex,-.22)+' 100%)'; }
+
 function renderColores(){
   var g=document.getElementById('color-grid'); if(!g) return;
   g.innerHTML = COLORES.map(function(c){
     return '<div class="ct-color">'
-      + '<div class="ct-color-chip" style="background:'+c.hex+'"></div>'
+      + '<div class="ct-color-chip" style="background:'+degradado(c.hex)+'"></div>'
       + '<div class="ct-color-body"><h4>'+c.name+'</h4><p>'+c.desc+'</p>'
       + '<div class="ct-color-uses">'+c.uses.map(function(u){return '<span>'+u+'</span>';}).join('')+'</div></div></div>';
   }).join('');
@@ -451,7 +458,7 @@ function renderCart(){
   }
   box.innerHTML = cart.map(function(i){
     return '<div class="ct-item">'
-      + '<div class="ct-item-dot" style="background:'+i.colorHex+'"></div>'
+      + '<div class="ct-item-dot" style="background:'+degradado(i.colorHex)+'"></div>'
       + '<div class="ct-item-body"><b>'+i.prod+'</b><small>'+i.color+' · '+i.term+'</small><p>'+i.label+'</p></div>'
       + '<div class="ct-item-price">$'+fmt(i.totalARS)+'</div>'
       + '<button class="ct-item-x" onclick="quitar('+i.id+')" aria-label="Quitar">✕</button>'
@@ -532,4 +539,14 @@ document.addEventListener('DOMContentLoaded', function(){
   if(pd) pd.textContent=new Date().toLocaleDateString('es-AR',{day:'2-digit',month:'long',year:'numeric'});
   actualizarDolarBNA();
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeModal(); });
+
+  var pr=document.getElementById('progress');
+  if(pr) addEventListener('scroll',function(){
+    var h=document.documentElement;
+    pr.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+  });
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 });

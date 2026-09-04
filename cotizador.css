@@ -32,12 +32,25 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 .nav-links a:hover{color:var(--ink)}
 
 /* HERO */
-.ct-hero{padding:70px 0 46px;border-bottom:1px solid var(--line)}
-.ct-hero h1{font-size:clamp(38px,6vw,66px);margin-bottom:16px}
-.ct-hero h1 em{font-style:italic;color:var(--wood)}
-.ct-hero p{max-width:640px;color:var(--mut);font-size:17.5px}
-.ct-bna{display:inline-flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:24px;background:#fff;border:1px solid var(--line);border-radius:100px;padding:10px 20px;font-size:14px;color:var(--mut)}
-.ct-bna b{color:var(--ink)}
+.ct-hero{position:relative;overflow:hidden;padding:0}
+.ct-hero-media{position:absolute;inset:0;z-index:0}
+.ct-hero-media img{width:100%;height:100%;object-fit:cover}
+.ct-hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(14,10,6,.93) 0%,rgba(14,10,6,.74) 44%,rgba(14,10,6,.34) 74%,rgba(14,10,6,.18) 100%)}
+.ct-hero .wrap{position:relative;z-index:2;min-height:60vh;display:flex;flex-direction:column;justify-content:center;padding-top:66px;padding-bottom:60px}
+.ct-hero .eyebrow{color:var(--amber-l)}
+.ct-hero .eyebrow::before{background:var(--amber-l)}
+.ct-hero h1{color:#fff;font-size:clamp(40px,6.4vw,74px);margin-bottom:18px;max-width:900px}
+.ct-hero h1 em{font-style:italic;color:var(--amber-l)}
+.ct-hero p{max-width:600px;color:#e6dccd;font-size:clamp(17px,2vw,20px)}
+.ct-bna{display:inline-flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:28px;background:rgba(255,255,255,.10);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:11px 22px;font-size:14px;color:#e6dccd}
+.ct-bna b{color:#fff}
+
+/* barra de progreso de lectura, igual que la landing */
+.progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--wood),var(--amber-l));z-index:300}
+
+/* aparición al hacer scroll */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
 
 /* SECCIONES */
 .pad{padding:72px 0}
@@ -56,8 +69,9 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 .ct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:26px}
 .ct-card{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
 .ct-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-.ct-card-img{aspect-ratio:4/3;background:#efeadd;overflow:hidden}
-.ct-card-img img{width:100%;height:100%;object-fit:cover}
+.ct-card-img{aspect-ratio:4/3;background:#141210;overflow:hidden}
+.ct-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.ct-card:hover .ct-card-img img{transform:scale(1.06)}
 .ct-card-body{padding:22px;display:flex;flex-direction:column;gap:11px;flex:1}
 .ct-card-body h3{font-size:26px}
 .ct-card-body>p{color:var(--mut);font-size:14.5px;line-height:1.6}
@@ -74,7 +88,8 @@ input,select,textarea,button{font-family:inherit;font-size:inherit}
 /* COLORES */
 .ct-colors{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
 .ct-color{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
-.ct-color-chip{height:110px}
+.ct-color-chip{height:130px;position:relative}
+.ct-color-chip::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.10),transparent 45%,rgba(0,0,0,.16))}
 .ct-color-body{padding:18px}
 .ct-color-body h4{font-size:22px;margin-bottom:6px}
 .ct-color-body p{font-size:13.5px;color:var(--mut);line-height:1.55;margin-bottom:12px}
@@ -223,6 +238,7 @@ footer a{color:#f4f1e6}
 /* ENCABEZADO DE IMPRESIÓN */
 .print-head{display:none}
 @media print{
+  .reveal{opacity:1!important;transform:none!important}
   .print-head{display:flex!important;align-items:center;gap:16px;justify-content:space-between;border-bottom:2px solid #2f5133;padding-bottom:14px;margin-bottom:18px}
   .print-head img{height:38px}
   .print-head .print-contact{font-size:11px;color:#555;text-align:right}
@@ -234,4 +250,37 @@ footer a{color:#f4f1e6}
   .ct-summary .ct-total{color:#2f5133}
   .sec-head{display:none}
   a[href]:after{content:none!important}
+}
+
+/* ===== FRANJA OSCURA DE APLICACIONES — corta el crema y da respiro, como en la landing ===== */
+.ct-apps{background:linear-gradient(135deg,#17251b,#22392a);color:#e7efe0;padding:78px 0}
+.ct-apps .eyebrow{color:var(--amber-l)}
+.ct-apps .eyebrow::before{background:var(--amber-l)}
+.ct-apps h2{color:#fff;font-size:clamp(30px,4.4vw,46px);margin-bottom:12px}
+.ct-apps .sec-head p{color:#bdcbb6}
+.ct-shots{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:210px;gap:14px}
+.ct-shot{border-radius:16px;overflow:hidden;background:#141210;position:relative}
+.ct-shot img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.ct-shot:hover img{transform:scale(1.05)}
+.ct-shot span{position:absolute;left:16px;bottom:14px;z-index:2;font-size:13.5px;font-weight:600;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.ct-shot::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(10,16,11,.55),transparent 55%)}
+.ct-shot.big{grid-column:span 2;grid-row:span 2}
+
+/* Terminaciones con un poco de materia */
+.ct-term{position:relative;overflow:hidden}
+.ct-term::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--wood),var(--amber-l))}
+
+/* El cotizador arranca con un encabezado oscuro para que no sea un formulario suelto */
+.ct-calc-head{background:linear-gradient(135deg,#17251b,#22392a);color:#e7efe0;padding:26px 30px}
+.ct-calc-head h3{color:#fff;font-size:25px;margin-bottom:4px}
+.ct-calc-head p{font-size:14px;color:#bdcbb6;margin:0}
+
+footer .wrap{align-items:flex-start}
+.foot-brand{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.foot-brand img{height:30px}
+
+@media(max-width:900px){
+  .ct-shots{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}
+  .ct-shot.big{grid-column:span 2;grid-row:span 1}
+  .ct-hero .wrap{min-height:52vh}
 }

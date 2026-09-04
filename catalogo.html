@@ -34,6 +34,8 @@ if (META_PIXEL_ID) {
 </head>
 <body>
 
+<div class="progress" id="progress"></div>
+
 <nav class="nav">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="img/logo-wpc-green.png" alt="WPC" style="height:30px"><span>Tandil</span></a>
@@ -49,6 +51,7 @@ if (META_PIXEL_ID) {
 
 <!-- HERO -->
 <section class="ct-hero">
+  <div class="ct-hero-media"><img src="img/life-deck.jpg" alt="Deck WPC en una galería con vista a las sierras"></div>
   <div class="wrap">
     <span class="eyebrow">Catálogo y precios</span>
     <h1>Todo el sistema WPC,<br><em>con precio</em> y calculadora.</h1>
@@ -63,7 +66,7 @@ if (META_PIXEL_ID) {
 <!-- PRODUCTOS -->
 <section class="pad" id="productos">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <span class="eyebrow">Catálogo completo</span>
       <h2>Productos</h2>
       <p>Medidas y colores especiales, bajo pedido. Los precios de lista son por unidad, con IVA incluido y sin instalación.</p>
@@ -74,43 +77,65 @@ if (META_PIXEL_ID) {
       <button class="ct-filter" onclick="filtrarCat('wallpanel',this)">Wall Panel</button>
       <button class="ct-filter" onclick="filtrarCat('perfileria',this)">Perfilería</button>
     </div>
-    <div class="ct-grid" id="prod-grid"></div>
+    <div class="ct-grid reveal" id="prod-grid"></div>
   </div>
 </section>
 
 <!-- COLORES -->
 <section class="pad alt" id="colores">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <span class="eyebrow">Línea de tonos</span>
       <h2>Seis tonos nativos</h2>
       <p>Cada color está inspirado en la flora argentina y tiene disponibilidad permanente en stock. El tono final puede variar según la iluminación y la terminación elegida.</p>
     </div>
-    <div class="ct-colors" id="color-grid"></div>
+    <div class="ct-colors reveal" id="color-grid"></div>
+  </div>
+</section>
+
+<!-- APLICACIONES -->
+<section class="ct-apps">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Dónde se usa</span>
+      <h2>El mismo sistema, toda la casa</h2>
+      <p>Piso, pared y estructura con el mismo material y el mismo tono. Sin juntas de materiales distintos envejeciendo a distinta velocidad.</p>
+    </div>
+    <div class="ct-shots reveal">
+      <a class="ct-shot big" href="#cotizador"><img src="img/life-pool.jpg" alt="Deck WPC junto a la pileta" loading="lazy"><span>Bordes de pileta</span></a>
+      <a class="ct-shot" href="#cotizador"><img src="img/life-facade.jpg" alt="Fachada revestida en WPC" loading="lazy"><span>Fachadas</span></a>
+      <a class="ct-shot" href="#cotizador"><img src="img/life-wall.jpg" alt="Pared revestida en WPC" loading="lazy"><span>Revestimientos</span></a>
+      <a class="ct-shot" href="#cotizador"><img src="img/life-deckpool.jpg" alt="Galería con deck WPC" loading="lazy"><span>Galerías y quinchos</span></a>
+      <a class="ct-shot" href="#cotizador"><img src="img/perfil-60-2.webp" alt="Pérgola con perfilería WPC" loading="lazy"><span>Pérgolas y parasoles</span></a>
+    </div>
   </div>
 </section>
 
 <!-- TERMINACIONES -->
 <section class="pad">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <span class="eyebrow">Terminaciones</span>
       <h2>Tres acabados para cada proyecto</h2>
     </div>
-    <div class="ct-terms" id="term-grid"></div>
+    <div class="ct-terms reveal" id="term-grid"></div>
   </div>
 </section>
 
 <!-- COTIZADOR -->
 <section class="pad alt" id="cotizador">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <span class="eyebrow">Cotizador</span>
       <h2>Armá tu presupuesto</h2>
       <p>Calculá deck por forma del espacio, wall panel por superficie de paño y perfilería por metro lineal, separación o cantidad. Sumá todo al presupuesto y mandánoslo por WhatsApp.</p>
     </div>
 
-    <div class="ct-calc">
+    <div class="ct-calc reveal">
+      <div class="ct-calc-head">
+        <h3>Calculadora</h3>
+        <p>Elegí qué vas a calcular. Podés sumar los tres al mismo presupuesto.</p>
+      </div>
       <div class="ct-tabs">
         <button class="ct-tab active" data-tab="deck" onclick="selTab('deck',this)">Deck por formas</button>
         <button class="ct-tab" data-tab="wallpanel" onclick="selTab('wallpanel',this)">Wall Panel</button>
@@ -245,7 +270,7 @@ if (META_PIXEL_ID) {
 <!-- PRESUPUESTO -->
 <section class="pad" id="presupuesto">
   <div class="wrap">
-    <div class="sec-head">
+    <div class="sec-head reveal">
       <span class="eyebrow">Tu presupuesto</span>
       <h2>Resumen</h2>
       <p>Revisá los ítems, completá tus datos y mandánoslo. Te confirmamos stock, plazo de entrega y, si querés, el costo de instalación en Tandil.</p>
@@ -255,7 +280,7 @@ if (META_PIXEL_ID) {
   <div><b>Presupuesto WPC Tandil</b><br><small id="print-date"></small></div>
   <div class="print-contact">WhatsApp +54 9 2494 20-9464<br>@wpc.tandil</div>
 </div>
-<div class="ct-cart">
+<div class="ct-cart reveal">
       <div class="ct-cart-box" id="cart-items"></div>
       <div class="ct-summary">
         <h3>Total estimado</h3>
@@ -279,7 +304,10 @@ if (META_PIXEL_ID) {
 
 <footer>
   <div class="wrap">
-    <span>WPC Tandil · Deck, revestimientos y perfilería sin mantenimiento</span>
+    <div>
+      <div class="foot-brand"><img src="img/logo-wpc-cream.png" alt="WPC Tandil"><b>WPC Tandil</b></div>
+      <span>Deck, revestimientos y perfilería sin mantenimiento.<br>Precios en pesos al dólar del día · IVA incluido.</span>
+    </div>
     <span><a href="https://wa.me/5492494209464">WhatsApp +54 9 2494 20-9464</a> · <a href="https://instagram.com/wpc.tandil">@wpc.tandil</a></span>
   </div>
 </footer>

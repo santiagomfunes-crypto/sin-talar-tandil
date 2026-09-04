@@ -144,9 +144,10 @@ section.pad{padding:96px 0}
 .step p{font-size:15px;color:var(--mut)}
 
 /* COLORS */
-.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.swatches{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .sw{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
-.sw .chip{height:150px}
+.sw .chip{height:150px;position:relative}
+.sw .chip::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.10),transparent 45%,rgba(0,0,0,.14))}
 .sw .nm{padding:16px 18px;font-weight:600;font-size:16px}
 .sw .nm small{display:block;color:var(--mut);font-weight:400;font-size:13px;margin-top:2px}
 
@@ -354,12 +355,12 @@ footer a{color:var(--amber-l)}
   <div class="wrap">
     <div class="sec-head reveal"><span class="eyebrow">Terminaciones</span><h2>Elegí tu tono de madera</h2><p>Seis tonos inspirados en la flora argentina, con stock permanente. Estables al sol: no se decoloran.</p></div>
     <div class="swatches">
-      <div class="sw reveal"><div class="chip" style="background:#070e16"></div><div class="nm">Caldén<small>Oscuro profundo, alto impacto</small></div></div>
-      <div class="sw reveal"><div class="chip" style="background:#4f3126"></div><div class="nm">Alerce<small>Madera patagónica cálida</small></div></div>
-      <div class="sw reveal"><div class="chip" style="background:#848275"></div><div class="nm">Arrayán<small>Gris cálido y sereno</small></div></div>
-      <div class="sw reveal"><div class="chip" style="background:#88673c"></div><div class="nm">Sauce<small>Dorado natural y liviano</small></div></div>
-      <div class="sw reveal"><div class="chip" style="background:#ad885b"></div><div class="nm">Ombú<small>Beige noble y versátil</small></div></div>
-      <div class="sw reveal"><div class="chip" style="background:#565857"></div><div class="nm">Silver Gray<small>Gris plata contemporáneo</small></div></div>
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(140deg,#4c5157 0%,#070e16 52%,#050a11 100%)"></div><div class="nm">Caldén<small>Oscuro profundo, alto impacto</small></div></div>
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(140deg,#806a62 0%,#4f3126 52%,#3d261d 100%)"></div><div class="nm">Alerce<small>Madera patagónica cálida</small></div></div>
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(140deg,#a6a59b 0%,#848275 52%,#66655b 100%)"></div><div class="nm">Arrayán<small>Gris cálido y sereno</small></div></div>
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(140deg,#a99172 0%,#88673c 52%,#6a502e 100%)"></div><div class="nm">Sauce<small>Dorado natural y liviano</small></div></div>
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(140deg,#c3a988 0%,#ad885b 52%,#866a46 100%)"></div><div class="nm">Ombú<small>Beige noble y versátil</small></div></div>
+      <div class="sw reveal"><div class="chip" style="background:linear-gradient(140deg,#858686 0%,#565857 52%,#434443 100%)"></div><div class="nm">Silver Gray<small>Gris plata contemporáneo</small></div></div>
     </div>
     <p style="text-align:center;color:var(--mut);margin-top:26px;font-size:14px">*Los tonos en pantalla son orientativos. Consultanos por las muestras físicas.</p>
   </div>
