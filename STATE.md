@@ -170,3 +170,72 @@ Hoy da 5 de 6 en verde; el que falta es el WhatsApp.
 - ⚠️ El runtime en ~/wpc-pauta es COPIA. Fuente = repo en Escritorio. Si se edita dashboard/index.html o dashboard-data.py, RE-COPIAR a ~/wpc-pauta. 
 - Apagar: launchctl unload ~/Library/LaunchAgents/com.wpc.dashboard.*.plist
 - Campaña ya gastando (primeros centavos 11:27). Loop de sesión viejo (task) quedó redundante, muere con la sesión.
+
+## 4 sep 2026 — Campaña FORMULARIO (Lead Ads) creada + dashboard comparativo
+- Formulario instantáneo creado: form_id=1798619054495337 (nombre + teléfono prellenados, política privacidad, thank-you con botón WhatsApp). Requirió aceptar ToS de Lead Gen en la Página (Santi lo hizo).
+- Campaña 120251440759520234 "WPC Tandil | Prospecting | Lead Form", adset 120251440760070234, 5 ads (wpc-3,1,7,4,8), OUTCOME_LEADS / LEAD_GENERATION / destination ON_AD, USD10/día. TODO EN PAUSA.
+- Script: create-campaign-forms.py (reusa form_id via REUSE_FORM_ID; trae miniatura de cada video, obligatoria para lead ads).
+- dashboard-data.py ahora también trae la campaña de formulario (forms: spend/impressions/leads/cost_per_lead/active). dashboard/index.html muestra sección "WhatsApp vs Formulario". Sincronizado a ~/wpc-pauta.
+- PENDIENTE: Santi activa la campaña de Formulario (switch ON / "prendela") para arrancar el A/B WhatsApp vs Formulario. WhatsApp ya en 12 clics / $0.72.
+
+## 4 sep 2026 — PIVOT: todo al Formulario
+- PROBADO (siguiendo el redirect real de wa.me → api.whatsapp.com/send): link correcto, número válido y en WhatsApp (perfil "Santiago Funes | Real Estate"), PERO la página intermedia tiene botón "Abrir aplicación" = paso extra que el navegador in-app de Meta no completa → 19 clics / 0 mensajes. Techo estructural del wa.me, NO arreglable desde el link.
+- DECISIÓN Santi: pausar WhatsApp, todo al Formulario.
+- Ejecutado: campaña WhatsApp 120251438753090234 = PAUSED. Formulario 120251440759520234 adset a daily_budget=2000 ($20), ACTIVE. Total $20/día solo en Formulario.
+- WhatsApp nativo (CTWA) queda para cuando Santi consiga teléfono spare para el 209659 o lo monte en Cloud API/Wati. iPhone no deja 3ra cuenta de WhatsApp; el 209659 necesita otro device o la API.
+- Dashboard: sección WhatsApp queda como histórico congelado; Formulario es lo vivo (spend/leads/cost_per_lead + leads_list con nombre+teléfono+botón Escribirle, traídos por API del form 1798619054495337). Pendiente opcional: hacer el dashboard Forms-first.
+
+## 4 sep 2026 — Dashboard Forms-first
+- dashboard-data.py: agrega forms["ads"] (insights por anuncio del Formulario: spend/impressions/leads/cost_per_lead) + forms["budget"]=20.
+- dashboard/index.html reescrito Forms-first: KPIs = Leads / Costo por lead (hero) / Gasto (vs $20) / Impresiones. Sección "Leads que entraron" (auto, nombre+tel+Escribirle). Tabla "Qué ángulo trae leads" (forms.ads, ganador verde). WhatsApp movido a <details> "histórico (pausado)" con funnel + CRM manual.
+- Sincronizado a ~/wpc-pauta. Formulario activo, entregando (91 impresiones, 0 leads aún).
+- PENDIENTE decisión con Santi cuando haya datos: cortar ángulos flojos, escalar ganador, y los 3 números de unit economics (ticket/margen deck, tasa de cierre, meta) para fijar techo de costo por lead.
+
+## 4 sep 2026 — Contenido ORGÁNICO (separado de la pauta)
+- Nuevo archivo **`GUIONES-ORGANICO.md`**: 14 guiones en 6 series (A "Lo que nadie te dice" / B "¿Cuánto sale?" / C "Test tandilense" / D Antes-Después 📱 / E ASMR sin voz / F los 2 que venden) + calendario de 4 semanas.
+- Diferencia clave vs. `GUIONES-FLOW.md` (que es PAUTA): el orgánico **no cierra con CTA de WhatsApp** — el CTA duro marca el video como anuncio y corta el alcance. Placa final liviana = logo + @wpc.tandil.
+- **Restricción que ordena todo:** Veo = 8s por clip ≈ 20-22 palabras de VO. Los guiones educativos van cortados en 2 clips de 8s que se empalman en Remotion.
+- En los clips ASMR hay que escribir `Sin voz en off. Solo sonido ambiente.` o Veo narra igual.
+- La serie D (antes/después) **NO se genera con IA a propósito**: sintético se nota y quema la credibilidad. Se filma con el celular desde el mismo punto exacto (marcar el piso con cinta) — y hay que grabar el "antes" SIEMPRE.
+- Precios de la serie B quedaron como `[MONTO]`: los completa Santi, no se inventan.
+- 🚧 PENDIENTE de código: variante orgánica de `ClipAd.tsx` (placa liviana sin CTA + hook de texto arriba en el primer segundo, que hoy no existe). No construida — esperando OK.
+
+## 4 sep 2026 — Los guiones orgánicos v1 salieron mal en Flow. Causa y corrección.
+Santi generó la serie A y los videos salieron horribles. Autopsia — v1 rompía 5 reglas que el proyecto YA tenía documentadas:
+1. **Estructura de 2 clips por pieza (el error grande).** Dos generaciones separadas de Veo NO matchean color, luz ni encuadre: al empalmarlas se ve como dos videos distintos pegados. Los anuncios que funcionaron (tanda 2/sep) eran **1 clip = 1 escena = 1 movimiento de cámara**. Se partió en dos para meter más texto educativo → se forzó la herramienta para que entre el contenido. Al revés.
+2. **Aperturas cerradas** (cenital cerrado en A1, macro en A4) contra la regla explícita "abrir SIEMPRE en plano medio/abierto, NUNCA close-up del deck".
+3. **Manos como sujeto principal** en 2 de 8 prompts. Es el fallo #1 de Veo, ya medido (wpc-5 = 7/10 por riesgo manos/caras).
+4. **Agua/pileta** en 2 prompts, siendo "el elemento que sale peor" según la propia bitácora.
+5. **Checklist de negativos** ("no render 3D, sin morphing, nunca brillante") en los 8, cuando el aprendizaje del 2/sep dice prompt largo-cinematográfico y NO checklist.
+**Corrección aplicada:** A2/A3/A4 reescritos como **1 clip de 8s, ~250 palabras**, estructura MATERIAL → ESCENA → CÁMARA (un solo movimiento) → LUZ Y COLOR → MÚSICA → AMBIENTE → VO, sin lista de negativos. A1 **sacado de Flow**: pasa a filmarse con celular (es un detalle técnico con manos, Veo no lo va a hacer nunca bien).
+**Regla nueva:** si un guion necesita mostrar un detalle técnico, manos trabajando o un antes/después, **no es para Veo**: es para el celular en obra. Veo sirve para escena linda + una línea.
+
+## 4 sep 2026 — Catálogo + Cotizador propio (copiado del proveedor, +15%)
+- Nuevo: **`catalogo.html` + `cotizador.js` + `cotizador.css`** (3 archivos separados, NO monolito).
+  Es la página de productos/precios/presupuestos de WPC Tandil, linkeada desde la nav y desde las
+  3 cards de producto de `index.html`.
+- **Fuente de la data:** sintalarwpc.com (el fabricante), scrapeada el 4-sep. De ahí salieron los
+  4 productos con sus medidas reales, los 6 colores con hex exactos, las 3 terminaciones y la
+  mecánica de cálculo (rinde por unidad, desperdicio, separación entre perfiles).
+- **Precios: costo del proveedor × 1,15.** Deck USD 31,80/tabla · Wall Panel 38,70/panel ·
+  Perfil 60×42 21,33/barra · Perfil 42×22 9,69/barra. Se pesifican al **dólar BNA venta del día**
+  (bluelytics → criptoya → argentinadatos, con fallback $1420 si las tres fallan).
+  ⚠️ **La base de costo y el margen están en `PRECIOS-INTERNO.md`, que está GITIGNOREADO** porque
+  el repo es público. En `cotizador.js` solo viven los precios FINALES (ya con el margen adentro,
+  no volver a multiplicar). Para cambiar el margen: recalcular y pisar `precioUSD`.
+- **Cotizador (3 modos, todos verificados en browser):**
+  · Deck por forma del espacio (9 formas: rect, cuadrado, L, U, círculo, semicírculo, pentágono,
+    trapecio y personalizada de hasta 4 rectángulos) + SVG técnico con los números de cada campo.
+  · Wall Panel por superficie de paño (rinde 0,638 m²/panel) con cantidad de paños.
+  · Perfilería en 3 modos: metro lineal, separación fija (calcula cuántos entran y la separación
+    real) y cantidad fija. Avisa si la pieza no entra en la barra comercial o si los perfiles no
+    entran en el ancho.
+- Presupuesto acumulativo con localStorage, envío por WhatsApp con el detalle en texto,
+  copiar al portapapeles e imprimir/PDF (hay `@media print`). Evento `AddToQuote` al pixel.
+- **También corregido en `index.html`:** el WhatsApp viejo `5492494557754` → **5492494209464**
+  (era un pendiente que ya estaba anotado acá) y los 4 colores inventados (Teca/Caramelo/Coñac/
+  Greige) → los **6 reales** (Caldén, Alerce, Arrayán, Sauce, Ombú, Silver Gray) con los hex del
+  fabricante.
+- 4 fotos de producto que faltaban bajadas a `img/` (perfil-40-2/3, perfil-60-2/3).
+- 🚧 NO DEPLOYADO: probado en local (`python3 -m http.server 8131`), esperando OK de Santi para
+  pushear a GitHub Pages.

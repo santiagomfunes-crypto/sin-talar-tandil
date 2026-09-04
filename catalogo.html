@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo y cotizador — WPC Tandil | Deck, Wall Panel y Perfilería</title>
+<meta name="description" content="Catálogo completo de deck, wall panel y perfilería WPC en Tandil, con precios en pesos actualizados al dólar del día. Calculá tu presupuesto online por m², metro lineal o cantidad de perfiles y mandanoslo por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="canonical" href="https://santiagomfunes-crypto.github.io/sin-talar-tandil/catalogo.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Catálogo y cotizador WPC Tandil — precios al día">
+<meta property="og:description" content="Deck, wall panel y perfilería WPC con precio en pesos actualizado al dólar del día. Calculá tu presupuesto online y mandánoslo por WhatsApp.">
+<meta property="og:image" content="https://santiagomfunes-crypto.github.io/sin-talar-tandil/img/life-deck.jpg">
+<meta property="og:locale" content="es_AR">
+<meta name="theme-color" content="#2f5133">
+<link rel="stylesheet" href="cotizador.css">
+<!-- ===== Meta Pixel — WPC Tandil ===== -->
+<script>
+var META_PIXEL_ID = '1063781786398885';
+if (META_PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', META_PIXEL_ID);
+  fbq('track', 'PageView');
+}
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+  src="https://www.facebook.com/tr?id=1063781786398885&ev=PageView&noscript=1"/></noscript>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="img/logo-wpc-green.png" alt="WPC" style="height:30px"><span>Tandil</span></a>
+    <div class="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="#productos">Productos</a>
+      <a href="#colores">Colores</a>
+      <a href="#cotizador">Cotizador</a>
+      <a class="btn btn-sm" href="#presupuesto" style="position:relative">Mi presupuesto<span class="cart-badge" id="cart-badge">0</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="ct-hero">
+  <div class="wrap">
+    <span class="eyebrow">Catálogo y precios</span>
+    <h1>Todo el sistema WPC,<br><em>con precio</em> y calculadora.</h1>
+    <p>Cuatro líneas de producto, seis colores de stock permanente y tres terminaciones. Cargá las medidas de tu proyecto y armá el presupuesto vos mismo, sin esperar a que te contestemos.</p>
+    <div class="ct-bna">
+      <span>Precios en pesos al dólar BNA venta del día: <b id="bna-display">—</b></span>
+      <span>· IVA 21% incluido</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTOS -->
+<section class="pad" id="productos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Catálogo completo</span>
+      <h2>Productos</h2>
+      <p>Medidas y colores especiales, bajo pedido. Los precios de lista son por unidad, con IVA incluido y sin instalación.</p>
+    </div>
+    <div class="ct-filters">
+      <button class="ct-filter active" onclick="filtrarCat('todos',this)">Todos</button>
+      <button class="ct-filter" onclick="filtrarCat('deck',this)">Deck</button>
+      <button class="ct-filter" onclick="filtrarCat('wallpanel',this)">Wall Panel</button>
+      <button class="ct-filter" onclick="filtrarCat('perfileria',this)">Perfilería</button>
+    </div>
+    <div class="ct-grid" id="prod-grid"></div>
+  </div>
+</section>
+
+<!-- COLORES -->
+<section class="pad alt" id="colores">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Línea de tonos</span>
+      <h2>Seis tonos nativos</h2>
+      <p>Cada color está inspirado en la flora argentina y tiene disponibilidad permanente en stock. El tono final puede variar según la iluminación y la terminación elegida.</p>
+    </div>
+    <div class="ct-colors" id="color-grid"></div>
+  </div>
+</section>
+
+<!-- TERMINACIONES -->
+<section class="pad">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Terminaciones</span>
+      <h2>Tres acabados para cada proyecto</h2>
+    </div>
+    <div class="ct-terms" id="term-grid"></div>
+  </div>
+</section>
+
+<!-- COTIZADOR -->
+<section class="pad alt" id="cotizador">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Cotizador</span>
+      <h2>Armá tu presupuesto</h2>
+      <p>Calculá deck por forma del espacio, wall panel por superficie de paño y perfilería por metro lineal, separación o cantidad. Sumá todo al presupuesto y mandánoslo por WhatsApp.</p>
+    </div>
+
+    <div class="ct-calc">
+      <div class="ct-tabs">
+        <button class="ct-tab active" data-tab="deck" onclick="selTab('deck',this)">Deck por formas</button>
+        <button class="ct-tab" data-tab="wallpanel" onclick="selTab('wallpanel',this)">Wall Panel</button>
+        <button class="ct-tab" data-tab="perfiles" onclick="selTab('perfiles',this)">Perfilería</button>
+      </div>
+
+      <!-- DECK -->
+      <div class="ct-panel active" id="panel-deck">
+        <div class="ct-shapes">
+          <button class="ct-shape active" onclick="selForma('rectangle',this)">Rectángulo</button>
+          <button class="ct-shape" onclick="selForma('square',this)">Cuadrado</button>
+          <button class="ct-shape" onclick="selForma('lshape',this)">Forma en L</button>
+          <button class="ct-shape" onclick="selForma('ushape',this)">Forma en U</button>
+          <button class="ct-shape" onclick="selForma('circle',this)">Círculo</button>
+          <button class="ct-shape" onclick="selForma('semicircle',this)">Semicírculo</button>
+          <button class="ct-shape" onclick="selForma('pentagon',this)">Pentágono</button>
+          <button class="ct-shape" onclick="selForma('trapezoid',this)">Trapecio</button>
+          <button class="ct-shape" onclick="selForma('custom',this)">Personalizada</button>
+        </div>
+        <div class="ct-cols">
+          <div>
+            <p class="ct-hint" id="forma-desc"></p>
+            <div class="ct-fields" id="forma-fields"></div>
+            <div class="ct-fields">
+              <label class="ct-field"><span>Color</span><select id="dk-color"></select></label>
+              <label class="ct-field"><span>Terminación</span><select id="dk-term"></select></label>
+              <label class="ct-field"><span>Desperdicio %</span><input type="number" id="dk-waste" value="10" min="0" max="40" step="1" oninput="calcDeck()"></label>
+            </div>
+            <div class="ct-result" id="dk-result"><div class="ct-ph">Cargá las medidas para ver el cálculo.</div></div>
+            <button class="btn btn-block" onclick="addDeck()">Agregar al presupuesto</button>
+            <p class="ct-note">Cálculo orientativo. La cotización final puede variar según cortes, estructura de apoyo, instalación y logística.</p>
+          </div>
+          <div class="ct-visual">
+            <h4>Vista técnica</h4>
+            <p>Los números del dibujo coinciden con los campos de medida. Todas las medidas van en metros.</p>
+            <div id="forma-svg"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WALL PANEL -->
+      <div class="ct-panel" id="panel-wallpanel">
+        <div class="ct-cols">
+          <div>
+            <p class="ct-hint">Panel de 2,90 m × 0,22 m — rinde 0,638 m² por unidad. Cargá el ancho y el alto del paño; si tenés varios paños iguales, sumá la cantidad.</p>
+            <div class="ct-fields">
+              <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" id="wp-w" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
+              <label class="ct-field"><span>Alto del paño (m)</span><input type="number" id="wp-h" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
+              <label class="ct-field"><span>Cantidad de paños</span><input type="number" id="wp-panos" value="1" min="1" step="1" oninput="calcWP()"></label>
+              <label class="ct-field"><span>Desperdicio %</span><input type="number" id="wp-waste" value="10" min="0" max="40" step="1" oninput="calcWP()"></label>
+              <label class="ct-field"><span>Color</span><select id="wp-color"></select></label>
+              <label class="ct-field"><span>Terminación</span><select id="wp-term"></select></label>
+            </div>
+            <div class="ct-result" id="wp-result"><div class="ct-ph">Cargá las medidas para ver el cálculo.</div></div>
+            <button class="btn btn-block" onclick="addWP()">Agregar al presupuesto</button>
+            <p class="ct-note">Cálculo orientativo. No incluye perfilería de arranque, remates ni fijaciones.</p>
+          </div>
+          <div class="ct-visual">
+            <h4>Cómo se calcula</h4>
+            <p>Superficie del paño × cantidad, más el desperdicio, dividido el rinde de cada panel. Siempre redondeamos para arriba: no se venden medios paneles.</p>
+            <svg viewBox="0 0 200 140" class="ct-svg">
+              <rect x="20" y="20" width="160" height="100" fill="rgba(47,81,51,.06)" stroke="#2f5133" stroke-width="2"/>
+              <g stroke="#2f5133" stroke-width="1.2" opacity=".55">
+                <line x1="42" y1="20" x2="42" y2="120"/><line x1="64" y1="20" x2="64" y2="120"/>
+                <line x1="86" y1="20" x2="86" y2="120"/><line x1="108" y1="20" x2="108" y2="120"/>
+                <line x1="130" y1="20" x2="130" y2="120"/><line x1="152" y1="20" x2="152" y2="120"/>
+              </g>
+              <text x="100" y="14" class="lbl">ancho del paño</text>
+              <text x="190" y="70" class="lbl" transform="rotate(90 190 70)">alto del paño</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- PERFILES -->
+      <div class="ct-panel" id="panel-perfiles">
+        <div class="ct-modes">
+          <button class="ct-mode active" onclick="selModoPerfil('linear',this)">Metro lineal</button>
+          <button class="ct-mode" onclick="selModoPerfil('separacion',this)">Separación fija</button>
+          <button class="ct-mode" onclick="selModoPerfil('cantidad',this)">Cantidad fija</button>
+        </div>
+        <div class="ct-cols">
+          <div>
+            <p class="ct-hint">Para pérgolas, cerramientos, fachadas ventiladas, cielorrasos y separadores. Elegí el perfil, la cara que queda a la vista y cómo querés calcular.</p>
+            <div class="ct-fields">
+              <label class="ct-field"><span>Perfil</span><select id="pr-prod" onchange="actualizarCaras()"><option value="perfil6042">Perfil 60×42</option><option value="perfil4023">Perfil 42×22</option></select></label>
+              <label class="ct-field"><span>Cara visible</span><select id="pr-face" onchange="calcPR()"></select></label>
+              <label class="ct-field"><span>Largo comercial (m)</span><input type="number" id="pr-barlen" value="2.9" min="0.5" step="0.1" oninput="calcPR()"></label>
+              <label class="ct-field"><span>Desperdicio %</span><input type="number" id="pr-waste" value="10" min="0" max="40" step="1" oninput="calcPR()"></label>
+              <label class="ct-field"><span>Color</span><select id="pr-color"></select></label>
+            </div>
+
+            <div class="pr-mode-panel active" id="pr-mode-linear">
+              <div class="ct-fields">
+                <label class="ct-field"><span>Metros lineales necesarios</span><input type="number" id="pr-ml" min="0" step="0.1" placeholder="0.0" oninput="calcPR()"></label>
+              </div>
+            </div>
+
+            <div class="pr-mode-panel" id="pr-mode-separacion">
+              <div class="ct-fields">
+                <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" id="pr-sep-w" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Alto del paño (m)</span><input type="number" id="pr-sep-h" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Orientación</span><select id="pr-sep-orient" onchange="calcPR()"><option value="vertical">Vertical</option><option value="horizontal">Horizontal</option></select></label>
+                <label class="ct-field"><span>Separación deseada (cm)</span><input type="number" id="pr-sep-gap" value="5" min="0" step="0.5" oninput="calcPR()"></label>
+              </div>
+            </div>
+
+            <div class="pr-mode-panel" id="pr-mode-cantidad">
+              <div class="ct-fields">
+                <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" id="pr-fix-w" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Alto del paño (m)</span><input type="number" id="pr-fix-h" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Orientación</span><select id="pr-fix-orient" onchange="calcPR()"><option value="vertical">Vertical</option><option value="horizontal">Horizontal</option></select></label>
+                <label class="ct-field"><span>Cantidad de perfiles</span><input type="number" id="pr-fix-count" min="1" step="1" placeholder="0" oninput="calcPR()"></label>
+              </div>
+            </div>
+
+            <div class="ct-result" id="pr-result"><div class="ct-ph">Cargá los datos para ver el cálculo.</div></div>
+            <button class="btn btn-block" onclick="addPR()">Agregar al presupuesto</button>
+            <p class="ct-note">Cálculo orientativo. No incluye estructura portante, herrajes ni fijaciones.</p>
+          </div>
+          <div class="ct-visual">
+            <h4>Vista de perfiles</h4>
+            <p>Esquema para verificar orientación, cantidad y separación antes de cerrar el pedido.</p>
+            <div id="pr-preview"><span class="ct-ph">Configurá el paño para ver la distribución.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRESUPUESTO -->
+<section class="pad" id="presupuesto">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Tu presupuesto</span>
+      <h2>Resumen</h2>
+      <p>Revisá los ítems, completá tus datos y mandánoslo. Te confirmamos stock, plazo de entrega y, si querés, el costo de instalación en Tandil.</p>
+    </div>
+    <div class="print-head">
+  <img src="img/logo-wpc-green.png" alt="WPC Tandil">
+  <div><b>Presupuesto WPC Tandil</b><br><small id="print-date"></small></div>
+  <div class="print-contact">WhatsApp +54 9 2494 20-9464<br>@wpc.tandil</div>
+</div>
+<div class="ct-cart">
+      <div class="ct-cart-box" id="cart-items"></div>
+      <div class="ct-summary">
+        <h3>Total estimado</h3>
+        <div class="ct-total" id="cart-total">$0</div>
+        <small>Precios en pesos · dólar BNA venta · IVA 21% incluido · sin instalación · sujeto a confirmación de stock.</small>
+        <div class="ct-summary-form">
+          <label class="ct-field"><span>Nombre</span><input type="text" id="cli-nombre" placeholder="Tu nombre"></label>
+          <label class="ct-field"><span>Zona / obra</span><input type="text" id="cli-lugar" placeholder="Tandil, barrio o dirección"></label>
+          <label class="ct-field"><span>Comentario</span><textarea id="cli-nota" rows="2" placeholder="Contanos del proyecto"></textarea></label>
+        </div>
+        <div class="ct-summary-actions">
+          <button class="btn btn-wa btn-block" onclick="enviarWA()">Enviar por WhatsApp</button>
+          <button class="btn btn-ghost btn-block" style="color:#f4f1e6;border-color:rgba(255,255,255,.22)" onclick="imprimirPresupuesto()">Descargar / imprimir PDF</button>
+          <button class="ct-link" onclick="copiarPresupuesto()">Copiar como texto</button>
+          <button class="ct-link" onclick="limpiar()">Vaciar presupuesto</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>WPC Tandil · Deck, revestimientos y perfilería sin mantenimiento</span>
+    <span><a href="https://wa.me/5492494209464">WhatsApp +54 9 2494 20-9464</a> · <a href="https://instagram.com/wpc.tandil">@wpc.tandil</a></span>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5492494209464?text=Hola!%20Quiero%20consultar%20por%20WPC" target="_blank" aria-label="WhatsApp" onclick="if(window.fbq)fbq('track','Contact')">
+  <svg width="27" height="27" viewBox="0 0 24 24" fill="#0b2b16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<div class="bnav">
+  <button class="bnav-item" onclick="irA('productos')"><span>▦</span>Productos</button>
+  <button class="bnav-item" onclick="irA('colores')"><span>◍</span>Colores</button>
+  <button class="bnav-item" onclick="irA('cotizador')"><span>▤</span>Cotizador</button>
+  <button class="bnav-item" onclick="irA('presupuesto')"><span class="bnav-ic">$<i class="cart-badge" id="cart-badge-m">0</i></span>Presupuesto</button>
+</div>
+
+<div class="ct-modal-overlay" id="modal-overlay" onclick="closeModalBg(event)">
+  <div class="ct-modal"><button class="ct-modal-close" onclick="closeModal()">✕</button><div id="modal-body"></div></div>
+</div>
+
+<div id="toast"></div>
+
+<script src="cotizador.js"></script>
+</body>
+</html>
