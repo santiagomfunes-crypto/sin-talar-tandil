@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Post presentación WPC Tandil</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#2f5133; --ink:#15221a; --cream:#f4f1e6; --soft:#bcd3b6}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1080px;height:1350px;overflow:hidden}
+  .placa{position:relative;width:1080px;height:1350px;background:var(--ink);overflow:hidden;
+    font-family:'Inter',sans-serif}
+  .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  /* post 2: la cortina con sol directo cae justo bajo el riel de texto. El panel de
+     listones es simétrico, así que espejarla no se nota y salva logo y kicker. */
+  .placa.p2 .bg{transform:scaleX(-1)}
+  /* post 3: el deck vivía en el tercio inferior, donde el scrim pega más fuerte.
+     Lo subo a la banda limpia y le igualo saturación con los otros dos. */
+  .placa.p3 .bg{object-position:center 34%;filter:saturate(1.5) brightness(.94)}
+  /* Scrim: fuerte abajo donde va todo el texto, y una pizca arriba para el logo.
+     El medio queda limpio — es donde se tiene que ver el deck. */
+  .scrim{position:absolute;inset:0;background:
+    linear-gradient(180deg,
+      rgba(12,20,13,.55) 0%, rgba(12,20,13,.20) 13%, rgba(12,20,13,0) 26%,
+      rgba(12,20,13,0) 34%, rgba(12,20,13,.55) 48%, rgba(12,20,13,.78) 58%,
+      rgba(12,20,13,.90) 74%, rgba(12,20,13,.94) 100%)}
+  .logo{position:absolute;top:56px;left:88px;width:300px;
+    filter:drop-shadow(0 4px 20px rgba(0,0,0,.65))}
+  .content{position:absolute;left:88px;right:74px;bottom:66px}
+  .kicker{display:flex;align-items:center;gap:16px;color:rgba(244,241,230,.88);font-weight:700;
+    font-size:26px;letter-spacing:5px;text-transform:uppercase;margin-bottom:22px;
+    text-shadow:0 2px 10px rgba(0,0,0,.8)}
+  .kicker i{width:46px;height:3px;background:rgba(244,241,230,.88);display:inline-block}
+  .head{font-family:'Cormorant Garamond',serif;color:var(--cream);font-weight:700;
+    font-size:88px;line-height:1.05;white-space:pre-line;
+    text-shadow:0 6px 34px rgba(0,0,0,.7);margin-bottom:24px}
+  .sub{color:#e4e9df;font-size:31px;line-height:1.42;font-weight:400;max-width:27ch;
+    text-shadow:0 2px 12px rgba(0,0,0,.85);margin-bottom:40px}
+  .cta{display:flex;align-items:center;gap:26px}
+  .btn{background:var(--cream);color:var(--ink);font-weight:800;font-size:33px;
+    padding:23px 44px;border-radius:100px}
+  .wa{color:var(--cream);font-weight:600;font-size:27px;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+  .wa b{display:block;font-weight:700;color:var(--soft)}
+</style>
+</head>
+<body>
+<div class="placa" id="placa">
+  <img class="bg" id="bg" src="">
+  <div class="scrim"></div>
+  <img class="logo" src="../remotion/public/logo-wpc-cream.png">
+  <div class="content">
+    <div class="kicker"><i></i><em id="kicker" style="font-style:normal"></em></div>
+    <div class="head" id="head"></div>
+    <div class="sub" id="sub"></div>
+    <div class="cta">
+      <div class="btn">Pedí tu presupuesto</div>
+      <div class="wa">WhatsApp · Tandil<b>@wpc.tandil</b></div>
+    </div>
+  </div>
+</div>
+<script>
+// Los 3 posts de presentación. Se eligen con ?n=1|2|3
+var POSTS = {
+ 1:{bg:'../img/life-facade.jpg', kicker:'Tandil y la zona',
+    head:'Somos\nWPC Tandil.',
+    sub:'Vendemos e instalamos deck, wall panel y perfilería de madera plástica. La calidez de la madera, sin su mantenimiento.'},
+ 2:{bg:'../img/life-wall.jpg', kicker:'Wall panel',
+    head:'Paredes que\nparecen madera.',
+    sub:'Revestimiento de listones para interior y exterior. Clip oculto sobre estructura de aluminio: sin un tornillo a la vista y sin mantenimiento.'},
+ 3:{bg:'../img/life-deckpool.jpg', kicker:'Más de 25 años',
+    head:'Ponelo una vez.\nOlvidate.',
+    sub:'No se lija, no se pinta, no se astilla y no se pudre. Aguanta la humedad y las heladas de la sierra sin moverse.'}
+};
+var n = parseInt((location.search.match(/n=(\d+)/)||[])[1]||'1',10);
+var d = POSTS[n] || POSTS[1];
+document.getElementById('placa').classList.add('p'+n);
+document.getElementById('bg').src = d.bg;
+document.getElementById('kicker').textContent = d.kicker;
+document.getElementById('head').textContent = d.head;
+document.getElementById('sub').textContent = d.sub;
+</script>
+</body>
+</html>

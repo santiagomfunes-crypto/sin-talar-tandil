@@ -9,6 +9,13 @@ from _meta import load_token, api_get, HERE
 
 TOKEN = load_token()
 CAMP = "120251438753090234"
+
+# Guarda: si el token venció o la campaña no responde, NO sobreescribir data.json
+# con ceros — dejar el último snapshot bueno y salir.
+_chk = api_get(TOKEN, CAMP, fields="name")
+if "error" in _chk:
+    sys.exit("✗ token/campaña no responde (¿token vencido?): " +
+             str(_chk["error"].get("message", ""))[:90] + " — no toco data.json")
 OUT = os.path.abspath(os.path.join(HERE, "..", "dashboard", "data.json"))
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 

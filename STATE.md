@@ -152,3 +152,21 @@ Hoy da 5 de 6 en verde; el que falta es el WhatsApp.
 - Scripts: create-campaign-traffic.py (videos) + add-statics.py (estáticos). Verificado por API: imagen+copy+botón OK en los 5 estáticos.
 - "carrete" para Santi = imagen estática linda (no Reel). Reels/Stories los cubren los videos 9:16.
 - Falta: Santi pasa switch a ON (o "prendela" → activo por API). Fase 2: Formulario + lookalike/retargeting.
+
+## 4 sep 2026 — 🚀 CAMPAÑA LIVE + Dashboard
+- Campaña 120251438753090234 ACTIVA. 8 videos ACTIVE, 5 estáticos (algunos PENDING_REVIEW→se aprueban solos). Gastando $20/día ($13 videos + $7 estáticos).
+- Ojo: 2 borradores basura "Campaña de mensajes a medida" en la cuenta (de intentos manuales) → Santi debe "Descartar borradores" (NO "Revisar y publicar").
+- DASHBOARD en vivo: `dashboard/index.html` (servido en :8124) lee `dashboard/data.json`. Motor: `meta-api/dashboard-data.py` (Insights nivel ad: gasto, clics link, cpc, ctr, video vs estático, ganador/perdedor). CRM manual de presupuestos WhatsApp en localStorage → costo por presupuesto real.
+- Loop de refresco cada 10 min corriendo en background (task b9zgyw4tw) MIENTRAS viva la sesión + token. dashboard-data.py tiene guarda: si el token vence, NO pisa data.json con ceros.
+- PENDIENTE para 24/7 real: token durable de usuario del sistema (no vence). Ofrecido a Santi.
+
+## 4 sep 2026 — Dashboard 24/7 (launchd) + token durable
+- Token de USUARIO DEL SISTEMA (no vence) guardado en .env.meta. Validado OK (ads_management, business_management, insights).
+- Dashboard 24/7 vía launchd (macOS). RUNTIME COPIADO a ~/wpc-pauta/ (Escritorio está bloqueado por TCC para procesos de fondo):
+  · ~/wpc-pauta/meta/ (_meta.py, .env.meta, config.json, dashboard-data.py)
+  · ~/wpc-pauta/dashboard/ (index.html, data.json)
+- Agentes: ~/Library/LaunchAgents/com.wpc.dashboard.fetch.plist (corre dashboard-data.py cada 600s) + com.wpc.dashboard.serve.plist (http.server 8124, KeepAlive). Ambos exit 0, server HTTP 200. Logs en ~/wpc-pauta/{fetch,serve}.log.
+- URL dashboard: http://localhost:8124/ (mientras la Mac esté encendida/logueada).
+- ⚠️ El runtime en ~/wpc-pauta es COPIA. Fuente = repo en Escritorio. Si se edita dashboard/index.html o dashboard-data.py, RE-COPIAR a ~/wpc-pauta. 
+- Apagar: launchctl unload ~/Library/LaunchAgents/com.wpc.dashboard.*.plist
+- Campaña ya gastando (primeros centavos 11:27). Loop de sesión viejo (task) quedó redundante, muere con la sesión.

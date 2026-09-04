@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WPC Tandil — Panel de Pauta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#2f5133; --green-d:#22392a; --ink:#17251b; --muted:#6a7566;
+    --paper:#f4f1e6; --card:#ffffff; --line:#e4dfce;
+    --ok:#3f8a4f; --okbg:#eaf5ec; --warn:#c98a2b; --warnbg:#faf1e2; --bad:#b4482f; --badbg:#f7eae6;
+    --chip:#eef3ea;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#eef1ea; --muted:#9aa694; --paper:#141c15; --card:#1c281d; --line:#2c3a2d; --chip:#243026;
+      --okbg:#1b3322; --warnbg:#3a2f1a; --badbg:#3a231c;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .num{font-variant-numeric:tabular-nums}
+  header{background:linear-gradient(135deg,var(--green),var(--green-d));color:#f4f1e6;padding:26px 28px}
+  header .in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between}
+  header h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:30px;margin:0;letter-spacing:.4px}
+  header .meta{font-size:13px;opacity:.85}
+  .live{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:13px}
+  .dot{width:9px;height:9px;border-radius:50%;background:#7bd88f;box-shadow:0 0 0 4px rgba(123,216,143,.25)}
+  .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:26px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .kpi .lbl{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
+  .kpi .val{font-size:34px;font-weight:800;margin-top:6px;letter-spacing:-.5px}
+  .kpi .sub{font-size:13px;color:var(--muted);margin-top:2px}
+  .bar{height:6px;border-radius:6px;background:var(--chip);margin-top:12px;overflow:hidden}
+  .bar>i{display:block;height:100%;background:var(--green);border-radius:6px}
+  h2{font-family:'Cormorant Garamond',serif;color:var(--green);font-size:24px;margin:30px 0 12px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.split{grid-template-columns:1fr}}
+  .fmt{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .fmt h3{margin:0 0 10px;font-size:15px;display:flex;align-items:center;gap:8px}
+  .fmt .row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;color:var(--muted)}
+  .fmt .row b{color:var(--ink);font-weight:700}
+  .tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 9px;border-radius:100px}
+  .t-video{background:#e7eef9;color:#2a5aa0} .t-static{background:var(--chip);color:var(--green)}
+  .tblwrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:720px}
+  th,td{text-align:right;padding:12px 14px;font-size:14px;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700;background:var(--chip)}
+  td.l,th.l{text-align:left}
+  tr:last-child td{border-bottom:none}
+  .st{font-size:11px;font-weight:700;padding:3px 8px;border-radius:100px}
+  .st-on{background:var(--okbg);color:var(--ok)} .st-rev{background:var(--warnbg);color:var(--warn)} .st-off{background:var(--chip);color:var(--muted)}
+  .win{color:var(--ok);font-weight:800} .lose{color:var(--bad)}
+  .crm{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .crm form{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+  .crm input{flex:1;min-width:120px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);font-size:14px}
+  .crm button{background:var(--green);color:#f4f1e6;border:none;border-radius:9px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:14px}
+  .lead{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .lead .x{color:var(--muted);cursor:pointer;font-weight:700;padding:0 6px}
+  .note{color:var(--muted);font-size:13px;margin-top:6px}
+  .empty{color:var(--muted);font-size:14px;padding:16px 0}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <div>
+    <h1>WPC Tandil · Panel de Pauta</h1>
+    <div class="meta" id="sub">cargando…</div>
+  </div>
+  <div class="live"><span class="dot"></span><span id="upd">—</span></div>
+</div></header>
+
+<div class="wrap">
+  <div class="kpis" id="kpis"></div>
+
+  <h2>Video vs. Estático</h2>
+  <div class="split" id="fmt"></div>
+
+  <h2>Anuncios — quién funciona y quién no</h2>
+  <div class="tblwrap"><table id="tbl">
+    <thead><tr>
+      <th class="l">Anuncio</th><th>Tipo</th><th>Estado</th>
+      <th>Impres.</th><th>Clics WA</th><th>CTR</th><th>Costo/clic</th><th>Gasto</th>
+    </tr></thead>
+    <tbody></tbody>
+  </table></div>
+  <div class="note">“Clic WA” = clic al botón que abre tu WhatsApp (proxy). El <b>lead real</b> es el mensaje que te entra al celu — cargalo abajo para ver el costo por presupuesto de verdad.</div>
+
+  <h2>Presupuestos recibidos (WhatsApp) — CRM</h2>
+  <div class="crm">
+    <div id="crmhead"></div>
+    <form id="lf">
+      <input id="ln" placeholder="Nombre / teléfono" required>
+      <input id="lnote" placeholder="Nota (qué pidió, zona…)">
+      <button type="submit">+ Agregar lead</button>
+    </form>
+    <div id="leads"></div>
+  </div>
+</div>
+
+<script>
+const money = n => "$" + (Math.round(n*100)/100).toLocaleString("es-AR",{minimumFractionDigits:0,maximumFractionDigits:2});
+const int = n => (n||0).toLocaleString("es-AR");
+const stCls = s => s==="ACTIVE"?"st-on":(s&&s.includes("PENDING"))?"st-rev":"st-off";
+const stTxt = s => s==="ACTIVE"?"Activo":(s&&s.includes("PENDING"))?"En revisión":(s==="ADSET_PAUSED"||s==="CAMPAIGN_PAUSED"||s==="PAUSED")?"Pausado":(s||"—");
+
+let DATA = null;
+
+function renderAds(){
+  const tb = document.querySelector("#tbl tbody"); tb.innerHTML="";
+  const ads = DATA.ads;
+  const withData = ads.filter(a=>a.impressions>200 && a.link_clicks>0).map(a=>a.cpc).sort((x,y)=>x-y);
+  const best = withData[0], worst = withData[withData.length-1];
+  ads.forEach(a=>{
+    let cpcCls="";
+    if(a.impressions>200 && a.link_clicks>0){ if(a.cpc===best) cpcCls="win"; else if(a.cpc===worst && withData.length>1) cpcCls="lose"; }
+    const short = a.name.replace(/^.*·\s*/,"");
+    tb.insertAdjacentHTML("beforeend", `<tr>
+      <td class="l">${short}</td>
+      <td><span class="tag ${a.format==='video'?'t-video':'t-static'}">${a.format==='video'?'Video':'Estático'}</span></td>
+      <td><span class="st ${stCls(a.status)}">${stTxt(a.status)}</span></td>
+      <td class="num">${int(a.impressions)}</td>
+      <td class="num">${int(a.link_clicks)}</td>
+      <td class="num">${a.ctr?a.ctr.toFixed(2)+"%":"—"}</td>
+      <td class="num ${cpcCls}">${a.link_clicks?money(a.cpc):"—"}</td>
+      <td class="num">${money(a.spend)}</td>
+    </tr>`);
+  });
+}
+
+function renderKpis(){
+  const t = DATA.totals;
+  const pct = Math.min(100, (t.spend / DATA.daily_budget)*100);
+  document.getElementById("kpis").innerHTML = `
+    <div class="kpi"><div class="lbl">Gasto total</div><div class="val num">${money(t.spend)}</div>
+      <div class="sub">de ${money(DATA.daily_budget)}/día presupuestado</div>
+      <div class="bar"><i style="width:${pct}%"></i></div></div>
+    <div class="kpi"><div class="lbl">Clics a WhatsApp</div><div class="val num">${int(t.link_clicks)}</div>
+      <div class="sub">botón que abre el chat</div></div>
+    <div class="kpi"><div class="lbl">Costo por clic</div><div class="val num">${t.link_clicks?money(t.cpc):"—"}</div>
+      <div class="sub">${int(t.impressions)} impresiones · ${int(t.reach)} personas</div></div>
+    <div class="kpi"><div class="lbl">Presupuestos (WA)</div><div class="val num" id="kleads">0</div>
+      <div class="sub" id="kcpl">cargá tus leads abajo</div></div>`;
+  syncLeadKpi();
+}
+
+function renderFmt(){
+  const f = DATA.totals.by_format;
+  const box = (title, cls, d) => `<div class="fmt"><h3><span class="tag ${cls}">${title}</span></h3>
+    <div class="row"><span>Gasto</span><b class="num">${money(d.spend)}</b></div>
+    <div class="row"><span>Clics a WhatsApp</span><b class="num">${int(d.link_clicks)}</b></div>
+    <div class="row"><span>Costo por clic</span><b class="num">${d.link_clicks?money(d.cpc):"—"}</b></div>
+    <div class="row"><span>Impresiones</span><b class="num">${int(d.impressions)}</b></div></div>`;
+  document.getElementById("fmt").innerHTML = box("Video","t-video",f.video) + box("Estático","t-static",f.static);
+}
+
+// ── CRM leads (localStorage) ──
+const LK="wpc_leads";
+const getLeads=()=>{try{return JSON.parse(localStorage.getItem(LK)||"[]")}catch(e){return[]}};
+const setLeads=a=>{try{localStorage.setItem(LK,JSON.stringify(a))}catch(e){}};
+function renderLeads(){
+  const ls=getLeads(); const box=document.getElementById("leads");
+  document.getElementById("crmhead").innerHTML = `<b>${ls.length}</b> presupuesto${ls.length!==1?"s":""} recibido${ls.length!==1?"s":""}`;
+  box.innerHTML = ls.length? ls.map((l,i)=>`<div class="lead"><span><b>${l.n}</b>${l.note?" · "+l.note:""} <span style="color:var(--muted)">· ${l.d}</span></span><span class="x" data-i="${i}">✕</span></div>`).join("") : `<div class="empty">Todavía no cargaste ningún presupuesto. Cuando te escriban por WhatsApp, anotalos acá para medir el costo real.</div>`;
+  box.querySelectorAll(".x").forEach(x=>x.onclick=()=>{const a=getLeads();a.splice(+x.dataset.i,1);setLeads(a);renderLeads();syncLeadKpi();});
+  syncLeadKpi();
+}
+function syncLeadKpi(){
+  const n=getLeads().length; const k=document.getElementById("kleads"); if(!k)return;
+  k.textContent=n;
+  const cpl=document.getElementById("kcpl");
+  if(DATA&&n>0){cpl.textContent="Costo por presupuesto: "+money(DATA.totals.spend/n);}
+}
+document.getElementById("lf").addEventListener("submit",e=>{
+  e.preventDefault();
+  const n=document.getElementById("ln").value.trim(); if(!n)return;
+  const note=document.getElementById("lnote").value.trim();
+  const d=new Date().toLocaleDateString("es-AR",{day:"2-digit",month:"2-digit"});
+  const a=getLeads(); a.unshift({n,note,d}); setLeads(a);
+  e.target.reset(); renderLeads();
+});
+
+async function load(){
+  try{
+    const r = await fetch("data.json?t="+Date.now());
+    DATA = await r.json();
+    document.getElementById("sub").textContent = DATA.campaign;
+    document.getElementById("upd").textContent = "Actualizado "+DATA.updated;
+    renderKpis(); renderFmt(); renderAds();
+  }catch(e){ document.getElementById("sub").textContent="No pude leer data.json — ¿corriste dashboard-data.py?"; }
+}
+load(); renderLeads();
+setInterval(load, 60000);   // refresca la lectura cada 60s
+</script>
+</body>
+</html>
