@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WPC Tandil — Anuncios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#2f5133; --green-d:#22392a; --ink:#17251b;
+    --cream:#f4f1e6; --paper:#faf8f1; --line:#e3ddcc;
+    --muted:#6f7a6b; --soft:#8a9384;
+    --ok:#3f8a4f; --warn:#c98a2b;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif; -webkit-font-smoothing:antialiased;
+  }
+  header{
+    background:linear-gradient(135deg,var(--green),var(--green-d));
+    color:var(--cream); padding:34px 24px 30px; text-align:center;
+  }
+  header h1{
+    font-family:'Cormorant Garamond',serif; font-weight:700;
+    font-size:clamp(28px,5vw,44px); margin:0; letter-spacing:.5px;
+  }
+  header p{margin:8px 0 0; opacity:.85; font-size:15px; letter-spacing:.3px}
+  .wrap{max-width:1180px; margin:0 auto; padding:28px 20px 60px}
+  .bar{
+    display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center;
+    justify-content:space-between; margin-bottom:22px; color:var(--muted); font-size:14px;
+  }
+  .count{font-weight:600; color:var(--green)}
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:26px}
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden;
+    box-shadow:0 2px 10px rgba(23,37,27,.05); transition:box-shadow .2s, transform .2s;
+    display:flex; flex-direction:column;
+  }
+  .card:hover{box-shadow:0 10px 30px rgba(23,37,27,.12); transform:translateY(-2px)}
+  .card.sel{border-color:var(--green); box-shadow:0 0 0 2px var(--green)}
+  .vidwrap{position:relative; background:#000; aspect-ratio:9/16}
+  video{width:100%; height:100%; display:block; object-fit:cover}
+  .num{
+    position:absolute; top:10px; left:10px; z-index:2;
+    background:rgba(23,37,27,.82); color:var(--cream); font-weight:700; font-size:13px;
+    width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
+  }
+  .badge{
+    position:absolute; top:10px; right:10px; z-index:2; font-size:11px; font-weight:700;
+    letter-spacing:.4px; padding:5px 9px; border-radius:100px; text-transform:uppercase;
+  }
+  .b-ok{background:rgba(63,138,79,.92); color:#fff}
+  .b-warn{background:rgba(201,138,43,.95); color:#fff}
+  .meta{padding:14px 16px 16px}
+  .kick{font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--soft)}
+  .head{font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:600; line-height:1.2; margin:4px 0 8px}
+  .note{font-size:13px; color:var(--muted); line-height:1.45}
+  .pick{
+    margin-top:12px; display:flex; align-items:center; gap:8px; cursor:pointer;
+    font-size:13px; font-weight:600; color:var(--green); user-select:none;
+  }
+  .pick input{width:17px; height:17px; accent-color:var(--green)}
+  footer{text-align:center; color:var(--soft); font-size:13px; padding:0 20px 40px}
+  .tag{color:var(--green); font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <h1>WPC Tandil — Anuncios para la pauta</h1>
+  <p>8 creativos · voz en off · placa de marca + CTA WhatsApp · Tanda 2 (sep 2026)</p>
+</header>
+<div class="wrap">
+  <div class="bar">
+    <div>Seleccionados para arrancar: <span class="count" id="count">0</span> / 8</div>
+    <div>Marcá con ✓ los que quieras usar. La selección se guarda sola.</div>
+  </div>
+  <div class="grid" id="grid"></div>
+
+  <h2 style="font-family:'Cormorant Garamond',serif;color:var(--green);font-size:30px;margin:52px 0 6px">Placas estáticas · feed 4:5</h2>
+  <div class="bar"><div>Mismas fotos de los videos + marca por código. Formato 1080×1350 (feed IG/FB).</div></div>
+  <div class="grid" id="placas"></div>
+</div>
+<footer>Generados con Google Flow (Veo 3.1) + montaje por código (Remotion). Marca <span class="tag">@wpc.tandil</span>.</footer>
+
+<script>
+const ADS = [
+  {n:1, kick:'Deck WPC · Tandil', head:'Ponelo una vez. Olvidate para siempre.', note:'Galería de hormigón + sierras al atardecer. Hook de hartazgo del mantenimiento.', q:'ok'},
+  {n:2, kick:'Más de 25 años', head:'La madera se astilla. Este se ve siempre nuevo.', note:'Antes/después: madera vieja gris vs. deck nuevo. La tabla nueva salió algo anaranjada — candidato a regenerar.', q:'warn'},
+  {n:3, kick:'Plata bien puesta', head:'Invertís una vez. Dura +25 años.', note:'Rooftop al atardecer con lens flare. El más lindo de la tanda (9/10).', q:'ok'},
+  {n:4, kick:'Resiste la sierra', head:'Humedad, sol y heladas. Ni se inmuta.', note:'Deck amplio + hormigón + sierras. Ángulo clima de Tandil.', q:'ok'},
+  {n:5, kick:'Cero mantenimiento', head:'El finde es para disfrutar. No para lijar.', note:'Dos personas de espaldas con mate frente a las sierras. Ojo caras/manos (riesgo IA), pasa rápido.', q:'warn'},
+  {n:6, kick:'Presupuesto sin cargo', head:'Medición y presupuesto. Acá en Tandil.', note:'Deck lateral con reposeras al sol. Ángulo oferta/CTA.', q:'ok'},
+  {n:7, kick:'Instalación en Tandil', head:'Te lo dejamos listo. Y no lo tocás más.', note:'Instalador colocando la tabla sobre rastreles. Prueba de obra / confianza.', q:'ok'},
+  {n:8, kick:'Deck · Wall Panel · Perfilería', head:'El deck que no vas a mantener nunca.', note:'Galería de mañana, veta marcada. Placa de marca / branding.', q:'ok'},
+];
+const KEY='wpc_ads_sel';
+let sel = {};
+try{ sel = JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ sel = {}; }
+const grid = document.getElementById('grid');
+const countEl = document.getElementById('count');
+function refresh(){
+  const c = Object.values(sel).filter(Boolean).length;
+  countEl.textContent = c;
+  try{ localStorage.setItem(KEY, JSON.stringify(sel)); }catch(e){}
+}
+ADS.forEach(a=>{
+  const card = document.createElement('div');
+  card.className = 'card' + (sel[a.n] ? ' sel' : '');
+  card.innerHTML = `
+    <div class="vidwrap">
+      <div class="num">${a.n}</div>
+      <div class="badge ${a.q==='ok'?'b-ok':'b-warn'}">${a.q==='ok'?'Listo':'Revisar'}</div>
+      <video src="${a.n}.mp4" controls preload="metadata" playsinline></video>
+    </div>
+    <div class="meta">
+      <div class="kick">${a.kick}</div>
+      <div class="head">${a.head}</div>
+      <div class="note">${a.note}</div>
+      <label class="pick"><input type="checkbox" ${sel[a.n]?'checked':''}> Usar en la pauta</label>
+    </div>`;
+  const cb = card.querySelector('input');
+  cb.addEventListener('change', ()=>{ sel[a.n]=cb.checked; card.classList.toggle('sel',cb.checked); refresh(); });
+  grid.appendChild(card);
+});
+refresh();
+
+// ── Placas estáticas ────────────────────────────────────────────────
+const PLACAS = [
+  {n:3, kick:'Plata bien puesta', head:'Invertís una vez. Dura +25 años.'},
+  {n:1, kick:'Cero mantenimiento', head:'Ponelo una vez. Olvidate.'},
+  {n:7, kick:'Instalación en Tandil', head:'Te lo dejamos listo.'},
+  {n:4, kick:'Clima de sierra', head:'Humedad y heladas. Ni se inmuta.'},
+  {n:8, kick:'Deck WPC · Tandil', head:'El deck que no mantenés nunca.'},
+  {n:2, kick:'Más de 25 años', head:'Se ve siempre nuevo.'},
+  {n:5, kick:'Cero mantenimiento', head:'El finde, para disfrutar.'},
+  {n:6, kick:'Presupuesto sin cargo', head:'Medición y presupuesto.'},
+];
+const placasGrid = document.getElementById('placas');
+PLACAS.forEach(p=>{
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <div class="vidwrap" style="aspect-ratio:4/5">
+      <img src="placa-${p.n}.png" style="width:100%;height:100%;object-fit:cover;display:block">
+    </div>
+    <div class="meta">
+      <div class="kick">${p.kick}</div>
+      <div class="head">${p.head}</div>
+    </div>`;
+  placasGrid.appendChild(card);
+});
+</script>
+</body>
+</html>

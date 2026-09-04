@@ -94,3 +94,61 @@ Hoy da 5 de 6 en verde; el que falta es el WhatsApp.
 - **Estado clips:** clip-1 (galería/hartazgo) se generó SIN voz (mudo, -49dB) → Santi lo REGENERA con la versión con VO. clip-3 generado. clip-2 (antes/después) NO se puede con Frames-to-Video (no aparece la opción en su Flow) → usar prompt text-to-video (guardado en GUIONES-FLOW.md). Faltan 2,4,5,6,7,8. Hay un "Deck_installation_at_sunrise" (18:00) en Downloads = candidato a clip-7 (obra).
 - **Anuncio wpc-1 v2** renderizado en remotion/out/ (diseño aprobado, pero mudo hasta que llegue el clip con VO → re-montar).
 - Flow dio error una vez al generar; se destrabó. Config Flow: Veo 3.1 Fast, "por 2", confirmar siempre, directriz del agente cargada, ingredientes real-svg + real-beta.
+
+## 2 sep 2026 (noche) — Tanda 2 de videos montada (8 anuncios)
+- Santi generó en Flow (Veo 3.1, voz "Locutor WPC", ingrediente real-svg) 8 clips → `~/Downloads/*_202609021955.mp4` + gallery_1936.
+- QA por subagentes (frames, no en hilo principal): color caramelo/teca consistente, todos con VO. Calidades: wpc-3(rooftop)=9/10 el mejor; wpc-1/4/6(clip-7 obra)/8=8; wpc-5(mate)=7 (riesgo manos/caras, pasa rápido); wpc-6(reposeras)=7; wpc-2(antes/después)=6 (tabla nueva algo anaranjada/plástica).
+- Mapeo clip→anuncio en `remotion/src/clips.ts` (8 entradas, seconds 8/10 según duración real). Fuentes copiadas a `remotion/public/clip-1..8.mp4`.
+- Render Remotion (placa verde + CTA WhatsApp) → `remotion/out/wpc-1..8.mp4` → `~/Downloads/wpc-anuncio-1..8.mp4`.
+- APRENDIZAJE Flow: usar **Veo 3.1** (no Omni — Omni es video-a-video/edición, generaba raro). Prompts largos-pero-cinematográficos (1 escena, 1 movimiento de cámara), no checklist de negativos. Pileta = elemento que sale peor (agua). Voz se ancla en Flow → Voces ("Locutor WPC" argentino rioplatense).
+- HERRAMIENTA nueva a probar: **Pomelli** (labs.google/pomelli) para las placas estáticas IG/FB desde Business DNA de la landing.
+
+## 2 sep 2026 (noche) — Lanzamiento pauta: 1 candado
+- .env.meta con token FRESCO + IDs OK. Validado con check-setup.py:
+  ✓ token (Santi Funes, ads_management+business_management) · ✓ cuenta act_859031260510247 ACTIVA USD
+  ✓ Página WPC Tandil (id 1327636333759585) · ✓ IG @wpc.tandil · ✓ Pixel 1063781786398885 (firmando eventos)
+- ⚠️ Los tokens del Graph Explorer duran ~1-2h. Si al lanzar está vencido, regenerar en developers.facebook.com/tools/explorer (app "wpc tandil ads").
+- WhatsApp de los anuncios CONFIRMADO por Santi: **+5492494209464** (el de la landing). config.json ya corregido (antes tenía +5492494557754).
+- Pixel YA cableado en index.html (META_PIXEL_ID=1063781786398885) y activo.
+- 🚧 ÚNICO BLOQUEO: WhatsApp NO conectado a la Página → Meta rebota CTWA ("phone number is not linked"). Santi debe: facebook.com/1327636333759585/settings → WhatsApp → Conectar número +5492494209464 (código por WA). Solo lo puede hacer él.
+- Al destrabar: crear campaña EN PAUSA con 4 videos (wpc-3/1/7/4; wpc-2 descartado x calidad 6/10), Tandil 40km, 30-60, USD13/día. Config solo tiene 3 creativos (wpc-1,2,3) → actualizar creatives a los 4 y escribir primary_text de wpc-7 y wpc-4 antes de crear.
+
+## 2 sep 2026 (noche) — Campaña LISTA, falta 1 candado (WhatsApp→Página)
+- config.json ya con 4 creativos: wpc-3 (Invertís una sola vez), wpc-1 (Deck que no se mantiene), wpc-7 (Te lo dejamos listo), wpc-4 (No lo toca ni el clima). primary_text escrito para los 4. wpc-2 descartado.
+- check-setup.py: TODO ✓ (token, cuenta ACTIVA USD, Página, IG, Pixel firmando) SALVO WhatsApp.
+- create-campaign.py --dry-run: ✅ 1 conjunto × 4 = 4 anuncios. Targeting OK (Tandil 40km, 30-60, FB+IG feed/reels/story, mobile, AN off, Adv+ aud off, CONVERSATIONS).
+- 🚧 BLOQUEO ÚNICO: número +5492494209464 NO conectado a la Página (está como WhatsApp Business Platform/API en el portfolio, aprobado, calidad Alta — Santi dice que es su WhatsApp del cel). Meta exige conexión a la Página con CÓDIGO al celular → NO automatizable, lo tiene que hacer Santi.
+- Camino elegido: Ads Manager → +Crear → Interacción → adset → "Ubicación de conversión = WhatsApp" → Conectar número → código. (Los links directos a settings de Página rebotaban al portfolio.)
+- Al recibir "listo": correr `python3 create-campaign.py` (sube 4 videos, crea campaña+adset+4 ads EN PAUSA). Nada se publica hasta que Santi le da Publicar en Ads Manager.
+
+## 4 sep 2026 — Pivote a TRÁFICO→WhatsApp (CTWA nativo trabado)
+- CTWA nativo (destino WhatsApp) sigue dando "phone number is not linked" pese a que Santi conectó el número desde la Página. Probé 5 formatos del número + espera de 5 min → todos fallan. Es número WhatsApp Business Platform (API) en el portfolio; la vinculación a la Página para ads no engancha.
+- DECISIÓN (Santi): lanzar con TRÁFICO cuyo botón abre wa.me. Nuevo script `meta-api/create-campaign-traffic.py`: OUTCOME_TRAFFIC, optimization LINK_CLICKS, CTA LEARN_MORE → wa.me/5492494209464?text=... (NO usa promoted_object/CTWA, así evita el candado). AN OFF, Adv+ aud OFF, mobile, Tandil 40km, 30-60, USD13/día, 4 videos (wpc-3,1,7,4), EN PAUSA.
+- Corrida real: subió los 4 videos OK (video_ids cacheados en config.json), creó campaña+adset, FRENÓ en adcreatives con: "la app está en modo Desarrollo, debe estar en modo Público/Live". Campaña parcial borrada.
+- 🚧 BLOQUEO ACTUAL: app "wpc tandil ads" en developers.facebook.com está en modo Development → Santi debe pasarla a LIVE (puede pedir URL de política de privacidad + categoría en Settings→Basic).
+- Número: la landing (index.html) usa el VIEJO 5492494557754; el confirmado/vivo es 5492494209464. PENDIENTE: corregir la landing a 209464.
+- Al pasar la app a Live: re-correr `python3 create-campaign-traffic.py` (no re-sube videos). Nada se publica hasta que Santi le dé Publicar.
+
+## 4 sep 2026 — ✅ CAMPAÑA CREADA (en pausa)
+- App "wpc tandil ads" pasada a LIVE (Santi) con política de privacidad en santiagomfunes-crypto.github.io/sin-talar-tandil/privacidad.html (privacidad.html deployado a GH Pages).
+- `create-campaign-traffic.py` corrió OK: campaign_id=120251438666930234 "WPC Tandil | Prospecting | Traffic→WhatsApp", 1 adset (Tandil 40km abierto), 4 ads EN PAUSA. video_ids cacheados en config.json (wpc-3/1/7/4).
+- Botón → wa.me/5492494209464 con texto pre-escrito. Optimización LINK_CLICKS, AN OFF, Adv+ aud OFF, mobile, 30-60, USD13/día.
+- PENDIENTE: (1) Santi revisa vista previa + pasa switch a ON en Ads Manager (o pedir "prendela" y activar por API con status ACTIVE en campaign/adset/ads). (2) Corregir número en index.html (557754 → 5492494209464). (3) Ground-truth leads por WhatsApp. (4) Cuando se destrabe el WhatsApp nativo, migrar a CTWA real (create-campaign.py).
+
+## 4 sep 2026 — Plan de pauta ACORDADO con Santi (verificado antes de activar)
+- Decisión Santi: SOLO WhatsApp primero (Formulario = fase 2), 8 ángulos, USD 10/día.
+- Campaña activa a crear/usar: id=120251438753090234 "WPC Tandil | Prospecting | Traffic→WhatsApp", 8 ads, adset 120251438753460234 a daily_budget=1000 (USD10). config.json daily_budget_usd=10.
+- Audiencia: Tandil +40km, 30-60, ABIERTA (sin lookalike ni intereses; fase 2 = lookalike + retargeting cuando haya datos). AN OFF, Adv+ aud OFF, mobile. Ubicaciones Feed+Reels+Stories FB/IG (reels/carretes ya incluidos, videos 9:16).
+- Optimización LINK_CLICKS. Todo EN PAUSA hasta que Santi pase switch a ON (o pida "prendela" → activar por API).
+- Fase 2: campaña B Formulario (create-campaign-forms.py, sin construir aún) + lookalike/retargeting. Revisar a día 4-7, cortar ángulos flojos.
+- Métrica de verdad = WhatsApp reales al 209464 (Meta subcuenta por webview).
+
+## 4 sep 2026 — Campaña final: Videos + Estáticos (en pausa)
+- Campaña 120251438753090234 "WPC Tandil | Prospecting | Traffic→WhatsApp" con 2 conjuntos:
+  · Videos (adset 120251438753460234): 8 ads, Feed+Reels+Stories, $13/día.
+  · Estáticos (adset 120251438887500234): 5 placas (p-3,1,7,4,8) link_data→wa.me, Feed, $7/día.
+  · TOTAL $20/día. TODO EN PAUSA.
+- 8 placas estáticas generadas en placas/p-1..8.png (Chrome headless + placa.html). Usadas las 5 fuertes.
+- Scripts: create-campaign-traffic.py (videos) + add-statics.py (estáticos). Verificado por API: imagen+copy+botón OK en los 5 estáticos.
+- "carrete" para Santi = imagen estática linda (no Reel). Reels/Stories los cubren los videos 9:16.
+- Falta: Santi pasa switch a ON (o "prendela" → activo por API). Fase 2: Formulario + lookalike/retargeting.

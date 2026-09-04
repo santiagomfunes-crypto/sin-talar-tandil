@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--green:#2f5133; --green-d:#22392a; --ink:#17251b; --cream:#f4f1e6; --soft:#bcd3b6;}
+  *{margin:0; padding:0; box-sizing:border-box}
+  html,body{width:1080px; height:1350px; overflow:hidden}
+  .placa{position:relative; width:1080px; height:1350px; background:#000; overflow:hidden;
+    font-family:'Inter',sans-serif}
+  .bg{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+  /* Viñeta + scrim inferior verde para que el texto lea siempre */
+  .scrim{position:absolute; inset:0; background:
+    linear-gradient(180deg, rgba(12,20,13,.30) 0%, rgba(12,20,13,0) 20%, rgba(12,20,13,0) 40%,
+      rgba(12,20,13,.60) 60%, rgba(12,20,13,.90) 88%, rgba(12,20,13,.95) 100%);}
+  .logo{position:absolute; top:54px; left:60px; width:300px;
+    filter:drop-shadow(0 4px 18px rgba(0,0,0,.5))}
+  .content{position:absolute; left:60px; right:60px; bottom:64px}
+  .kicker{display:flex; align-items:center; gap:16px; color:var(--soft); font-weight:700;
+    font-size:26px; letter-spacing:5px; text-transform:uppercase; margin-bottom:20px;
+    text-shadow:0 2px 10px rgba(0,0,0,.7)}
+  .kicker span{width:46px; height:3px; background:var(--soft); display:inline-block}
+  .head{font-family:'Cormorant Garamond',serif; color:var(--cream); font-weight:700;
+    font-size:96px; line-height:1.06; white-space:pre-line; text-shadow:0 6px 34px rgba(0,0,0,.6);
+    margin-bottom:40px}
+  .cta{display:flex; align-items:center; gap:26px}
+  .btn{background:var(--cream); color:var(--ink); font-weight:800; font-size:34px;
+    padding:24px 46px; border-radius:100px}
+  .wa{color:var(--cream); font-weight:600; font-size:28px; letter-spacing:.5px;
+    text-shadow:0 2px 10px rgba(0,0,0,.7)}
+  .wa b{display:block; font-weight:700}
+</style>
+</head>
+<body>
+<div class="placa">
+  <img class="bg" id="bg" src="">
+  <div class="scrim"></div>
+  <img class="logo" src="logo.png">
+  <div class="content">
+    <div class="kicker"><span></span><em id="kicker" style="font-style:normal"></em></div>
+    <div class="head" id="head"></div>
+    <div class="cta">
+      <div class="btn">Pedí tu presupuesto</div>
+      <div class="wa">WhatsApp · Tandil<b>@wpc.tandil</b></div>
+    </div>
+  </div>
+</div>
+<script>
+  const p = new URLSearchParams(location.search);
+  document.getElementById('bg').src = p.get('bg') || '';
+  document.getElementById('kicker').textContent = p.get('kicker') || '';
+  document.getElementById('head').textContent = (p.get('head') || '').replace(/\|/g, '\n');
+</script>
+</body>
+</html>

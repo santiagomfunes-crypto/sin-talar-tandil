@@ -2,8 +2,8 @@
   "_comentario": "WPC Tandil — Campaña 1: Prospecting Click-to-WhatsApp. Todo se crea EN PAUSA. Los IDs y el token van en .env.meta (fuera de git).",
   "campaign_name": "WPC Tandil | Prospecting | CTWA",
   "objective": "OUTCOME_ENGAGEMENT",
-  "whatsapp_phone_number": "+5492494557754",
-  "daily_budget_usd": 13,
+  "whatsapp_phone_number": "+5492494209464",
+  "daily_budget_usd": 10,
   "age_min": 30,
   "age_max": 60,
   "geo": {
@@ -14,22 +14,60 @@
   },
   "creatives": [
     {
+      "video_path": "../remotion/out/wpc-3.mp4",
+      "headline": "Invertís una sola vez",
+      "primary_text": "Rehacer el deck de madera cada cinco años es plata tirada. Con el deck de madera plástica (WPC) invertís una vez y dura más de veinticinco años, sin mantenimiento. Medición y presupuesto sin cargo en Tandil. Escribinos.",
+      "description": "Medición y presupuesto sin cargo",
+      "video_id": "2119439665594777"
+    },
+    {
       "video_path": "../remotion/out/wpc-1.mp4",
       "headline": "Deck que no se mantiene",
-      "primary_text": "¿Otra primavera lijando y barnizando el deck? El deck de madera plástica (WPC) se pone una vez y no se mantiene nunca más: no se astilla, no se pudre, no se pinta. Instalamos en Tandil. Escribinos y te pasamos presupuesto.",
-      "description": "Presupuesto sin cargo en Tandil"
+      "primary_text": "¿Otra primavera lijando y barnizando el deck? El deck de madera plástica (WPC) se pone una vez y no se mantiene nunca más: no se astilla, no se pudre, no se pinta. Lo instalamos en Tandil. Escribinos y te pasamos presupuesto.",
+      "description": "Presupuesto sin cargo en Tandil",
+      "video_id": "2863253840715796"
+    },
+    {
+      "video_path": "../remotion/out/wpc-7.mp4",
+      "headline": "Te lo dejamos listo",
+      "primary_text": "Nosotros te instalamos el deck de madera plástica en Tandil: prolijo, rápido y sin que lo tengas que mantener nunca más. Terminación pareja sobre estructura de aluminio. Pedí tu presupuesto sin cargo por WhatsApp.",
+      "description": "Instalación en Tandil",
+      "video_id": "4423207031271953"
+    },
+    {
+      "video_path": "../remotion/out/wpc-4.mp4",
+      "headline": "No lo toca ni el clima",
+      "primary_text": "Humedad, sol, heladas y termitas arruinan la madera común en dos inviernos de sierra. El deck de madera plástica (WPC) ni se inmuta: se ve igual de nuevo por más de veinticinco años. Instalamos en Tandil. Consultá tu presupuesto.",
+      "description": "Resiste el clima de Tandil",
+      "video_id": "2149305095988015"
+    },
+    {
+      "video_path": "../remotion/out/wpc-8.mp4",
+      "headline": "El deck que no mantenés nunca",
+      "primary_text": "Deck, wall panel y perfilería de madera plástica en Tandil. No se astilla, no se pudre, no se pinta: se ve siempre nuevo por más de veinticinco años. Pedí tu presupuesto sin cargo por WhatsApp.",
+      "description": "Deck · Wall Panel · Perfilería",
+      "video_id": "1559791391801888"
     },
     {
       "video_path": "../remotion/out/wpc-2.mp4",
       "headline": "Se ve siempre nuevo",
-      "primary_text": "La madera común se pone gris y se astilla en dos inviernos de sierra. El deck WPC se ve igual de nuevo después de 25 años: humedad, heladas y termitas no lo tocan. Te lo instalamos en Tandil. Pedí tu presupuesto.",
-      "description": "Más de 25 años de vida útil"
+      "primary_text": "La madera común se pone gris y se astilla en dos inviernos de sierra. El deck de madera plástica se ve igual de nuevo después de veinticinco años: humedad, heladas y termitas no lo tocan. Instalamos en Tandil. Pedí tu presupuesto.",
+      "description": "Más de 25 años de vida útil",
+      "video_id": "1400532081435587"
     },
     {
-      "video_path": "../remotion/out/wpc-3.mp4",
-      "headline": "Invertís una sola vez",
-      "primary_text": "Rehacer el deck cada cinco años es plata tirada. Con WPC invertís una vez y dura más de veinticinco años, sin mantenimiento. Medición y presupuesto sin cargo en Tandil.",
-      "description": "Medición y presupuesto sin cargo"
+      "video_path": "../remotion/out/wpc-5.mp4",
+      "headline": "El finde es para disfrutar",
+      "primary_text": "El quincho es para el mate y los amigos, no para lijarlo cada primavera. El deck de madera plástica es cero mantenimiento: ponelo y olvidate. Te lo instalamos en Tandil. Escribinos.",
+      "description": "Cero mantenimiento",
+      "video_id": "1693938355028257"
+    },
+    {
+      "video_path": "../remotion/out/wpc-6.mp4",
+      "headline": "Presupuesto sin cargo",
+      "primary_text": "¿Estás pensando en hacer un deck en Tandil? Te hacemos la medición y el presupuesto sin cargo, sin compromiso. Deck de madera plástica que no se mantiene nunca. Escribinos por WhatsApp.",
+      "description": "Medición sin cargo en Tandil",
+      "video_id": "1065513839528011"
     }
   ],
   "adsets": [
