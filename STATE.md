@@ -280,3 +280,52 @@ Santi generó la serie A y los videos salieron horribles. Autopsia — v1 rompí
 - **Falta solo que Santi delegue en NIC.ar** a ns1/ns2.vercel-dns.com. Vercel emite el cert solo.
 - GitHub Pages queda vivo como espejo (la app de Meta apunta ahí para la privacidad). El canonical
   resuelve el duplicado.
+
+## 5 sep 2026 — Números REALES de la pauta + investigación de ángulos
+**Datos propios (API Meta, cuenta act_859031260510247, desde 31/ago):**
+- Cuenta lifetime: **USD 19,58 · 5.175 impresiones · 3.857 personas · 49 clics** (CTR 2,34%).
+- Campaña ACTIVA `WPC Tandil | Prospecting | Lead Form` (OUTCOME_LEADS): $18,63 · **5 leads reales** → **CPL USD 3,73**. (Ojo al contar: `lead`=4 y `onsite_conversion.lead_grouped`=4 son EL MISMO evento; sumar los `*_add_meta_leads` infla a 20. El número bueno es `action_type == "lead"`.)
+- Campaña `Traffic→WhatsApp` PAUSADA, gastó $1,50.
+- Reparto: **10 anuncios sobre $10/día = $1 por anuncio por día.**
+- Por anuncio (impr/gasto/leads): no-mantenés-nunca 145/$1,12/**2** · estático-clima 984/$5,88/**1** · invertís-una-vez 343/$2,47/**1** · los otros 7 en cero.
+
+**Veredicto: NO hay ángulo ganador identificable.** El benchmark pide $50-100 de gasto por creativo solo para señal preliminar y ~100 conversiones por variante para declarar ganador. Hay $1,12 en el "mejor" y 4 conversiones repartidas en 10 anuncios: es ruido, no señal. El CPL de $4,54 sí es bueno (comparable al 5,24 de real estate) → **los creativos no son el problema; la fragmentación sí.**
+
+**Decisión recomendada:** NO cambiar creativos. Cortar de 10 a 3 (no-mantenés-nunca / clima / invertís-una-vez) para que junten datos. El feed se llena aparte con las 11 piezas ya hechas — es reparación de conversión, no crecimiento.
+
+**Ángulos que la investigación externa marca como ganadores en decking compuesto** (ver fuentes en el chat 5/sep):
+1. **La cuenta del mantenimiento CON NÚMEROS** (afuera: USD 540-1.050/año de madera vs 15-20 de compuesto; equilibrio a los 5-7 años). Hoy decimos "dura 25 años" = adjetivo. Falta el número en pesos.
+2. **El calor** — objeción real y prioridad #1 de desarrollo del rubro. NINGUNO de los 8 la toca. El guion orgánico A2 (el honesto) ataca justo eso.
+3. **Premium, no "sustituto barato"** — el mercado ya no lo ve como reemplazo económico de la madera sino como elemento de diseño. Los 8 venden defensa ("no lo mantenés"), falta deseo ("así queda tu casa").
+4. **Antes/después real** = el formato más persuasivo del rubro remodelación. El nuestro (wpc-2) es generado y es el peor (6/10).
+5. **Mito/verdad** — formato que sirve de anuncio y de contenido a la vez.
+
+⚠️ **Corrección a la recomendación del 4/sep:** el precio visible tiende a atraer comparadores y bajar la calidad del lead. Va en el PERFIL (resuelve la duda del que ya mira), NO en pauta fría.
+
+## 5 sep 2026 (mediodía) — BUG del panel: contaba 4 leads y eran 5
+**Causa:** el panel tomaba el número de **Insights** (`action_type=lead`), que **agrega con retraso de horas**. El lead de Marcia Sturno entró 08:26 y a las 10:51 Insights seguía diciendo 4. El endpoint `{FORM_ID}/leads` ya lo tenía.
+**Regla:** para CONTAR leads manda `/leads` (tiempo real, uno por fila). Insights sirve para gasto/impresiones, no para el conteo del día.
+**Fix en `dashboard-data.py`:** (1) se piden los leads con `ad_id`, (2) si la lista cruda tiene más que Insights **gana la lista** (antes solo caía al fallback si Insights daba CERO), (3) el desglose por anuncio también usa `max(insights, conteo real por ad_id)` — si no, un lead de un anuncio nuevo sin gasto reportado desaparecía de la tabla.
+**Números corregidos:** 5 leads · $18,63 · **CPL USD 3,73**. Por anuncio: *El deck que no mantenés nunca* **3** ($0,38) · *Invertís una sola vez* 1 ($2,58) · *estático No lo toca ni el clima* 1 ($6,09).
+Los 5 son `is_organic=false` (todos de pauta, ninguno es test propio).
+
+## 5 sep 2026 — Plan de feed (`marketing/plan-feed.md`)
+12 piezas **ya existentes** (8 reels `remotion/out/wpc-*.mp4` + 3 posts `out/ig/presenta-*.png` + `out/placa-comparativa.png`), 2 por día × 6 días, con caption escrito para cada una. No hay que producir nada nuevo.
+- **Se publica en orden inverso** (#12 → #1): IG pone lo último arriba a la izquierda, así la grilla termina leyéndose presentación → mejor video → comparativa.
+- `wpc-2` queda **afuera** (QA 6/10; el antes/después generado se nota). Su lugar es para el antes/después REAL cuando se filme en obra.
+- El feed no es para generar leads a esta escala: es para **cerrar la fuga** de la pauta (perfil vacío recibiendo tráfico pago).
+- Después de los 6 días: cadencia 2 por semana con `GUIONES-ORGANICO.md` + material real de obra.
+
+## 5 sep 2026 — 🚀 DOMINIO VIVO: https://wpctandil.com.ar
+- Delegación registrada en NIC 11:51, publicada en la zona `.com.ar` cerca de las 13:00.
+- Certificado Let's Encrypt emitido por Vercel (5-sep → 4-dic-2026, renueva solo).
+- `wpctandil.com.ar` y `www.` → 200. HTTP redirige a HTTPS con 308.
+- Canonical apuntando al dominio propio en las dos páginas; el espejo de GitHub Pages
+  se auto-canonicaliza, así que no compite en Google.
+- Verificado que lo interno NO se publica en el dominio: `dashboard/data.json`, `STATE.md`,
+  `PRECIOS-INTERNO.md`, `meta-api/config.json`, guionario y estrategia de pauta → todos 404.
+- Cotizador probado en vivo: 50 m² → 179 tablas → $7.195.263 sin IVA. Pixel cargando.
+- ⚠️ **Gotcha del script:** `dig +short NS` contra el resolver local devolvía vacío por caché
+  aunque el dominio ya estaba propagado. `configurar-dominio.sh` ahora pregunta a 1.1.1.1/8.8.8.8.
+- Pendiente manual de Santi: (1) URL de privacidad en la app de Meta →
+  `https://wpctandil.com.ar/privacidad.html`; (2) dominio en las bios de IG y FB.

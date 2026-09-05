@@ -7,7 +7,9 @@ export PATH="$HOME/.local/bin:$HOME/.npm-global/bin:$PATH"
 cd "$(dirname "$0")"
 
 echo "▸ 1/4 — ¿está delegado?"
-NS=$(dig +short NS "$DOM" | tr '\n' ' ')
+# el resolver local puede tener caché vieja: preguntamos a uno público
+NS=$(dig @1.1.1.1 +short NS "$DOM" | tr '\n' ' ')
+[ -z "$NS" ] && NS=$(dig @8.8.8.8 +short NS "$DOM" | tr '\n' ' ')
 if [ -z "$NS" ]; then
   echo "✗ $DOM todavía no está delegado."
   echo "  Falta el paso en NIC.ar: DELEGAR -> ns1.vercel-dns.com / ns2.vercel-dns.com"
