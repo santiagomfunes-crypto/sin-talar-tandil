@@ -500,6 +500,7 @@ function addPR(){
 function push(item){
   item.id=Date.now()+Math.random();
   cart.push(item); guardar(); renderCart();
+  guardarConDemora(false);
   if(window.fbq) fbq('trackCustom','AddToQuote',{content_name:item.prod,value:item.totalUSD,currency:'USD'});
 }
 /* Los ítems se guardan con su precio en USD: si cambia el dólar (o el carrito venía
@@ -512,7 +513,7 @@ function repreciarCart(){
   });
   guardar();
 }
-function quitar(id){ cart=cart.filter(function(i){return i.id!=id;}); guardar(); renderCart(); }
+function quitar(id){ cart=cart.filter(function(i){return i.id!=id;}); guardar(); renderCart(); guardarConDemora(false); }
 function limpiar(){ if(!cart.length) return; if(!confirm('¿Vaciar el presupuesto?')) return; cart=[]; guardar(); renderCart(); }
 function guardar(){ try{ localStorage.setItem('wpc_cart',JSON.stringify(cart)); }catch(e){} }
 function cargar(){ try{ var s=localStorage.getItem('wpc_cart'); if(s) cart=JSON.parse(s)||[]; }catch(e){ cart=[]; } }
@@ -554,6 +555,71 @@ function actualizarBarra(total){
   if(t) t.textContent='$'+fmt(total)+' sin IVA';
 }
 
+
+/* ============================================================
+   Guardado del presupuesto
+   Cada presupuesto que se arma queda guardado, se mande o no por WhatsApp.
+   La clave de abajo es la PUBLICABLE de Supabase: con RLS solo puede INSERTAR.
+   No puede leer nada — probado: un SELECT con esta clave devuelve vacío.
+   ============================================================ */
+var SB_URL = 'https://pgnmpxqljxrpnvexcygh.supabase.co/rest/v1/wpc_cotizaciones';
+var SB_KEY = 'sb_publishable_HmiBL9VpEhaYyPqjA1v67w_F38x48El';
+var guardadoT = null, ultimoGuardado = '';
+
+function sesionId(){
+  var k='wpc_sesion';
+  try{
+    var v=localStorage.getItem(k);
+    if(!v){ v = (Date.now().toString(36) + Math.random().toString(36).slice(2,10)); localStorage.setItem(k,v); }
+    return v;
+  }catch(e){ return 'anon-'+Date.now().toString(36); }
+}
+
+function datosCliente(){
+  function val(id){ var e=document.getElementById(id); return e && e.value ? e.value.trim() : null; }
+  return { nombre:val('cli-nombre'), telefono:val('cli-tel'), zona:val('cli-lugar'), nota:val('cli-nota') };
+}
+
+function guardarCotizacion(enviado){
+  if(!cart.length) return;
+  var c = datosCliente();
+  var payload = {
+    sesion: sesionId(),
+    items: cart.map(function(i){
+      return {prod:i.prod, color:i.color, term:i.term, detalle:i.label, unidades:i.unidades, ars:i.totalARS, usd:i.totalUSD};
+    }),
+    total_ars: cart.reduce(function(a,i){return a+i.totalARS;},0),
+    total_usd: +cart.reduce(function(a,i){return a+(i.totalUSD||0);},0).toFixed(2),
+    bna: BNA,
+    nombre: c.nombre, telefono: c.telefono, zona: c.zona, nota: c.nota,
+    enviado: !!enviado,
+    user_agent: (navigator.userAgent||'').slice(0,180)
+  };
+  // no repetir la misma foto dos veces seguidas
+  var firma = JSON.stringify([payload.items, payload.total_ars, c, payload.enviado]);
+  if(firma === ultimoGuardado) return;
+  ultimoGuardado = firma;
+
+  try{
+    var body = JSON.stringify(payload);
+    // si la pestaña se está cerrando, sendBeacon es lo único que llega
+    if(enviado === 'saliendo' && navigator.sendBeacon){
+      navigator.sendBeacon(SB_URL + '?apikey=' + SB_KEY, new Blob([body], {type:'application/json'}));
+      return;
+    }
+    fetch(SB_URL, {
+      method:'POST', keepalive:true,
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body: body
+    }).catch(function(){});
+  }catch(e){}
+}
+
+function guardarConDemora(enviado){
+  clearTimeout(guardadoT);
+  guardadoT = setTimeout(function(){ guardarCotizacion(enviado); }, 1200);
+}
+
 function textoPresupuesto(){
   var nombre=(document.getElementById('cli-nombre')||{}).value||'';
   var lugar=(document.getElementById('cli-lugar')||{}).value||'';
@@ -575,6 +641,7 @@ function textoPresupuesto(){
 
 function enviarWA(){
   if(!cart.length){ toast('Agregá al menos un producto'); return; }
+  guardarCotizacion(true);
   if(window.fbq) fbq('track','Contact',{content_name:'cotizador'});
   window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(textoPresupuesto()),'_blank');
 }
@@ -641,4 +708,11 @@ document.addEventListener('DOMContentLoaded', function(){
     es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   },{threshold:.12});
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  ['cli-nombre','cli-tel','cli-lugar','cli-nota'].forEach(function(id){
+    var e=document.getElementById(id); if(e) e.addEventListener('blur', function(){ guardarConDemora(false); });
+  });
+  document.addEventListener('visibilitychange', function(){
+    if(document.visibilityState==='hidden') guardarCotizacion('saliendo');
+  });
 });

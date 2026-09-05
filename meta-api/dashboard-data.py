@@ -94,13 +94,106 @@ for f in ("video", "static"):
                               "cpc": round(sp/lc, 2) if lc else 0,
                               "impressions": sum(a["impressions"] for a in fads)}
 
+# ── Campaña de FORMULARIO (leads los mide Meta directamente) ──
+FORMS_CAMP = "120251440759520234"
+forms = {"active": False, "spend": 0.0, "impressions": 0, "leads": 0, "cost_per_lead": 0}
+fc = api_get(TOKEN, FORMS_CAMP, fields="effective_status")
+if "error" not in fc:
+    forms["active"] = fc.get("effective_status") == "ACTIVE"
+    fi = api_get(TOKEN, f"{FORMS_CAMP}/insights", date_preset="maximum",
+                 fields="spend,impressions,actions").get("data", [])
+    if fi:
+        x = fi[0]
+        forms["spend"] = fnum(x.get("spend"))
+        forms["impressions"] = int(fnum(x.get("impressions")))
+        lead = 0
+        for a in x.get("actions", []):
+            if "lead" in a.get("action_type", ""):
+                lead = max(lead, int(fnum(a.get("value"))))
+        forms["leads"] = lead
+        forms["cost_per_lead"] = round(forms["spend"] / lead, 2) if lead else 0
+    # traer los leads reales (nombre + teléfono) del formulario
+    FORM_ID = "1798619054495337"
+    lead_list = []
+    by_ad = {}
+    lr = api_get(TOKEN, f"{FORM_ID}/leads", fields="created_time,ad_id,field_data")
+    for L in lr.get("data", []):
+        fd = {f.get("name"): (f.get("values") or [""])[0] for f in L.get("field_data", [])}
+        lead_list.append({"name": fd.get("full_name", ""), "phone": fd.get("phone_number", ""),
+                          "date": (L.get("created_time", "") or "")[:10]})
+        if L.get("ad_id"):
+            by_ad[L["ad_id"]] = by_ad.get(L["ad_id"], 0) + 1
+    forms["leads_list"] = lead_list
+    # Insights AGREGA con retraso (horas): el endpoint /leads es el que manda para
+    # contar. Si la lista tiene mas que insights, gana la lista.
+    if len(lead_list) > forms["leads"]:
+        forms["leads"] = len(lead_list)
+        forms["cost_per_lead"] = round(forms["spend"] / len(lead_list), 2) if lead_list else 0
+    # rendimiento por anuncio del Formulario (qué ángulo trae leads)
+    frows = api_get(TOKEN, f"{FORMS_CAMP}/insights", level="ad", date_preset="maximum",
+                    fields="ad_id,ad_name,spend,impressions,actions").get("data", [])
+    fads = []
+    for r in frows:
+        lead = 0
+        for a in r.get("actions", []):
+            if "lead" in a.get("action_type", ""):
+                lead = max(lead, int(fnum(a.get("value"))))
+        lead = max(lead, by_ad.get(r.get("ad_id"), 0))   # mismo criterio: gana la lista real
+        sp = fnum(r.get("spend"))
+        fads.append({"name": r.get("ad_name", "").replace("Form · ", ""),
+                     "spend": sp, "impressions": int(fnum(r.get("impressions"))),
+                     "leads": lead, "cost_per_lead": round(sp / lead, 2) if lead else 0})
+    forms["ads"] = sorted(fads, key=lambda a: (-a["leads"], a["cost_per_lead"] or 9e9))
+forms["budget"] = 20
+
+
+# ---- Presupuestos armados en la web (tabla wpc_cotizaciones de Supabase) ----
+# Se guarda uno por cada presupuesto que alguien arma en el cotizador, lo mande
+# o no por WhatsApp. La fila más reciente de cada sesión es la foto final.
+cotiz = {"total": 0, "enviados": 0, "abandonados": 0, "con_telefono": 0, "lista": []}
+try:
+    import urllib.request
+    _env = {}
+    for _l in open(os.path.join(HERE, ".env.meta")):
+        if "=" in _l and not _l.strip().startswith("#"):
+            _k, _v = _l.strip().split("=", 1); _env[_k] = _v
+    SB_URL, SB_KEY = _env.get("SUPABASE_URL"), _env.get("SUPABASE_SERVICE_KEY")
+    if SB_URL and SB_KEY:
+        q = (SB_URL + "/rest/v1/wpc_cotizaciones?select=creado_en,sesion,items,total_ars,"
+             "nombre,telefono,zona,nota,enviado&order=creado_en.desc&limit=400")
+        rq = urllib.request.Request(q, headers={"apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY})
+        filas = json.load(urllib.request.urlopen(rq, timeout=20))
+        vistas, unicas = set(), []
+        for f in filas:                      # ya vienen de la más nueva a la más vieja
+            if f["sesion"] in vistas: continue
+            vistas.add(f["sesion"]); unicas.append(f)
+        for f in unicas:
+            f["m2"] = None
+            for it in (f.get("items") or []):
+                d = (it.get("detalle") or "")
+                if "m² netos" in d:
+                    try: f["m2"] = float(d.split(" m² netos")[0].strip().split()[-1])
+                    except Exception: pass
+                    break
+            f["productos"] = ", ".join(sorted({(i.get("prod") or "") for i in (f.get("items") or [])}))
+        cotiz["lista"] = unicas[:60]
+        cotiz["total"] = len(unicas)
+        cotiz["enviados"] = sum(1 for f in unicas if f.get("enviado"))
+        cotiz["abandonados"] = sum(1 for f in unicas if not f.get("enviado"))
+        cotiz["con_telefono"] = sum(1 for f in unicas if not f.get("enviado") and f.get("telefono"))
+except Exception as e:
+    print("  (presupuestos web: no se pudieron traer —", str(e)[:70], ")")
+
 now = datetime.now(timezone.utc).astimezone(timezone(timedelta(hours=-3)))  # AR
 data = {
     "updated": now.strftime("%Y-%m-%d %H:%M"),
     "campaign": "WPC Tandil · Traffic→WhatsApp",
-    "daily_budget": 20,
+    "daily_budget": 10,
     "ads": sorted(ads, key=lambda a: (-a["link_clicks"], a["cpc"] or 9e9)),
     "totals": totals,
+    "forms": forms,
+    "cotizaciones": cotiz,
 }
 json.dump(data, open(OUT, "w"), ensure_ascii=False, indent=2)
-print(f"✓ {OUT} · gasto total ${totals['spend']} · {totals['link_clicks']} clics · {len(ads)} anuncios · {now:%H:%M}")
+print(f"✓ {OUT} · gasto ${totals['spend']} · {totals['link_clicks']} clics · {len(ads)} anuncios · "
+      f"{cotiz['total']} presupuestos web ({cotiz['abandonados']} sin enviar, {cotiz['con_telefono']} con teléfono) · {now:%H:%M}")

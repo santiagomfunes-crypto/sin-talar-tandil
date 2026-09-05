@@ -319,9 +319,11 @@ if (META_PIXEL_ID) {
         <small>Precios en pesos · dólar BNA venta · sin instalación · sujeto a confirmación de stock.</small>
         <div class="ct-summary-form">
           <label class="ct-field"><span>Nombre</span><input type="text" id="cli-nombre" placeholder="Tu nombre"></label>
+          <label class="ct-field"><span>Teléfono</span><input type="tel" inputmode="tel" id="cli-tel" placeholder="Para pasarte el presupuesto"></label>
           <label class="ct-field"><span>Zona / obra</span><input type="text" id="cli-lugar" placeholder="Tandil, barrio o dirección"></label>
           <label class="ct-field"><span>Comentario</span><textarea id="cli-nota" rows="2" placeholder="Contanos del proyecto"></textarea></label>
         </div>
+        <p class="ct-guardado">Guardamos tu presupuesto para que no lo pierdas. Si dejás tu teléfono, te escribimos con el precio confirmado.</p>
         <div class="ct-summary-actions">
           <button class="btn btn-wa btn-block" onclick="enviarWA()">Enviar por WhatsApp</button>
           <button class="btn btn-ghost btn-block" style="color:#f4f1e6;border-color:rgba(255,255,255,.22)" onclick="imprimirPresupuesto()">Descargar / imprimir PDF</button>

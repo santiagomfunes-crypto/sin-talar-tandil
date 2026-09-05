@@ -11,7 +11,7 @@
     --green:#2f5133; --green-d:#22392a; --ink:#17251b; --muted:#6a7566;
     --paper:#f4f1e6; --card:#ffffff; --line:#e4dfce;
     --ok:#3f8a4f; --okbg:#eaf5ec; --warn:#c98a2b; --warnbg:#faf1e2; --bad:#b4482f; --badbg:#f7eae6;
-    --chip:#eef3ea;
+    --chip:#eef3ea; --f1:#8fb98a; --f2:#4f7d54; --f3:#2f5133;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
@@ -29,39 +29,51 @@
   .live{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:13px}
   .dot{width:9px;height:9px;border-radius:50%;background:#7bd88f;box-shadow:0 0 0 4px rgba(123,216,143,.25)}
   .wrap{max-width:1180px;margin:0 auto;padding:26px 20px 70px}
-  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:26px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:8px}
   .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .kpi.hero{border-color:var(--green);box-shadow:0 0 0 2px rgba(47,81,51,.12)}
   .kpi .lbl{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}
   .kpi .val{font-size:34px;font-weight:800;margin-top:6px;letter-spacing:-.5px}
   .kpi .sub{font-size:13px;color:var(--muted);margin-top:2px}
   .bar{height:6px;border-radius:6px;background:var(--chip);margin-top:12px;overflow:hidden}
   .bar>i{display:block;height:100%;background:var(--green);border-radius:6px}
   h2{font-family:'Cormorant Garamond',serif;color:var(--green);font-size:24px;margin:30px 0 12px}
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-  @media(max-width:640px){.split{grid-template-columns:1fr}}
-  .fmt{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
-  .fmt h3{margin:0 0 10px;font-size:15px;display:flex;align-items:center;gap:8px}
-  .fmt .row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;color:var(--muted)}
-  .fmt .row b{color:var(--ink);font-weight:700}
-  .tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 9px;border-radius:100px}
-  .t-video{background:#e7eef9;color:#2a5aa0} .t-static{background:var(--chip);color:var(--green)}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin:8px 0 0}
   .tblwrap{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow-x:auto}
-  table{width:100%;border-collapse:collapse;min-width:720px}
+  table{width:100%;border-collapse:collapse;min-width:520px}
   th,td{text-align:right;padding:12px 14px;font-size:14px;border-bottom:1px solid var(--line);white-space:nowrap}
   th{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:700;background:var(--chip)}
   td.l,th.l{text-align:left}
   tr:last-child td{border-bottom:none}
+  .tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:3px 9px;border-radius:100px}
+  .t-video{background:#e7eef9;color:#2a5aa0} .t-static{background:var(--chip);color:var(--green)}
   .st{font-size:11px;font-weight:700;padding:3px 8px;border-radius:100px}
   .st-on{background:var(--okbg);color:var(--ok)} .st-rev{background:var(--warnbg);color:var(--warn)} .st-off{background:var(--chip);color:var(--muted)}
   .win{color:var(--ok);font-weight:800} .lose{color:var(--bad)}
   .crm{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
   .crm form{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
   .crm input{flex:1;min-width:120px;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--paper);color:var(--ink);font-size:14px}
-  .crm button{background:var(--green);color:#f4f1e6;border:none;border-radius:9px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:14px}
-  .lead{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
-  .lead .x{color:var(--muted);cursor:pointer;font-weight:700;padding:0 6px}
-  .note{color:var(--muted);font-size:13px;margin-top:6px}
+  .crm button.add{background:var(--green);color:#f4f1e6;border:none;border-radius:9px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:14px}
+  .lead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .lead .info{flex:1;min-width:0}
+  .pbtn{border:1.5px solid var(--line);background:transparent;color:var(--muted);border-radius:100px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;text-decoration:none}
+  .pbtn.on{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+  .lead .x{color:var(--muted);cursor:pointer;font-weight:700;padding:0 4px}
+  .note{color:var(--muted);font-size:13px;margin-top:8px}
   .empty{color:var(--muted);font-size:14px;padding:16px 0}
+  /* histórico WhatsApp (colapsado) */
+  details.hist{margin-top:34px;border-top:1px dashed var(--line);padding-top:14px}
+  details.hist summary{cursor:pointer;font-family:'Cormorant Garamond',serif;color:var(--muted);font-size:20px;list-style:none}
+  details.hist summary::-webkit-details-marker{display:none}
+  details.hist summary::before{content:"▸ ";color:var(--muted)}
+  details.hist[open] summary::before{content:"▾ "}
+  .funnel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:12px}
+  .fstage{margin-bottom:16px}.fstage:last-child{margin-bottom:0}
+  .fhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .fhead .n{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
+  .fhead .v{font-size:20px;font-weight:800}
+  .fbar{height:26px;border-radius:8px;background:var(--chip);overflow:hidden}.fbar>i{display:block;height:100%;border-radius:8px}
+  .fconv{font-size:12px;color:var(--muted);margin-top:5px}
 </style>
 </head>
 <body>
@@ -74,126 +86,156 @@
 </div></header>
 
 <div class="wrap">
+  <div class="eyebrow">Campaña activa · Formulario (Lead Ads)</div>
   <div class="kpis" id="kpis"></div>
 
-  <h2>Video vs. Estático</h2>
-  <div class="split" id="fmt"></div>
+  <h2>Leads que entraron</h2>
+  <div class="crm">
+    <div id="fm-head"></div>
+    <div class="note">Los trae Meta automáticamente (nombre + teléfono). Tocá <b>“Escribirle”</b> para contactarlos por WhatsApp al toque. Velocidad = más cierres.</div>
+    <div id="formleads"></div>
+  </div>
 
-  <h2>Anuncios — quién funciona y quién no</h2>
-  <div class="tblwrap"><table id="tbl">
-    <thead><tr>
-      <th class="l">Anuncio</th><th>Tipo</th><th>Estado</th>
-      <th>Impres.</th><th>Clics WA</th><th>CTR</th><th>Costo/clic</th><th>Gasto</th>
-    </tr></thead>
+  <h2>Presupuestos armados en la web</h2>
+  <div class="card">
+    <div id="cot-head"></div>
+    <div id="cotizaciones"></div>
+  </div>
+
+  <h2>Qué ángulo trae leads</h2>
+  <div class="tblwrap"><table id="ftbl">
+    <thead><tr><th class="l">Anuncio</th><th>Impresiones</th><th>Leads</th><th>Costo/lead</th><th>Gasto</th></tr></thead>
     <tbody></tbody>
   </table></div>
-  <div class="note">“Clic WA” = clic al botón que abre tu WhatsApp (proxy). El <b>lead real</b> es el mensaje que te entra al celu — cargalo abajo para ver el costo por presupuesto de verdad.</div>
+  <div class="note">Con datos de unos días vas a ver qué mensaje/video convierte más barato. Ahí volcamos presupuesto a los ganadores.</div>
 
-  <h2>Presupuestos recibidos (WhatsApp) — CRM</h2>
-  <div class="crm">
-    <div id="crmhead"></div>
-    <form id="lf">
-      <input id="ln" placeholder="Nombre / teléfono" required>
-      <input id="lnote" placeholder="Nota (qué pidió, zona…)">
-      <button type="submit">+ Agregar lead</button>
-    </form>
-    <div id="leads"></div>
-  </div>
+  <details class="hist">
+    <summary>WhatsApp (pausado) — histórico</summary>
+    <div class="note">Lo pausamos: probamos que el link <b>wa.me</b> no completaba el salto a la app dentro de Instagram/Facebook (19 clics, 0 mensajes). Queda acá de registro. Se revive con CTWA nativo + número aparte.</div>
+    <div class="funnel" id="funnel"></div>
+    <h2 style="font-size:19px">Consultas de WhatsApp cargadas a mano</h2>
+    <div class="crm">
+      <div id="crmhead"></div>
+      <form id="lf">
+        <input id="ln" placeholder="Nombre / teléfono" required>
+        <input id="lnote" placeholder="Nota">
+        <button type="submit" class="add">+ Agregar</button>
+      </form>
+      <div id="leads"></div>
+    </div>
+  </details>
 </div>
 
 <script>
 const money = n => "$" + (Math.round(n*100)/100).toLocaleString("es-AR",{minimumFractionDigits:0,maximumFractionDigits:2});
 const int = n => (n||0).toLocaleString("es-AR");
-const stCls = s => s==="ACTIVE"?"st-on":(s&&s.includes("PENDING"))?"st-rev":"st-off";
-const stTxt = s => s==="ACTIVE"?"Activo":(s&&s.includes("PENDING"))?"En revisión":(s==="ADSET_PAUSED"||s==="CAMPAIGN_PAUSED"||s==="PAUSED")?"Pausado":(s||"—");
-
+const pct = (a,b) => b? (a/b*100) : 0;
 let DATA = null;
 
-function renderAds(){
-  const tb = document.querySelector("#tbl tbody"); tb.innerHTML="";
-  const ads = DATA.ads;
-  const withData = ads.filter(a=>a.impressions>200 && a.link_clicks>0).map(a=>a.cpc).sort((x,y)=>x-y);
-  const best = withData[0], worst = withData[withData.length-1];
-  ads.forEach(a=>{
-    let cpcCls="";
-    if(a.impressions>200 && a.link_clicks>0){ if(a.cpc===best) cpcCls="win"; else if(a.cpc===worst && withData.length>1) cpcCls="lose"; }
-    const short = a.name.replace(/^.*·\s*/,"");
-    tb.insertAdjacentHTML("beforeend", `<tr>
-      <td class="l">${short}</td>
-      <td><span class="tag ${a.format==='video'?'t-video':'t-static'}">${a.format==='video'?'Video':'Estático'}</span></td>
-      <td><span class="st ${stCls(a.status)}">${stTxt(a.status)}</span></td>
-      <td class="num">${int(a.impressions)}</td>
-      <td class="num">${int(a.link_clicks)}</td>
-      <td class="num">${a.ctr?a.ctr.toFixed(2)+"%":"—"}</td>
-      <td class="num ${cpcCls}">${a.link_clicks?money(a.cpc):"—"}</td>
-      <td class="num">${money(a.spend)}</td>
-    </tr>`);
-  });
-}
-
-function renderKpis(){
-  const t = DATA.totals;
-  const pct = Math.min(100, (t.spend / DATA.daily_budget)*100);
-  document.getElementById("kpis").innerHTML = `
-    <div class="kpi"><div class="lbl">Gasto total</div><div class="val num">${money(t.spend)}</div>
-      <div class="sub">de ${money(DATA.daily_budget)}/día presupuestado</div>
-      <div class="bar"><i style="width:${pct}%"></i></div></div>
-    <div class="kpi"><div class="lbl">Clics a WhatsApp</div><div class="val num">${int(t.link_clicks)}</div>
-      <div class="sub">botón que abre el chat</div></div>
-    <div class="kpi"><div class="lbl">Costo por clic</div><div class="val num">${t.link_clicks?money(t.cpc):"—"}</div>
-      <div class="sub">${int(t.impressions)} impresiones · ${int(t.reach)} personas</div></div>
-    <div class="kpi"><div class="lbl">Presupuestos (WA)</div><div class="val num" id="kleads">0</div>
-      <div class="sub" id="kcpl">cargá tus leads abajo</div></div>`;
-  syncLeadKpi();
-}
-
-function renderFmt(){
-  const f = DATA.totals.by_format;
-  const box = (title, cls, d) => `<div class="fmt"><h3><span class="tag ${cls}">${title}</span></h3>
-    <div class="row"><span>Gasto</span><b class="num">${money(d.spend)}</b></div>
-    <div class="row"><span>Clics a WhatsApp</span><b class="num">${int(d.link_clicks)}</b></div>
-    <div class="row"><span>Costo por clic</span><b class="num">${d.link_clicks?money(d.cpc):"—"}</b></div>
-    <div class="row"><span>Impresiones</span><b class="num">${int(d.impressions)}</b></div></div>`;
-  document.getElementById("fmt").innerHTML = box("Video","t-video",f.video) + box("Estático","t-static",f.static);
-}
-
-// ── CRM leads (localStorage) ──
 const LK="wpc_leads";
 const getLeads=()=>{try{return JSON.parse(localStorage.getItem(LK)||"[]")}catch(e){return[]}};
 const setLeads=a=>{try{localStorage.setItem(LK,JSON.stringify(a))}catch(e){}};
+const nMsg=()=>getLeads().length, nPres=()=>getLeads().filter(l=>l.p).length;
+
+function renderKpis(){
+  if(!DATA) return; const f=DATA.forms||{};
+  const bud=f.budget||20, sp=f.spend||0, leads=f.leads||0;
+  document.getElementById("kpis").innerHTML = `
+    <div class="kpi hero"><div class="lbl">Leads del formulario</div><div class="val num">${int(leads)}</div>
+      <div class="sub">${f.active?'campaña activa':'pausada'}</div></div>
+    <div class="kpi hero"><div class="lbl">Costo por lead</div><div class="val num">${leads?money(f.cost_per_lead):"—"}</div>
+      <div class="sub">el número que manda</div></div>
+    <div class="kpi"><div class="lbl">Gasto</div><div class="val num">${money(sp)}</div>
+      <div class="sub">de ${money(bud)}/día</div><div class="bar"><i style="width:${Math.min(100,sp/bud*100)}%"></i></div></div>
+    <div class="kpi"><div class="lbl">Impresiones</div><div class="val num">${int(f.impressions)}</div>
+      <div class="sub">gente que vio el anuncio</div></div>`;
+}
+
+function renderFormsAds(){
+  if(!DATA) return; const tb=document.querySelector("#ftbl tbody"); tb.innerHTML="";
+  const ads=(DATA.forms&&DATA.forms.ads)||[];
+  if(!ads.length){ tb.innerHTML=`<tr><td class="l" colspan="5" style="color:var(--muted)">Todavía sin datos por anuncio — aparecen a medida que Meta entrega.</td></tr>`; return; }
+  const withL=ads.filter(a=>a.leads>0).map(a=>a.cost_per_lead).sort((x,y)=>x-y);
+  const best=withL[0], worst=withL[withL.length-1];
+  ads.forEach(a=>{
+    let cls=""; if(a.leads>0){ if(a.cost_per_lead===best) cls="win"; else if(a.cost_per_lead===worst&&withL.length>1) cls="lose"; }
+    tb.insertAdjacentHTML("beforeend",`<tr>
+      <td class="l">${a.name}</td><td class="num">${int(a.impressions)}</td>
+      <td class="num">${int(a.leads)}</td><td class="num ${cls}">${a.leads?money(a.cost_per_lead):"—"}</td>
+      <td class="num">${money(a.spend)}</td></tr>`);
+  });
+}
+
+function renderFormLeads(){
+  if(!DATA) return; const ls=(DATA.forms&&DATA.forms.leads_list)||[];
+  const head=document.getElementById("fm-head"), box=document.getElementById("formleads");
+  head.innerHTML=`<b>${ls.length}</b> lead${ls.length!==1?"s":""} recibido${ls.length!==1?"s":""}`;
+  box.innerHTML = ls.length
+    ? ls.map(l=>`<div class="lead"><span class="info"><b>${l.name||"(sin nombre)"}</b> · ${l.phone||"(sin tel)"} <span style="color:var(--muted)">· ${l.date}</span></span>
+        <a class="pbtn on" href="https://wa.me/${(l.phone||'').replace(/[^0-9]/g,'')}" target="_blank">Escribirle</a></div>`).join("")
+    : `<div class="empty">Todavía sin leads. Cuando alguien complete el formulario, aparece acá solo (nombre + teléfono).</div>`;
+}
+
+function renderCotizaciones(){
+  if(!DATA) return;
+  const c=DATA.cotizaciones||{lista:[]}, ls=c.lista||[];
+  const head=document.getElementById("cot-head"), box=document.getElementById("cotizaciones");
+  head.innerHTML = `<b>${c.total||0}</b> presupuesto${c.total!==1?"s":""} · `
+    + `<b>${c.enviados||0}</b> enviado${c.enviados!==1?"s":""} por WhatsApp · `
+    + `<b style="color:var(--warn,#e0a340)">${c.abandonados||0}</b> sin enviar`
+    + (c.con_telefono ? ` · <b style="color:var(--ok,#5fbf6a)">${c.con_telefono} con teléfono para llamar</b>` : "");
+  if(!ls.length){ box.innerHTML=`<div class="empty">Todavía nadie armó un presupuesto en el cotizador. Aparecen acá solos, con los m², el total y si lo mandaron o no.</div>`; return; }
+  box.innerHTML = ls.map(f=>{
+    const tel=(f.telefono||"").replace(/[^0-9]/g,"");
+    const fecha=(f.creado_en||"").replace("T"," ").slice(0,16);
+    const quien=f.nombre||"(sin nombre)";
+    const donde=f.zona?" · "+f.zona:"";
+    const m2=f.m2?`${f.m2} m²`:"—";
+    const total="$"+Number(f.total_ars||0).toLocaleString("es-AR");
+    const estado=f.enviado
+      ? `<span class="pbtn on" style="cursor:default">Lo mandó</span>`
+      : (tel ? `<a class="pbtn on" href="https://wa.me/${tel.length>10?tel:"549"+tel}" target="_blank">Escribirle</a>`
+             : `<span class="pbtn" style="cursor:default;opacity:.55">Sin teléfono</span>`);
+    return `<div class="lead"><span class="info">
+      <b>${quien}</b>${f.telefono?" · "+f.telefono:""}${donde}
+      <span style="color:var(--muted)"> · ${fecha}</span><br>
+      <span style="color:var(--muted);font-size:12.5px">${m2} · ${f.productos||"—"} · <b style="color:inherit">${total}</b> sin IVA${f.nota?" · “"+f.nota+"”":""}</span>
+    </span>${estado}</div>`;
+  }).join("");
+}
+
+// histórico WhatsApp
+function renderFunnel(){
+  if(!DATA) return; const t=DATA.totals, clics=t.link_clicks, msg=nMsg(), pres=nPres(), base=Math.max(clics,1);
+  const stg=(n,v,color)=>`<div class="fstage"><div class="fhead"><span class="n">${n}</span><span class="v num">${int(v)}</span></div>
+    <div class="fbar"><i style="width:${Math.max(2,v/base*100)}%;background:${color}"></i></div></div>`;
+  document.getElementById("funnel").innerHTML =
+    stg("Clics a WhatsApp",clics,"var(--f1)")+stg("Mensajes (a mano)",msg,"var(--f2)")+stg("Presupuestos",pres,"var(--f3)")+
+    `<div class="fconv">Gasto WhatsApp ${money(t.spend)} · costo/clic ${clics?money(t.cpc):"—"}</div>`;
+}
 function renderLeads(){
-  const ls=getLeads(); const box=document.getElementById("leads");
-  document.getElementById("crmhead").innerHTML = `<b>${ls.length}</b> presupuesto${ls.length!==1?"s":""} recibido${ls.length!==1?"s":""}`;
-  box.innerHTML = ls.length? ls.map((l,i)=>`<div class="lead"><span><b>${l.n}</b>${l.note?" · "+l.note:""} <span style="color:var(--muted)">· ${l.d}</span></span><span class="x" data-i="${i}">✕</span></div>`).join("") : `<div class="empty">Todavía no cargaste ningún presupuesto. Cuando te escriban por WhatsApp, anotalos acá para medir el costo real.</div>`;
-  box.querySelectorAll(".x").forEach(x=>x.onclick=()=>{const a=getLeads();a.splice(+x.dataset.i,1);setLeads(a);renderLeads();syncLeadKpi();});
-  syncLeadKpi();
+  const ls=getLeads(), box=document.getElementById("leads");
+  document.getElementById("crmhead").innerHTML=`<b>${nMsg()}</b> mensaje${nMsg()!==1?"s":""} · <b>${nPres()}</b> presupuesto${nPres()!==1?"s":""}`;
+  box.innerHTML = ls.length? ls.map((l,i)=>`<div class="lead"><span class="info"><b>${l.n}</b>${l.note?" · "+l.note:""} <span style="color:var(--muted)">· ${l.d}</span></span>
+     <button class="pbtn ${l.p?'on':''}" data-p="${i}">${l.p?'✓ Presup.':'Presup.'}</button><span class="x" data-i="${i}">✕</span></div>`).join("")
+   : `<div class="empty">Sin consultas cargadas.</div>`;
+  box.querySelectorAll(".pbtn").forEach(b=>b.onclick=()=>{const a=getLeads();a[+b.dataset.p].p=!a[+b.dataset.p].p;setLeads(a);renderLeads();renderFunnel();});
+  box.querySelectorAll(".x").forEach(x=>x.onclick=()=>{const a=getLeads();a.splice(+x.dataset.i,1);setLeads(a);renderLeads();renderFunnel();});
 }
-function syncLeadKpi(){
-  const n=getLeads().length; const k=document.getElementById("kleads"); if(!k)return;
-  k.textContent=n;
-  const cpl=document.getElementById("kcpl");
-  if(DATA&&n>0){cpl.textContent="Costo por presupuesto: "+money(DATA.totals.spend/n);}
-}
-document.getElementById("lf").addEventListener("submit",e=>{
-  e.preventDefault();
-  const n=document.getElementById("ln").value.trim(); if(!n)return;
-  const note=document.getElementById("lnote").value.trim();
-  const d=new Date().toLocaleDateString("es-AR",{day:"2-digit",month:"2-digit"});
-  const a=getLeads(); a.unshift({n,note,d}); setLeads(a);
-  e.target.reset(); renderLeads();
-});
+const lf=document.getElementById("lf");
+if(lf) lf.addEventListener("submit",e=>{e.preventDefault();const n=document.getElementById("ln").value.trim();if(!n)return;
+  const note=document.getElementById("lnote").value.trim();const d=new Date().toLocaleDateString("es-AR",{day:"2-digit",month:"2-digit"});
+  const a=getLeads();a.unshift({n,note,d,p:false});setLeads(a);e.target.reset();renderLeads();renderFunnel();});
 
 async function load(){
   try{
-    const r = await fetch("data.json?t="+Date.now());
-    DATA = await r.json();
-    document.getElementById("sub").textContent = DATA.campaign;
-    document.getElementById("upd").textContent = "Actualizado "+DATA.updated;
-    renderKpis(); renderFmt(); renderAds();
-  }catch(e){ document.getElementById("sub").textContent="No pude leer data.json — ¿corriste dashboard-data.py?"; }
+    const r=await fetch("data.json?t="+Date.now()); DATA=await r.json();
+    document.getElementById("sub").textContent="Formulario · "+DATA.campaign.replace("Traffic→WhatsApp","WPC Tandil");
+    document.getElementById("upd").textContent="Actualizado "+DATA.updated;
+    renderKpis(); renderFormLeads(); renderCotizaciones(); renderFormsAds(); renderFunnel();
+  }catch(e){ document.getElementById("sub").textContent="No pude leer data.json — ¿corre el servicio?"; }
 }
-load(); renderLeads();
-setInterval(load, 60000);   // refresca la lectura cada 60s
+renderLeads(); load(); setInterval(load,60000);
 </script>
 </body>
 </html>
