@@ -99,6 +99,7 @@
   <h2>Presupuestos armados en la web</h2>
   <div class="card">
     <div id="cot-head"></div>
+    <div id="cot-embudo"></div>
     <div id="cotizaciones"></div>
   </div>
 
@@ -176,6 +177,24 @@ function renderFormLeads(){
     : `<div class="empty">Todavía sin leads. Cuando alguien complete el formulario, aparece acá solo (nombre + teléfono).</div>`;
 }
 
+function renderEmbudo(){
+  const c=(DATA&&DATA.cotizaciones)||{}, e=c.embudo||[], box=document.getElementById("cot-embudo");
+  if(!box) return;
+  if(!e.length){ box.innerHTML=""; return; }
+  const max=Math.max(...e.map(x=>x.llegaron),1);
+  box.innerHTML =
+    `<div style="margin:14px 0 6px;font-size:12.5px;color:var(--muted)">Dónde se cae la gente <span style="opacity:.7">· sobre ${c.total||0} visita${c.total!==1?"s":""} que llegaron a ver un precio</span></div>`
+    + e.map(x=>`<div style="display:flex;align-items:center;gap:10px;margin-bottom:5px;font-size:13px">
+        <span style="width:150px;flex:none;color:var(--muted)">${x.nombre}</span>
+        <span style="flex:1;background:rgba(255,255,255,.06);border-radius:4px;height:18px;position:relative;overflow:hidden">
+          <span style="position:absolute;inset:0 auto 0 0;width:${Math.round(x.llegaron*100/max)}%;background:linear-gradient(90deg,#2f5133,#6f9a6d);border-radius:4px"></span>
+        </span>
+        <span style="width:104px;flex:none;text-align:right"><b>${x.llegaron}</b>
+          ${x.se_quedaron_aca?`<span style="color:#e0a340"> · ${x.se_quedaron_aca} se fue${x.se_quedaron_aca!==1?"ron":""}</span>`:""}</span>
+      </div>`).join("")
+    + (c.caida ? `<div style="margin:10px 0 4px;font-size:12.5px;color:#e0a340">▸ El escalón que más pierde: <b>${c.caida.nombre}</b> — ${c.caida.se_quedaron_aca} llegaron hasta ahí y no siguieron.</div>` : "");
+}
+
 function renderCotizaciones(){
   if(!DATA) return;
   const c=DATA.cotizaciones||{lista:[]}, ls=c.lista||[];
@@ -192,14 +211,18 @@ function renderCotizaciones(){
     const donde=f.zona?" · "+f.zona:"";
     const m2=f.m2?`${f.m2} m²`:"—";
     const total="$"+Number(f.total_ars||0).toLocaleString("es-AR");
+    const miro=f.solo_miro?` <span style="color:#e0a340">(lo calculó, no lo agregó)</span>`:"";
     const estado=f.enviado
       ? `<span class="pbtn on" style="cursor:default">Lo mandó</span>`
       : (tel ? `<a class="pbtn on" href="https://wa.me/${tel.length>10?tel:"549"+tel}" target="_blank">Escribirle</a>`
              : `<span class="pbtn" style="cursor:default;opacity:.55">Sin teléfono</span>`);
+    const paso=f.enviado?"":`<span style="color:#e0a340">se fue en: ${f.paso_label||"—"}</span> · `;
+    const tiempo=f.segundos?`${f.segundos<60?f.segundos+"s":Math.round(f.segundos/60)+" min"} en la página`:"";
     return `<div class="lead"><span class="info">
       <b>${quien}</b>${f.telefono?" · "+f.telefono:""}${donde}
       <span style="color:var(--muted)"> · ${fecha}</span><br>
-      <span style="color:var(--muted);font-size:12.5px">${m2} · ${f.productos||"—"} · <b style="color:inherit">${total}</b> sin IVA${f.nota?" · “"+f.nota+"”":""}</span>
+      <span style="color:var(--muted);font-size:12.5px">${m2} · ${f.productos||"—"} · <b style="color:inherit">${total}</b> sin IVA${miro}${f.nota?" · “"+f.nota+"”":""}</span><br>
+      <span style="font-size:12px">${paso}<span style="color:var(--muted)">${tiempo}${f.calculos>1?" · recalculó "+f.calculos+" veces":""}</span></span>
     </span>${estado}</div>`;
   }).join("");
 }
@@ -232,7 +255,7 @@ async function load(){
     const r=await fetch("data.json?t="+Date.now()); DATA=await r.json();
     document.getElementById("sub").textContent="Formulario · "+DATA.campaign.replace("Traffic→WhatsApp","WPC Tandil");
     document.getElementById("upd").textContent="Actualizado "+DATA.updated;
-    renderKpis(); renderFormLeads(); renderCotizaciones(); renderFormsAds(); renderFunnel();
+    renderKpis(); renderFormLeads(); renderEmbudo(); renderCotizaciones(); renderFormsAds(); renderFunnel();
   }catch(e){ document.getElementById("sub").textContent="No pude leer data.json — ¿corre el servicio?"; }
 }
 renderLeads(); load(); setInterval(load,60000);

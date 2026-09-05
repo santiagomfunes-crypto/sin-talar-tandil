@@ -160,7 +160,8 @@ try:
     SB_URL, SB_KEY = _env.get("SUPABASE_URL"), _env.get("SUPABASE_SERVICE_KEY")
     if SB_URL and SB_KEY:
         q = (SB_URL + "/rest/v1/wpc_cotizaciones?select=creado_en,sesion,items,total_ars,"
-             "nombre,telefono,zona,nota,enviado&order=creado_en.desc&limit=400")
+             "nombre,telefono,zona,nota,enviado,paso_max,paso_label,segundos,calculos,calculo_suelto"
+             "&order=creado_en.desc&limit=400")
         rq = urllib.request.Request(q, headers={"apikey": SB_KEY, "Authorization": "Bearer " + SB_KEY})
         filas = json.load(urllib.request.urlopen(rq, timeout=20))
         vistas, unicas = set(), []
@@ -176,6 +177,30 @@ try:
                     except Exception: pass
                     break
             f["productos"] = ", ".join(sorted({(i.get("prod") or "") for i in (f.get("items") or [])}))
+            # el que calculó y se fue sin agregar: mostramos lo que llegó a ver
+            cs = f.get("calculo_suelto")
+            if not f.get("items") and cs:
+                f["productos"] = cs.get("prod") or "—"
+                f["m2"] = cs.get("m2")
+                f["total_ars"] = cs.get("ars") or 0
+                f["solo_miro"] = True
+        # embudo: en qué paso se quedó cada visita.
+        # La base son los que llegaron a ver un precio — antes de eso no se guarda fila.
+        PASOS = ["Abrió el catálogo","Llegó al cotizador","Cargó una medida","Vio el total",
+                 "Agregó al presupuesto","Llegó al resumen","Completó sus datos","Mandó por WhatsApp"]
+        n = len(unicas)
+        embudo = []
+        for i in range(3, len(PASOS)):
+            llegaron = sum(1 for f in unicas if (f.get("paso_max") or 0) >= i)
+            quedaron = sum(1 for f in unicas if (f.get("paso_max") or 0) == i)
+            embudo.append({"paso": i, "nombre": PASOS[i], "llegaron": llegaron,
+                           "se_quedaron_aca": quedaron,
+                           "pct": round(llegaron * 100 / n) if n else 0})
+        cotiz["embudo"] = embudo
+        # el escalón donde más gente se cae (sin contar a los que sí mandaron)
+        perdidos = [e for e in embudo if e["paso"] < len(PASOS) - 1]
+        peor = max(perdidos, key=lambda e: e["se_quedaron_aca"]) if perdidos else None
+        cotiz["caida"] = peor if (peor and peor["se_quedaron_aca"]) else None
         cotiz["lista"] = unicas[:60]
         cotiz["total"] = len(unicas)
         cotiz["enviados"] = sum(1 for f in unicas if f.get("enviado"))

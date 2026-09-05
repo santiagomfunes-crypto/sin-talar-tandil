@@ -311,6 +311,7 @@ function svgForma(f){
 
 /* ---------- Deck ---------- */
 function calcDeck(){
+  marcarPaso(2);
   var cfg=FORMAS[formaActual], out=document.getElementById('dk-result');
   var vals=cfg.fields.map(function(_,i){ return parseFloat((document.getElementById('dk-m'+i)||{}).value)||0; });
   var ok = formaActual==='custom' ? vals.some(function(v){return v>0;}) : vals.every(function(v){return v>0;});
@@ -329,6 +330,8 @@ function calcDeck(){
     + row('Clips de fijación',clips+' aprox.')
     + row('Total estimado (sin IVA)','$'+fmt(totalARS),true)
     + rowIva(totalARS);
+  calculos++; marcarPaso(3);
+  ultimoCalculo={prod:'Deck WPC', detalle:deckCalc.area.toFixed(2)+' m² · '+deckCalc.tablas+' tablas', ars:deckCalc.totalARS, m2:deckCalc.area};
   return deckCalc;
 }
 function row(k,v,total){ return '<div class="ct-row'+(total?' total':'')+'"><span>'+k+'</span><span>'+v+'</span></div>'; }
@@ -355,6 +358,7 @@ function selModoWP(m,btn){
 }
 
 function calcWP(){
+  marcarPaso(2);
   var p=PRODUCTOS.find(function(x){return x.id==='wallpanel';}), out=document.getElementById('wp-result');
   var waste=parseFloat((document.getElementById('wp-waste')||{}).value)||0;
   var area=0, panos=1;
@@ -378,6 +382,8 @@ function calcWP(){
     + row('Paneles necesarios',unidades+' unidades')
     + row('Total estimado (sin IVA)','$'+fmt(totalARS),true)
     + rowIva(totalARS);
+  calculos++; marcarPaso(3);
+  ultimoCalculo={prod:'Wall Panel WPC', detalle:wpCalc.area.toFixed(2)+' m² · '+wpCalc.unidades+' paneles', ars:wpCalc.totalARS, m2:wpCalc.area};
   return wpCalc;
 }
 function addWP(){
@@ -421,6 +427,7 @@ function selModoPerfil(m,btn){
   calcPR();
 }
 function calcPR(){
+  marcarPaso(2);
   var p=perfilProd(), out=document.getElementById('pr-result');
   var barLen=parseFloat((document.getElementById('pr-barlen')||{}).value)||2.9;
   var waste=parseFloat((document.getElementById('pr-waste')||{}).value)||0;
@@ -469,6 +476,8 @@ function calcPR(){
     + (warn?'<div class="ct-warn">'+warn+'</div>':'');
   out.innerHTML=html;
   dibujarPerfiles(count,orient);
+  calculos++; marcarPaso(3);
+  ultimoCalculo={prod:prCalc.product.name, detalle:prCalc.ml.toFixed(2)+' m lineales · '+prCalc.bars+' barras', ars:prCalc.totalARS, m2:null};
   return prCalc;
 }
 function dibujarPerfiles(count,orient){
@@ -500,7 +509,7 @@ function addPR(){
 function push(item){
   item.id=Date.now()+Math.random();
   cart.push(item); guardar(); renderCart();
-  guardarConDemora(false);
+  marcarPaso(4); guardarConDemora(false);
   if(window.fbq) fbq('trackCustom','AddToQuote',{content_name:item.prod,value:item.totalUSD,currency:'USD'});
 }
 /* Los ítems se guardan con su precio en USD: si cambia el dólar (o el carrito venía
@@ -562,6 +571,25 @@ function actualizarBarra(total){
    La clave de abajo es la PUBLICABLE de Supabase: con RLS solo puede INSERTAR.
    No puede leer nada — probado: un SELECT con esta clave devuelve vacío.
    ============================================================ */
+
+/* ---- Dónde se cayó: los 8 pasos del recorrido ----
+   Guardamos el paso más lejano al que llegó cada visita. Así "vio el total y se
+   fue" se distingue de "completó los datos y no mandó": el primero es problema
+   de precio, el segundo es problema del formulario. */
+var PASOS = ['Abrió el catálogo','Llegó al cotizador','Cargó una medida','Vio el total',
+             'Agregó al presupuesto','Llegó al resumen','Completó sus datos','Mandó por WhatsApp'];
+var pasoMax = 0, pasosT = {}, calculos = 0, arranque = Date.now();
+var ultimoCalculo = null;   // lo último que vio en pantalla, aunque no lo agregue
+
+function marcarPaso(n){
+  if(pasosT[n] === undefined) pasosT[n] = Math.round((Date.now()-arranque)/1000);
+  if(n > pasoMax){
+    pasoMax = n;
+    // "vio el total" es el punto donde más se cae: lo guardamos aunque no agregue nada
+    if(n >= 3) guardarConDemora(false);
+  }
+}
+
 var SB_URL = 'https://pgnmpxqljxrpnvexcygh.supabase.co/rest/v1/wpc_cotizaciones';
 var SB_KEY = 'sb_publishable_HmiBL9VpEhaYyPqjA1v67w_F38x48El';
 var guardadoT = null, ultimoGuardado = '';
@@ -581,7 +609,7 @@ function datosCliente(){
 }
 
 function guardarCotizacion(enviado){
-  if(!cart.length) return;
+  if(!cart.length && pasoMax < 3) return;   // sin carrito guardamos solo si llegó a ver un total
   var c = datosCliente();
   var payload = {
     sesion: sesionId(),
@@ -593,10 +621,16 @@ function guardarCotizacion(enviado){
     bna: BNA,
     nombre: c.nombre, telefono: c.telefono, zona: c.zona, nota: c.nota,
     enviado: !!enviado,
+    paso_max: pasoMax,
+    paso_label: PASOS[pasoMax] || PASOS[0],
+    pasos: Object.keys(pasosT).map(function(k){ return {paso:+k, nombre:PASOS[+k], seg:pasosT[k]}; }),
+    segundos: Math.round((Date.now()-arranque)/1000),
+    calculos: calculos,
+    calculo_suelto: cart.length ? null : ultimoCalculo,
     user_agent: (navigator.userAgent||'').slice(0,180)
   };
   // no repetir la misma foto dos veces seguidas
-  var firma = JSON.stringify([payload.items, payload.total_ars, c, payload.enviado]);
+  var firma = JSON.stringify([payload.items, payload.total_ars, c, payload.enviado, pasoMax, payload.calculo_suelto]);
   if(firma === ultimoGuardado) return;
   ultimoGuardado = firma;
 
@@ -641,7 +675,7 @@ function textoPresupuesto(){
 
 function enviarWA(){
   if(!cart.length){ toast('Agregá al menos un producto'); return; }
-  guardarCotizacion(true);
+  marcarPaso(7); guardarCotizacion(true);
   if(window.fbq) fbq('track','Contact',{content_name:'cotizador'});
   window.open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(textoPresupuesto()),'_blank');
 }
@@ -710,8 +744,22 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
 
   ['cli-nombre','cli-tel','cli-lugar','cli-nota'].forEach(function(id){
-    var e=document.getElementById(id); if(e) e.addEventListener('blur', function(){ guardarConDemora(false); });
+    var e=document.getElementById(id); if(e) e.addEventListener('blur', function(){
+      if((id==='cli-nombre'||id==='cli-tel') && e.value.trim()) marcarPaso(6);
+      guardarConDemora(false);
+    });
   });
+  var ioPasos = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      if(e.target.id==='cotizador') marcarPaso(1);
+      if(e.target.id==='presupuesto') marcarPaso(5);
+    });
+  },{threshold:.25});
+  ['cotizador','presupuesto'].forEach(function(id){
+    var el=document.getElementById(id); if(el) ioPasos.observe(el);
+  });
+
   document.addEventListener('visibilitychange', function(){
     if(document.visibilityState==='hidden') guardarCotizacion('saliendo');
   });
