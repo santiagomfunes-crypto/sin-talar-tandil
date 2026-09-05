@@ -268,3 +268,15 @@ Santi generó la serie A y los videos salieron horribles. Autopsia — v1 rompí
   ellos (~20% abajo).
 - Usabilidad: barra fija con el total, ejemplos de un toque en deck, modos de perfilería en
   castellano de obra, ayudas en los campos de jerga, teclado numérico en celular.
+
+## 5 sep 2026 — CORRECCIÓN: el dominio va por Vercel, no Cloudflare
+- Santi frenó la idea de Cloudflare. Verificado con `dig`: `santiagofunes.com.ar` y
+  `redactacontratos.com.ar` están delegados a **ns1/ns2.vercel-dns.com**. Se replica eso.
+- El sitio se **mudó a Vercel**: proyecto `wpc-tandil`, repo conectado (push a main = deploy).
+  https://wpc-tandil.vercel.app
+- **`.vercelignore`**: el dominio público sirve solo landing + catálogo + cotizador + privacidad.
+  El dashboard de gasto de la pauta, los guiones y los scripts de Meta dejan de ser accesibles
+  (en la URL de GitHub SÍ lo están). Verificado: `/dashboard/data.json` y `/STATE.md` → 404.
+- **Falta solo que Santi delegue en NIC.ar** a ns1/ns2.vercel-dns.com. Vercel emite el cert solo.
+- GitHub Pages queda vivo como espejo (la app de Meta apunta ahí para la privacidad). El canonical
+  resuelve el duplicado.
