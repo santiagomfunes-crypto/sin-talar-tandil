@@ -466,3 +466,60 @@ Dos consecuencias:
 1. Es la causa de fondo del candado: un número dado de alta en la WhatsApp Business Platform **no se puede vincular a la Página** como número común. `probe-wa.py` sigue devolviendo STILL_FAILING. Cambiarle el nombre no lo destraba.
 2. Quien escribe desde un anuncio de WPC ve **"Santiago Funes | Real Estate"** como nombre del negocio: marca equivocada en el momento de mayor intención.
 Los números están consistentes: landing (live y local) y `config.json` usan 5492494209464.
+
+## 5 sep 2026 (tarde) — Motor de precios extraído a `precios.js`
+- **Nuevo archivo `precios.js` (232 líneas): única fuente de verdad de productos, precios y cálculo.**
+  Lo consumen DOS lados: el navegador (`catalogo.html` lo carga ANTES de `cotizador.js`) y —cuando
+  exista— el bot de WhatsApp (`require('./precios.js')`). Envuelto en UMD, no toca el DOM ni asume
+  que existe `document`.
+- Expone: `PRODUCTOS/COLORES/TERMINACIONES/FORMAS`, `getBNA/setBNA`, `traerDolarBNA(fetch)`,
+  `areaForma(forma, vals)`, `cotizarDeck(area, waste)`, `cotizarPanel(area, waste, panos)`,
+  `cotizarPerfil({modo, ...})`. Las tres cotizadoras son PURAS: números adentro, números afuera.
+- `cotizador.js` bajó de 766 a 659 líneas y ya no tiene datos ni matemática: alias-ea el módulo y
+  se queda solo con el DOM. **Si cambia un precio se toca `precios.js` y nada más.**
+- ⚠️ Gotcha del refactor: el primer intento de recortar bloques buscando el próximo `}` rompió el
+  archivo (las funciones tienen llaves internas: `}catch(e){}`, `if(...){ ... }`). Hay que cortar
+  balanceando llaves y salteando strings/comentarios. Si se repite la operación, usar ese scanner.
+- **Verificado con los números viejos, no "parece andar":** deck 50 m² + 10% → 179 tablas ·
+  $6.682.428 al dólar 1420 y $7.195.263 al 1529 (idéntico a lo que anota el STATE del 5-sep).
+  Wall panel 30 m² → 52 paneles · $2.542.644. Perfil 12 ml → 5 barras. Dólar en vivo: 1529 en el
+  motor y en pantalla, `precioARS` del deck = 40.197. Probado en Node y en el navegador real.
+- 🚧 NO deployado: está solo en local, sin commit ni push.
+
+## 5 sep 2026 (tarde) — Asistente web: `/api/chat` + widget
+- **`api/chat.js`** — función serverless de Vercel. Corre Claude (`claude-opus-5`, `effort: low`) con
+  **el motor de precios como herramientas**: `calcular_area`, `cotizar_deck`, `cotizar_wallpanel`,
+  `cotizar_perfil`, `pasar_a_humano`. El modelo entiende y redacta; **los números salen de
+  `precios.js`, nunca del modelo.** Loop manual de tool use (máx 6 vueltas), sin dependencia beta.
+- El prompt de sistema se arma EN CALIENTE desde `precios.js`: los precios, los 6 colores y el dólar
+  del día entran solos. No hay una lista de precios escrita en el prompt que se pueda desactualizar.
+- `pasar_a_humano` dispara un push por ntfy (reusa `NTFY_TOPIC`, el mismo tópico del aviso de leads)
+  y devuelve el WhatsApp. Si el tópico no está configurado, no falla: igual pasa el contacto.
+- **`bot.js` + `bot.css`** — widget en `catalogo.html` e `index.html`. Va ARRIBA de la burbuja de
+  WhatsApp, no en su lugar: el que quiere una persona sigue teniendo su botón. El front no sabe
+  nada de precios a propósito.
+- **`test/chat.test.js` — 17 pruebas, todas verdes, sin gastar un token de API.** Verifican los
+  números contra los del cotizador en producción (deck 50 m² = 179 tablas = $7.195.263), que el
+  desperdicio por defecto sea 10%, que la basura no rompa nada y que el prompt tenga los precios
+  reales adentro. `node test/chat.test.js`.
+- 🐛 Bug que encontró la prueba: el endpoint no le pasaba la cara del perfil al motor, así que un
+  42×22 se calculaba como si midiera 60 mm. Corregido (`cara` sale del perfil elegido).
+- Probado en navegador real: el widget abre, saluda, manda, y ante una API caída degrada con
+  mensaje claro + botón de WhatsApp en vez de quedarse colgado.
+- 🚧 **FALTA (solo lo puede hacer Santi): cargar `ANTHROPIC_API_KEY` en el proyecto `wpc-tandil`
+  de Vercel** (Settings → Environment Variables). Opcional: `NTFY_TOPIC` para el aviso de traspaso.
+  Sin la key el endpoint devuelve 500 y el widget cae al WhatsApp.
+- 🚧 NO deployado: todo local, sin commit ni push.
+
+## 5 sep 2026 — ⛔ Nada de emoji en los textos que van por wa.me
+- Síntoma: los mensajes que se abren desde el dashboard llegaban a WhatsApp con **rombos negros**
+  (`�`) en lugar de los emoji. Al cliente le llegaba así.
+- **No era el archivo ni el navegador.** El HTML está en UTF-8, declara `<meta charset>` y
+  `encodeURIComponent('👋')` devuelve `%F0%9F%91%8B`, que es correcto. Verificado.
+- La causa es el traspaso **navegador → macOS → WhatsApp Desktop**: la app no decodifica bien los
+  emoji de **4 bytes** (fuera del BMP: 👋 U+1F44B, 🙌 U+1F64C) que le llegan por el link.
+- **Regla:** en cualquier texto que viaje en un `wa.me/...?text=`, cero emoji. Los acentos y `m²`
+  sí pasan bien (son de 2 bytes, dentro del BMP) — no hay que sacarlos.
+- Corregidas las dos plantillas de `dashboard/index.html` (contactar lead y contactar presupuesto
+  abandonado). Los links de la landing y del cotizador nunca tuvieron emoji.
+

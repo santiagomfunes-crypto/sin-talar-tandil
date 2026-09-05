@@ -128,6 +128,8 @@
 </div>
 
 <script>
+// OJO: nada de emoji en los textos que van por wa.me — WhatsApp Desktop
+// no decodifica los de 4 bytes y al cliente le llega un rombo negro.
 const money = n => "$" + (Math.round(n*100)/100).toLocaleString("es-AR",{minimumFractionDigits:0,maximumFractionDigits:2});
 const int = n => (n||0).toLocaleString("es-AR");
 const pct = (a,b) => b? (a/b*100) : 0;
@@ -167,13 +169,25 @@ function renderFormsAds(){
   });
 }
 
+// Normaliza a formato wa.me de celular argentino (549 + área + número).
+// Meta manda los teléfonos SIN el 9 → hay que agregarlo o WhatsApp no lo encuentra.
+function waNum(p){
+  let n=(p||'').replace(/[^0-9]/g,''); if(!n) return '';
+  if(n.slice(0,2)==='54'){ if(n[2]!=='9') n='549'+n.slice(2); }
+  else { n='549'+n.replace(/^0/,''); }
+  return n;
+}
 function renderFormLeads(){
   if(!DATA) return; const ls=(DATA.forms&&DATA.forms.leads_list)||[];
   const head=document.getElementById("fm-head"), box=document.getElementById("formleads");
   head.innerHTML=`<b>${ls.length}</b> lead${ls.length!==1?"s":""} recibido${ls.length!==1?"s":""}`;
   box.innerHTML = ls.length
-    ? ls.map(l=>`<div class="lead"><span class="info"><b>${l.name||"(sin nombre)"}</b> · ${l.phone||"(sin tel)"} <span style="color:var(--muted)">· ${l.date}</span></span>
-        <a class="pbtn on" href="https://wa.me/${(l.phone||'').replace(/[^0-9]/g,'')}" target="_blank">Escribirle</a></div>`).join("")
+    ? ls.map(l=>{
+        const tel=waNum(l.phone);
+        const msg=encodeURIComponent(`Hola ${l.name||''}! Soy Santiago, de WPC Tandil. Vi que pediste info del deck. ¿Para qué espacio lo estás pensando? (patio, quincho, galería) Con eso te armo el presupuesto.`);
+        return `<div class="lead"><span class="info"><b>${l.name||"(sin nombre)"}</b> · ${l.phone||"(sin tel)"} <span style="color:var(--muted)">· ${l.date}</span></span>
+        <a class="pbtn on" href="https://wa.me/${tel}?text=${msg}" target="_blank">Escribirle</a></div>`;
+      }).join("")
     : `<div class="empty">Todavía sin leads. Cuando alguien complete el formulario, aparece acá solo (nombre + teléfono).</div>`;
 }
 
@@ -212,9 +226,10 @@ function renderCotizaciones(){
     const m2=f.m2?`${f.m2} m²`:"—";
     const total="$"+Number(f.total_ars||0).toLocaleString("es-AR");
     const miro=f.solo_miro?` <span style="color:#e0a340">(lo calculó, no lo agregó)</span>`:"";
+    const msg=encodeURIComponent(`Hola ${f.nombre||''}! Soy Santiago, de WPC Tandil. Vi que estuviste armando un presupuesto${f.m2?` de ${f.m2} m²`:""} en la web. ¿Te ayudo a cerrarlo? Reviso las medidas con vos y te confirmo el precio final.`);
     const estado=f.enviado
       ? `<span class="pbtn on" style="cursor:default">Lo mandó</span>`
-      : (tel ? `<a class="pbtn on" href="https://wa.me/${tel.length>10?tel:"549"+tel}" target="_blank">Escribirle</a>`
+      : (tel ? `<a class="pbtn on" href="https://wa.me/${waNum(f.telefono)}?text=${msg}" target="_blank">Escribirle</a>`
              : `<span class="pbtn" style="cursor:default;opacity:.55">Sin teléfono</span>`);
     const paso=f.enviado?"":`<span style="color:#e0a340">se fue en: ${f.paso_label||"—"}</span> · `;
     const tiempo=f.segundos?`${f.segundos<60?f.segundos+"s":Math.round(f.segundos/60)+" min"} en la página`:"";
