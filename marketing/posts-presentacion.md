@@ -57,9 +57,9 @@ Link en la bio 👆
 ## POST 3 · Por qué WPC → `presenta-3.png`
 
 ```
-¿Otra primavera lijando y barnizando el deck?
+Cuando comprás madera común, no estás comprando un deck.
 
-Esa es la parte que nadie te cuenta cuando comprás madera: no comprás un deck, comprás un mantenimiento anual para los próximos diez años. Y a los cinco o seis, cuando empieza a astillarse y a ponerse gris, lo hacés de nuevo.
+Estás comprando un mantenimiento anual para los próximos diez años. Y a los cinco o seis, cuando empieza a astillarse y a ponerse gris, lo hacés de nuevo.
 
 El deck de madera plástica se pone una vez.
 No se lija, no se pinta, no se sella. Se limpia con agua y jabón.

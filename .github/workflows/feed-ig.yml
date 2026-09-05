@@ -1,0 +1,53 @@
+name: Feed Instagram · WPC Tandil
+
+# Publica UNA pieza de marketing/cola-feed.json por corrida, dos veces por dia,
+# hasta vaciar la cola. Cuando no queda nada pendiente el script sale sin hacer nada.
+on:
+  schedule:
+    - cron: '0 13 * * *'   # 10:00 en Argentina (UTC-3)
+    - cron: '0 22 * * *'   # 19:00 en Argentina
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Validar sin publicar'
+        type: boolean
+        default: false
+
+concurrency:
+  group: feed-ig
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Publicar la siguiente pieza
+        env:
+          META_TOKEN: ${{ secrets.META_TOKEN }}
+        run: |
+          if [ -z "$META_TOKEN" ]; then
+            echo "::error::Falta el secret META_TOKEN"; exit 1
+          fi
+          python3 meta-api/publicar-siguiente.py \
+            ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Anotar la pieza como publicada
+        if: ${{ !inputs.dry_run }}
+        run: |
+          if git diff --quiet -- marketing/cola-feed.json; then
+            echo "Sin cambios en la cola (nada que publicar)."; exit 0
+          fi
+          git config user.name  "wpc-feed-bot"
+          git config user.email "santiagomfunes@gmail.com"
+          git add marketing/cola-feed.json
+          git commit -m "feed: publicada la siguiente pieza en @wpc.tandil [skip ci]"
+          git push
