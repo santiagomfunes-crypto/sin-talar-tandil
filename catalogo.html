@@ -58,7 +58,7 @@ if (META_PIXEL_ID) {
     <p>Cuatro líneas de producto, seis colores de stock permanente y tres terminaciones. Cargá las medidas de tu proyecto y armá el presupuesto vos mismo, sin esperar a que te contestemos.</p>
     <div class="ct-bna">
       <span>Precios en pesos al dólar BNA venta del día: <b id="bna-display">—</b></span>
-      <span>· IVA 21% incluido</span>
+      <span>· precios <b>sin IVA</b></span>
     </div>
   </div>
 </section>
@@ -79,7 +79,7 @@ if (META_PIXEL_ID) {
     <div class="sec-head reveal">
       <span class="eyebrow">Catálogo completo</span>
       <h2>Productos</h2>
-      <p>Medidas y colores especiales, bajo pedido. Los precios de lista son por unidad, con IVA incluido y sin instalación.</p>
+      <p>Medidas y colores especiales, bajo pedido. Los precios de lista son por unidad y sin IVA, que es como se cotiza. Debajo de cada uno está lo que daría con IVA, por si lo necesitás facturado.</p>
     </div>
     <div class="ct-filters">
       <button class="ct-filter active" onclick="filtrarCat('todos',this)">Todos</button>
@@ -284,7 +284,7 @@ if (META_PIXEL_ID) {
     <div class="sec-head reveal">
       <span class="eyebrow">Tu presupuesto</span>
       <h2>Resumen</h2>
-      <p>Revisá los ítems, completá tus datos y mandánoslo. Te confirmamos stock, plazo de entrega y, si querés, el costo de instalación en Tandil.</p>
+      <p>Revisá los ítems, completá tus datos y mandánoslo. El total va sin IVA; abajo tenés el IVA discriminado por si lo necesitás con factura. Te confirmamos stock, plazo de entrega y, si querés, el costo de instalación en Tandil.</p>
     </div>
     <div class="print-head">
   <img src="img/logo-wpc-green.png" alt="WPC Tandil">
@@ -296,7 +296,9 @@ if (META_PIXEL_ID) {
       <div class="ct-summary">
         <h3>Total estimado</h3>
         <div class="ct-total" id="cart-total">$0</div>
-        <small>Precios en pesos · dólar BNA venta · IVA 21% incluido · sin instalación · sujeto a confirmación de stock.</small>
+        <div class="ct-total-sub">sin IVA</div>
+        <div class="ct-iva-box" id="cart-iva"></div>
+        <small>Precios en pesos · dólar BNA venta · sin instalación · sujeto a confirmación de stock.</small>
         <div class="ct-summary-form">
           <label class="ct-field"><span>Nombre</span><input type="text" id="cli-nombre" placeholder="Tu nombre"></label>
           <label class="ct-field"><span>Zona / obra</span><input type="text" id="cli-lugar" placeholder="Tandil, barrio o dirección"></label>

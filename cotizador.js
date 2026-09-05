@@ -1,12 +1,14 @@
 /* ============================================================
    WPC TANDIL — Catálogo + Cotizador
-   Precios de lista WPC Tandil, en USD por unidad, IVA 21% incluido.
+   Precios de lista WPC Tandil, en USD por unidad y SIN IVA — que es como se cotiza acá.
+   El IVA se calcula aparte y se muestra al costado, nunca metido en el precio de tapa.
    Se convierten a pesos con el dólar BNA venta del día (3 fuentes con fallback).
    Para actualizar la lista: ver PRECIOS-INTERNO.md (no versionado).
    ============================================================ */
 
 var WA_NUMBER = "5492494209464";        // WhatsApp WPC Tandil
 var BNA = 1420;                          // respaldo si ninguna API responde
+var IVA = 0.21;                          // se muestra aparte, no va en el precio de tapa
 
 /* ---------- Colores (línea Sin Talar, 6 tonos de stock permanente) ---------- */
 var COLORES = [
@@ -26,7 +28,7 @@ var PRODUCTOS = [
     largo:2200, ancho:140, espesor:22,
     terminaciones:['Veta de madera','Linear','Brushing'],
     colores:['calden','alerce','arrayan','sauce','ombu','silvergray'],
-    precioUSD:31.81,
+    precioUSD:26.29,
     unidad:'tabla',
     imgs:['img/deck-1.webp','img/deck-2.webp','img/deck-3.webp'],
     specs:[['Largo','2200 mm'],['Ancho','140 mm'],['Espesor','22 mm'],['Rinde','0,308 m² por tabla'],['Peso','6,6 kg por tabla (21 kg/m²)'],['Terminaciones','Veta de madera · Linear · Brushing']]
@@ -37,7 +39,7 @@ var PRODUCTOS = [
     largo:2900, ancho:220, espesor:23,
     terminaciones:['Linear','Brushing'],
     colores:['calden','alerce','arrayan','sauce','ombu','silvergray'],
-    precioUSD:38.70,
+    precioUSD:31.98,
     unidad:'panel',
     imgs:['img/wall-panel-1.webp','img/wall-panel-3.webp','img/wall-panel-2.webp'],
     specs:[['Largo','2900 mm'],['Ancho','220 mm'],['Espesor','23 mm'],['Rinde','0,638 m² por panel'],['Peso','8,7 kg por panel'],['Terminaciones','Linear · Brushing']]
@@ -48,7 +50,7 @@ var PRODUCTOS = [
     largo:2900, ancho:60, espesor:42,
     terminaciones:['Linear','Brushing'],
     colores:['calden','alerce','arrayan','sauce','ombu','silvergray'],
-    precioUSD:21.32,
+    precioUSD:17.62,
     unidad:'barra',
     imgs:['img/perfil-60-1.webp','img/perfil-60-2.webp','img/perfil-60-3.webp'],
     specs:[['Largo','2900 mm'],['Cara mayor','60 mm'],['Cara menor','42 mm'],['Rinde','2,90 m lineales por barra'],['Peso','4,6 kg por barra'],['Terminaciones','Linear · Brushing']]
@@ -59,7 +61,7 @@ var PRODUCTOS = [
     largo:2900, ancho:42, espesor:22,
     terminaciones:['Linear','Brushing'],
     colores:['calden','alerce','arrayan','sauce','ombu','silvergray'],
-    precioUSD:11.08,
+    precioUSD:9.15,
     unidad:'barra',
     imgs:['img/perfil-40-1.webp','img/perfil-40-2.webp','img/perfil-40-3.webp'],
     specs:[['Largo','2900 mm'],['Cara mayor','42 mm'],['Cara menor','22 mm'],['Rinde','2,90 m lineales por barra'],['Peso','2,0 kg por barra'],['Terminaciones','Linear · Brushing']]
@@ -76,6 +78,7 @@ var TERMINACIONES = [
    Precios: cálculo de derivados + dólar BNA
    ============================================================ */
 function fmt(n){ return (Math.round(n)||0).toLocaleString('es-AR'); }
+function conIva(ars){ return Math.round(ars*(1+IVA)); }
 
 function recalcPrecios(){
   PRODUCTOS.forEach(function(p){
@@ -83,9 +86,10 @@ function recalcPrecios(){
     p.areaUnidad  = area;
     p.mlUnidad    = p.largo/1000;
     p.precioM2USD = +(p.precioUSD/area).toFixed(2);
-    p.precioARS   = Math.round(p.precioUSD*BNA);
-    p.precioM2ARS = Math.round(p.precioM2USD*BNA);
-    p.precioMlARS = Math.round((p.precioUSD/p.mlUnidad)*BNA);
+    p.precioARS    = Math.round(p.precioUSD*BNA);
+    p.precioM2ARS  = Math.round(p.precioM2USD*BNA);
+    p.precioMlARS  = Math.round((p.precioUSD/p.mlUnidad)*BNA);
+    p.precioARSIva = Math.round(p.precioUSD*(1+IVA)*BNA);
   });
 }
 
@@ -126,7 +130,11 @@ function renderProductos(){
       +   '<h3>'+p.name+'</h3>'
       +   '<p>'+p.desc+'</p>'
       +   '<div class="ct-specs">'+p.specs.slice(0,3).map(function(s){return '<span>'+s[0]+': <b>'+s[1]+'</b></span>';}).join('')+'</div>'
-      +   '<div class="ct-price"><div class="ct-price-main">$'+fmt(p.precioARS)+'<small> / '+p.unidad+'</small></div><div class="ct-price-sub">'+porM2+'</div></div>'
+      +   '<div class="ct-price">'
+      +     '<div class="ct-price-main">$'+fmt(p.precioARS)+'<small> / '+p.unidad+'</small></div>'
+      +     '<div class="ct-price-sub">'+porM2+' · <b>sin IVA</b></div>'
+      +     '<div class="ct-price-iva">Con IVA 21%: $'+fmt(p.precioARSIva)+' / '+p.unidad+'</div>'
+      +   '</div>'
       +   '<div class="ct-card-actions">'
       +     '<button class="btn btn-sm" onclick="irACotizador(\''+p.id+'\')">Calcular mi presupuesto</button>'
       +     '<button class="btn btn-sm btn-ghost" onclick="abrirFicha(\''+p.id+'\')">Ficha técnica</button>'
@@ -178,7 +186,8 @@ function abrirFicha(id){
     +   '<div><span class="ct-tag">'+p.catLabel+'</span><h3>'+p.name+'</h3><p class="ct-modal-desc">'+p.desc+'</p>'
     +     '<table class="ct-table">'+p.specs.map(function(s){return '<tr><td>'+s[0]+'</td><td><b>'+s[1]+'</b></td></tr>';}).join('')+'</table>'
     +     '<div class="ct-modal-price"><div>$'+fmt(p.precioARS)+' <small>/ '+p.unidad+'</small></div>'
-    +       '<small>'+(p.cat==='perfileria'?'$'+fmt(p.precioMlARS)+' / metro lineal':'$'+fmt(p.precioM2ARS)+' / m²')+' · IVA incluido</small></div>'
+    +       '<small>'+(p.cat==='perfileria'?'$'+fmt(p.precioMlARS)+' / metro lineal':'$'+fmt(p.precioM2ARS)+' / m²')+' · precio sin IVA</small>'
+    +       '<small class="ct-iva-line">Con IVA 21%: $'+fmt(p.precioARSIva)+' / '+p.unidad+'</small></div>'
     +     '<p class="ct-modal-colors"><b>Colores:</b> '+p.colores.map(function(cid){var c=COLORES.find(function(x){return x.id===cid;});return c?c.name:'';}).join(' · ')+'</p>'
     +     '<button class="btn" onclick="closeModal();irACotizador(\''+p.id+'\')">Calcular mi presupuesto</button>'
     +   '</div>'
@@ -284,10 +293,12 @@ function calcDeck(){
     + row('m² con desperdicio',m2d.toFixed(2)+' m²')
     + row('Tablas de deck',tablas+' unidades')
     + row('Clips de fijación',clips+' aprox.')
-    + row('Total estimado','$'+fmt(totalARS),true);
+    + row('Total estimado (sin IVA)','$'+fmt(totalARS),true)
+    + rowIva(totalARS);
   return deckCalc;
 }
 function row(k,v,total){ return '<div class="ct-row'+(total?' total':'')+'"><span>'+k+'</span><span>'+v+'</span></div>'; }
+function rowIva(ars){ return '<div class="ct-row iva"><span>Con IVA 21%</span><span>$'+fmt(conIva(ars))+'</span></div>'; }
 
 function addDeck(){
   var c=calcDeck(); if(!c){ toast('Completá las medidas del deck'); return; }
@@ -315,7 +326,8 @@ function calcWP(){
     + row('m² con desperdicio',m2d.toFixed(2)+' m²')
     + row('Área por panel',p.areaUnidad.toFixed(3)+' m²')
     + row('Paneles necesarios',unidades+' unidades')
-    + row('Total estimado','$'+fmt(totalARS),true);
+    + row('Total estimado (sin IVA)','$'+fmt(totalARS),true)
+    + rowIva(totalARS);
   return wpCalc;
 }
 function addWP(){
@@ -396,7 +408,8 @@ function calcPR(){
     + row('Metros lineales',ml.toFixed(2)+' m')
     + row('Barras de '+barLen.toFixed(2)+' m',bars+' unidades')
     + (gapReal!==null && gapReal>=0 ? row('Separación real entre perfiles',(gapReal*100).toFixed(1)+' cm') : '')
-    + row('Total estimado','$'+fmt(totalARS),true)
+    + row('Total estimado (sin IVA)','$'+fmt(totalARS),true)
+    + rowIva(totalARS)
     + (warn?'<div class="ct-warn">'+warn+'</div>':'');
   out.innerHTML=html;
   dibujarPerfiles(count,orient);
@@ -458,6 +471,7 @@ function renderCart(){
   if(!cart.length){
     box.innerHTML='<div class="ct-empty"><b>Tu presupuesto está vacío</b><p>Agregá productos desde el cotizador de arriba.</p></div>';
     if(tot) tot.textContent='$0';
+    var d0=document.getElementById('cart-iva'); if(d0) d0.innerHTML='';
     return;
   }
   box.innerHTML = cart.map(function(i){
@@ -470,6 +484,9 @@ function renderCart(){
   }).join('');
   var total=cart.reduce(function(a,i){return a+i.totalARS;},0);
   if(tot) tot.textContent='$'+fmt(total);
+  var det=document.getElementById('cart-iva');
+  if(det) det.innerHTML='<div><span>IVA 21%</span><span>$'+fmt(total*IVA)+'</span></div>'
+                      + '<div><span>Total con IVA</span><span>$'+fmt(conIva(total))+'</span></div>';
 }
 
 function textoPresupuesto(){
@@ -480,7 +497,11 @@ function textoPresupuesto(){
   cart.forEach(function(i,n){
     t+= (n+1)+') '+i.prod+' — '+i.color+' · '+i.term+'\n   '+i.label+'\n   $'+fmt(i.totalARS)+'\n\n';
   });
-  t+='TOTAL ESTIMADO: $'+fmt(cart.reduce(function(a,i){return a+i.totalARS;},0))+'\n(Dólar BNA $'+fmt(BNA)+' · IVA incluido · sin instalación)\n\n';
+  var neto=cart.reduce(function(a,i){return a+i.totalARS;},0);
+  t+='TOTAL (sin IVA): $'+fmt(neto)+'\n';
+  t+='IVA 21%: $'+fmt(neto*IVA)+'\n';
+  t+='Total con IVA: $'+fmt(conIva(neto))+'\n';
+  t+='(Dólar BNA $'+fmt(BNA)+' · sin instalación)\n\n';
   if(nombre) t+='Nombre: '+nombre+'\n';
   if(lugar)  t+='Zona/obra: '+lugar+'\n';
   if(nota)   t+='Comentario: '+nota+'\n';
