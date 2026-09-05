@@ -239,3 +239,32 @@ Santi generó la serie A y los videos salieron horribles. Autopsia — v1 rompí
 - 4 fotos de producto que faltaban bajadas a `img/` (perfil-40-2/3, perfil-60-2/3).
 - 🚧 NO DEPLOYADO: probado en local (`python3 -m http.server 8131`), esperando OK de Santi para
   pushear a GitHub Pages.
+
+## 5 sep 2026 — Dominio propio: wpctandil.com.ar
+- Santi registró **wpctandil.com.ar** en NIC.ar (alta 05/09/2026, vence 05/09/2027). **Delegado: NO.**
+- NIC.ar **no hospeda registros DNS** — solo delega a nameservers ajenos. Va **Cloudflare free**
+  en el medio (cuenta que ya existe, la de Legarreta).
+- Runbook completo en **`DOMINIO.md`**; el corte se hace con **`./configurar-dominio.sh`** (un
+  comando: CNAME + URLs absolutas + Pages + HTTPS + verificación).
+- **NO correr el script antes de que el dominio resuelva.** Si el CNAME se sube primero, GitHub
+  redirige la URL vieja a un dominio muerto y el sitio queda caído.
+- ⛔ **Trampa conocida:** SSL **Flexible** de Cloudflare + GitHub Pages = bucle infinito de
+  redirects (GitHub fuerza HTTPS y CF le habla HTTP). Los registros van en **DNS only** hasta que
+  GitHub emita el certificado; después, si se quiere proxy, **Full** — nunca Flexible.
+- Al cortar, el sitio deja de vivir en `/sin-talar-tandil/` y pasa a la raíz del dominio. Todos
+  los links internos son relativos: no hay nada que tocar.
+- Pendiente post-corte: actualizar la URL de privacidad en la app de Meta y poner el dominio en
+  las bios de IG/FB.
+
+## 5 sep 2026 — Catálogo + cotizador: estado final
+- Precios desde la **lista de distribuidor oficial** (placa que pasó Santi): costo neto × 1,15.
+  **El IVA NO va en el precio de tapa** (decisión de Santi: acá casi nadie lo paga) — se muestra
+  al costado como referencia para quien factura.
+- Deck $40.197/tabla · Wall Panel $48.897/panel · Perfil 60-42 $26.941 · Perfil 42-22 $13.990
+  (netos, al BNA $1.529; se actualizan solos con el dólar).
+- Base de costo, margen y **benchmark contra todo el país** en `PRECIOS-INTERNO.md` (gitignoreado,
+  el repo es público). Resumen: estamos ~3% por debajo del precio de lista de Kolertech y Hissuma
+  en deck y panel, y somos los más baratos en perfilería. El flanco es el precio de contado de
+  ellos (~20% abajo).
+- Usabilidad: barra fija con el total, ejemplos de un toque en deck, modos de perfilería en
+  castellano de obra, ayudas en los campos de jerga, teclado numérico en celular.
