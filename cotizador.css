@@ -284,3 +284,12 @@ footer .wrap{align-items:flex-start}
   .ct-shot.big{grid-column:span 2;grid-row:span 1}
   .ct-hero .wrap{min-height:52vh}
 }
+
+/* Franja de respaldo, con los datos de la ficha oficial del fabricante */
+.ct-strip{background:#fff;border-bottom:1px solid var(--line)}
+.ct-strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding-top:30px;padding-bottom:30px}
+.ct-strip-item{display:flex;flex-direction:column;gap:3px;padding-left:15px;border-left:2px solid var(--amber-l)}
+.ct-strip-item b{font-size:15px}
+.ct-strip-item span{font-size:13px;color:var(--mut);line-height:1.5}
+@media(max-width:900px){ .ct-strip .wrap{grid-template-columns:1fr 1fr;gap:18px} }
+@media(max-width:520px){ .ct-strip .wrap{grid-template-columns:1fr} }

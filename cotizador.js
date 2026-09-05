@@ -23,53 +23,53 @@ var PRODUCTOS = [
   {
     id:'deck', cat:'deck', catLabel:'Deck WPC', name:'Deck WPC',
     desc:'Piso exterior de alto tránsito. Resistente al agua, a los rayos UV y a la intemperie. No se astilla, no se pudre y no se pinta nunca.',
-    largo:2200, ancho:140, espesor:23,
-    terminaciones:['Woodgrain','Linear','Sanding'],
+    largo:2200, ancho:140, espesor:22,
+    terminaciones:['Veta de madera','Linear','Brushing'],
     colores:['calden','alerce','arrayan','sauce','ombu','silvergray'],
-    precioUSD:31.80,
+    precioUSD:31.81,
     unidad:'tabla',
     imgs:['img/deck-1.webp','img/deck-2.webp','img/deck-3.webp'],
-    specs:[['Largo','2200 mm'],['Ancho','140 mm'],['Espesor','23 mm'],['Rinde','0,308 m² por tabla'],['Terminaciones','Woodgrain · Linear · Sanding']]
+    specs:[['Largo','2200 mm'],['Ancho','140 mm'],['Espesor','22 mm'],['Rinde','0,308 m² por tabla'],['Peso','6,6 kg por tabla (21 kg/m²)'],['Terminaciones','Veta de madera · Linear · Brushing']]
   },
   {
     id:'wallpanel', cat:'wallpanel', catLabel:'Wall Panel WPC', name:'Wall Panel WPC',
     desc:'Revestimiento de fachadas y muros, interior y exterior. Perfil acanalado de alta rigidez con terminación continua y fijación oculta.',
     largo:2900, ancho:220, espesor:23,
-    terminaciones:['Linear','Sanding'],
+    terminaciones:['Linear','Brushing'],
     colores:['calden','alerce','arrayan','sauce','ombu','silvergray'],
     precioUSD:38.70,
     unidad:'panel',
     imgs:['img/wall-panel-1.webp','img/wall-panel-3.webp','img/wall-panel-2.webp'],
-    specs:[['Largo','2900 mm'],['Ancho','220 mm'],['Espesor','23 mm'],['Rinde','0,638 m² por panel'],['Terminaciones','Linear · Sanding']]
+    specs:[['Largo','2900 mm'],['Ancho','220 mm'],['Espesor','23 mm'],['Rinde','0,638 m² por panel'],['Peso','8,7 kg por panel'],['Terminaciones','Linear · Brushing']]
   },
   {
     id:'perfil6042', cat:'perfileria', catLabel:'Perfilería WPC', name:'Perfil 60×42',
     desc:'Perfil estructural para pérgolas, cielorrasos, cercos y separadores. Sección hueca de alta rigidez.',
     largo:2900, ancho:60, espesor:42,
-    terminaciones:['Sanding'],
+    terminaciones:['Linear','Brushing'],
     colores:['calden','alerce','arrayan','sauce','ombu','silvergray'],
-    precioUSD:21.33,
+    precioUSD:21.32,
     unidad:'barra',
     imgs:['img/perfil-60-1.webp','img/perfil-60-2.webp','img/perfil-60-3.webp'],
-    specs:[['Largo','2900 mm'],['Cara mayor','60 mm'],['Cara menor','42 mm'],['Rinde','2,90 m lineales por barra'],['Terminación','Sanding']]
+    specs:[['Largo','2900 mm'],['Cara mayor','60 mm'],['Cara menor','42 mm'],['Rinde','2,90 m lineales por barra'],['Peso','4,6 kg por barra'],['Terminaciones','Linear · Brushing']]
   },
   {
     id:'perfil4023', cat:'perfileria', catLabel:'Perfilería WPC', name:'Perfil 42×22',
     desc:'Perfil liviano para cerramientos decorativos, detalles constructivos y terminaciones.',
-    largo:2900, ancho:43, espesor:23,
-    terminaciones:['Sanding'],
+    largo:2900, ancho:42, espesor:22,
+    terminaciones:['Linear','Brushing'],
     colores:['calden','alerce','arrayan','sauce','ombu','silvergray'],
-    precioUSD:9.69,
+    precioUSD:11.08,
     unidad:'barra',
     imgs:['img/perfil-40-1.webp','img/perfil-40-2.webp','img/perfil-40-3.webp'],
-    specs:[['Largo','2900 mm'],['Cara mayor','42 mm'],['Cara menor','22 mm'],['Rinde','2,90 m lineales por barra'],['Terminación','Sanding']]
+    specs:[['Largo','2900 mm'],['Cara mayor','42 mm'],['Cara menor','22 mm'],['Rinde','2,90 m lineales por barra'],['Peso','2,0 kg por barra'],['Terminaciones','Linear · Brushing']]
   }
 ];
 
 var TERMINACIONES = [
-  {name:'Woodgrain', tag:'Veteado natural', desc:'Vetas profundas que replican la textura de la madera real. Acabado cálido y de alta fidelidad estética.', aplica:'Deck'},
-  {name:'Linear',    tag:'Rayado moderno',  desc:'Líneas finas y continuas. Apariencia técnica y contemporánea, ideal para fachadas y proyectos minimalistas.', aplica:'Deck · Wall Panel'},
-  {name:'Sanding',   tag:'Microtextura',    desc:'Microtextura uniforme que mejora el agarre y reduce reflejos. Recomendada para exteriores y zonas de tránsito.', aplica:'Todos'}
+  {name:'Veta de madera', tag:'Veteado natural', desc:'Vetas profundas que replican la textura de la madera real. Acabado cálido y de alta fidelidad estética.', aplica:'Deck'},
+  {name:'Linear',         tag:'Rayado moderno',  desc:'Líneas finas y continuas. Apariencia técnica y contemporánea, ideal para fachadas y proyectos minimalistas.', aplica:'Todos'},
+  {name:'Brushing',       tag:'Cepillado',       desc:'Microtextura cepillada que mejora el agarre y reduce reflejos. Recomendada para exteriores y zonas de tránsito.', aplica:'Todos'}
 ];
 
 /* ============================================================
@@ -335,6 +335,9 @@ function perfilProd(){
 }
 function actualizarCaras(){
   var id=(document.getElementById('pr-prod')||{}).value||'perfil6042';
+  var p=PRODUCTOS.find(function(x){return x.id===id;});
+  var term=document.getElementById('pr-term');
+  if(term&&p) term.innerHTML=p.terminaciones.map(function(t){return '<option>'+t+'</option>';}).join('');
   var face=document.getElementById('pr-face');
   face.innerHTML = id==='perfil6042'
     ? '<option value="60">Visible 60 mm</option><option value="42">Visible 42 mm</option>'
@@ -415,7 +418,8 @@ function dibujarPerfiles(count,orient){
 function addPR(){
   var c=calcPR(); if(!c){ toast('Completá los datos de la perfilería'); return; }
   var col=COLORES.find(function(x){return x.id===document.getElementById('pr-color').value;})||COLORES[0];
-  push({prod:c.product.name, prodId:c.product.id, unidades:c.bars, color:col.name, colorHex:col.hex, term:'Sanding',
+  var term=(document.getElementById('pr-term')||{}).value||'Linear';
+  push({prod:c.product.name, prodId:c.product.id, unidades:c.bars, color:col.name, colorHex:col.hex, term:term,
     label:c.modo+' · '+c.ml.toFixed(2)+' m lineales · '+c.bars+' barras de '+c.barLen.toFixed(2)+' m'+(c.gapReal!==null&&c.gapReal>=0?' · separación '+(c.gapReal*100).toFixed(1)+' cm':''),
     totalARS:c.totalARS, totalUSD:c.totalUSD});
   toast('Perfilería agregada al presupuesto');

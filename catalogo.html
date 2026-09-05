@@ -63,6 +63,16 @@ if (META_PIXEL_ID) {
   </div>
 </section>
 
+<!-- RESPALDO -->
+<section class="ct-strip">
+  <div class="wrap">
+    <div class="ct-strip-item"><b>Hecho en Argentina</b><span>Fabricación nacional, sin espera de importación.</span></div>
+    <div class="ct-strip-item"><b>Entrega inmediata</b><span>Los 6 colores tienen stock permanente.</span></div>
+    <div class="ct-strip-item"><b>Fabricación a medida</b><span>Medidas y colores especiales, bajo pedido.</span></div>
+    <div class="ct-strip-item"><b>Durabilidad +25 años</b><span>Protección UV: no se decolora ni se deforma.</span></div>
+  </div>
+</section>
+
 <!-- PRODUCTOS -->
 <section class="pad" id="productos">
   <div class="wrap">
@@ -226,6 +236,7 @@ if (META_PIXEL_ID) {
               <label class="ct-field"><span>Largo comercial (m)</span><input type="number" id="pr-barlen" value="2.9" min="0.5" step="0.1" oninput="calcPR()"></label>
               <label class="ct-field"><span>Desperdicio %</span><input type="number" id="pr-waste" value="10" min="0" max="40" step="1" oninput="calcPR()"></label>
               <label class="ct-field"><span>Color</span><select id="pr-color"></select></label>
+              <label class="ct-field"><span>Terminación</span><select id="pr-term" onchange="calcPR()"></select></label>
             </div>
 
             <div class="pr-mode-panel active" id="pr-mode-linear">
