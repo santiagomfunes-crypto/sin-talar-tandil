@@ -206,11 +206,12 @@ function closeModalBg(e){ if(e.target.id==='modal-overlay') closeModal(); }
 /* ============================================================
    COTIZADOR
    ============================================================ */
-var tabCalc='deck', formaActual='rectangle', modoPerfil='linear';
+var tabCalc='deck', formaActual='m2', modoPerfil='linear', modoWP='m2';
 var deckCalc=null, wpCalc=null, prCalc=null;
 var cart=[];
 
 var FORMAS={
+  m2:       {label:'Sé los m²', unit:'m²', desc:'Si ya sabés cuántos metros cuadrados tenés que cubrir, cargalos y listo: no hace falta medir ni elegir forma.', fields:['Metros cuadrados']},
   rectangle:{label:'Rectángulo', desc:'Ingresá ancho y largo. Sirve para decks, galerías y superficies rectas.', fields:['Ancho','Largo']},
   square:   {label:'Cuadrado',   desc:'Todos los lados iguales. Ingresá la medida de un lado.', fields:['Lado']},
   lshape:   {label:'Forma en L', desc:'Calculamos el área como dos rectángulos. Medí altura total, base total, altura del brazo bajo y ancho del brazo derecho.', fields:['Altura total','Base total','Altura brazo bajo','Ancho brazo derecho']},
@@ -223,6 +224,7 @@ var FORMAS={
 };
 
 function areaForma(v){
+  if(formaActual==='m2')         return v[0];
   if(formaActual==='square')     return v[0]*v[0];
   if(formaActual==='rectangle')  return v[0]*v[1];
   if(formaActual==='lshape')     return (v[1]*v[2])+(v[3]*Math.max(v[0]-v[2],0));
@@ -252,6 +254,26 @@ function selForma(f,btn){
   calcDeck();
 }
 
+function renderEjemplos(){
+  var box=document.getElementById('forma-ejemplos'); if(!box) return;
+  var html='<span>¿No sabés por dónde empezar?</span>';
+  if(formaActual==='m2'){
+    html+=[20,50,100].map(function(m){ return '<button onclick="ejemploM2('+m+',this)">'+m+' m²</button>'; }).join('');
+  }else{
+    html+='<button onclick="ejemplo(3,4,this)">Galería 3 × 4 m</button>'
+        + '<button onclick="ejemplo(8,4,this)">Borde de pileta 8 × 4 m</button>'
+        + '<button onclick="ejemplo(2,5,this)">Balcón 2 × 5 m</button>';
+  }
+  box.innerHTML=html;
+}
+
+function ejemploM2(m,btn){
+  var f=document.getElementById('dk-m0'); if(!f) return;
+  f.value=m; calcDeck();
+  document.querySelectorAll('#forma-ejemplos button').forEach(function(x){x.classList.remove('on');});
+  if(btn) btn.classList.add('on');
+}
+
 function ejemplo(a,b,btn){
   selForma('rectangle', document.querySelector('.ct-shape'));
   document.getElementById('dk-m0').value=a;
@@ -264,15 +286,18 @@ function ejemplo(a,b,btn){
 function renderCamposForma(){
   var cfg=FORMAS[formaActual];
   document.getElementById('forma-desc').textContent=cfg.desc;
+  var u=cfg.unit||'m';
   document.getElementById('forma-fields').innerHTML = cfg.fields.map(function(f,i){
-    return '<label class="ct-field"><span>'+f+' (m)</span><input type="number" min="0" step="0.01" id="dk-m'+i+'" oninput="calcDeck()" placeholder="0.00"></label>';
+    return '<label class="ct-field"><span>'+f+' ('+u+')</span><input type="number" inputmode="decimal" min="0" step="0.01" id="dk-m'+i+'" oninput="calcDeck()" placeholder="0.00"></label>';
   }).join('');
+  renderEjemplos();
   document.getElementById('forma-svg').innerHTML = svgForma(formaActual);
 }
 
 function svgForma(f){
   var s='<svg viewBox="0 0 200 140" class="ct-svg">';
   var st='fill="rgba(47,81,51,.10)" stroke="#2f5133" stroke-width="2"';
+  if(f==='m2') return s+'<rect x="25" y="24" width="150" height="92" fill="rgba(47,81,51,.10)" stroke="#2f5133" stroke-width="2" stroke-dasharray="7 5" rx="6"/><text x="100" y="70" style="font-size:20px;fill:#2f5133;font-family:Inter,sans-serif;font-weight:700;text-anchor:middle">m²</text><text x="100" y="90" class="lbl">la forma no importa</text></svg>';
   if(f==='rectangle'||f==='custom') s+='<rect x="25" y="30" width="150" height="80" '+st+'/><text x="100" y="24" class="lbl">1 · ancho</text><text x="186" y="74" class="lbl" transform="rotate(90 186 74)">2 · largo</text>';
   else if(f==='square')      s+='<rect x="55" y="20" width="100" height="100" '+st+'/><text x="105" y="14" class="lbl">1 · lado</text>';
   else if(f==='lshape')      s+='<path d="M25 20 H105 V80 H175 V120 H25 Z" '+st+'/><text x="16" y="70" class="lbl" transform="rotate(-90 16 70)">1 · altura</text><text x="100" y="134" class="lbl">2 · base</text><text x="140" y="106" class="lbl">3 · brazo</text><text x="182" y="102" class="lbl" transform="rotate(90 182 102)">4</text>';
@@ -320,14 +345,30 @@ function addDeck(){
 }
 
 /* ---------- Wall Panel ---------- */
+function selModoWP(m,btn){
+  modoWP=m;
+  document.querySelectorAll('.ct-mode-wp').forEach(function(b){b.classList.remove('active');});
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.wp-mode-panel').forEach(function(x){x.classList.remove('active');});
+  var el=document.getElementById('wp-mode-'+m); if(el) el.classList.add('active');
+  calcWP();
+}
+
 function calcWP(){
   var p=PRODUCTOS.find(function(x){return x.id==='wallpanel';}), out=document.getElementById('wp-result');
-  var w=parseFloat((document.getElementById('wp-w')||{}).value)||0;
-  var h=parseFloat((document.getElementById('wp-h')||{}).value)||0;
-  var panos=parseInt((document.getElementById('wp-panos')||{}).value)||1;
   var waste=parseFloat((document.getElementById('wp-waste')||{}).value)||0;
-  if(!w||!h){ out.innerHTML='<div class="ct-ph">Cargá las medidas para ver el cálculo.</div>'; wpCalc=null; return null; }
-  var area=w*h*panos, m2d=area*(1+waste/100);
+  var area=0, panos=1;
+  if(modoWP==='m2'){
+    area=parseFloat((document.getElementById('wp-m2')||{}).value)||0;
+    if(!area){ out.innerHTML='<div class="ct-ph">Cargá los metros cuadrados para ver el cálculo.</div>'; wpCalc=null; return null; }
+  }else{
+    var w=parseFloat((document.getElementById('wp-w')||{}).value)||0;
+    var h=parseFloat((document.getElementById('wp-h')||{}).value)||0;
+    panos=parseInt((document.getElementById('wp-panos')||{}).value)||1;
+    if(!w||!h){ out.innerHTML='<div class="ct-ph">Cargá las medidas para ver el cálculo.</div>'; wpCalc=null; return null; }
+    area=w*h*panos;
+  }
+  var m2d=area*(1+waste/100);
   var unidades=Math.ceil(m2d/p.areaUnidad);
   var totalARS=unidades*p.precioARS, totalUSD=+(unidades*p.precioUSD).toFixed(2);
   wpCalc={area:area,m2d:m2d,unidades:unidades,panos:panos,waste:waste,totalARS:totalARS,totalUSD:totalUSD,product:p};
@@ -344,7 +385,7 @@ function addWP(){
   var col=COLORES.find(function(x){return x.id===document.getElementById('wp-color').value;})||COLORES[0];
   var term=document.getElementById('wp-term').value;
   push({prod:'Wall Panel WPC', prodId:'wallpanel', unidades:c.unidades, color:col.name, colorHex:col.hex, term:term,
-    label:c.area.toFixed(2)+' m² netos ('+c.panos+(c.panos>1?' paños':' paño')+') · '+c.m2d.toFixed(2)+' m² con '+c.waste+'% de desperdicio · '+c.unidades+' paneles',
+    label:c.area.toFixed(2)+' m² netos'+(c.panos>1?' ('+c.panos+' paños)':'')+' · '+c.m2d.toFixed(2)+' m² con '+c.waste+'% de desperdicio · '+c.unidades+' paneles',
     totalARS:c.totalARS, totalUSD:c.totalUSD});
   toast('Wall Panel agregado al presupuesto');
 }
@@ -582,6 +623,7 @@ document.addEventListener('DOMContentLoaded', function(){
   initSelects();
   renderProductos(); renderColores(); renderTerminaciones();
   renderCamposForma(); actualizarCaras();
+  calcWP();
   var ph=document.getElementById('pr-hint'); if(ph) ph.textContent=PR_HINT.linear;
   cargar(); repreciarCart(); renderCart();
   document.getElementById('bna-display').textContent='$'+fmt(BNA);

@@ -339,3 +339,6 @@ body.has-cart{padding-bottom:82px}
   .ct-sticky-actions .btn{flex:1}
 }
 @media print{ .ct-sticky{display:none!important} body.has-cart{padding-bottom:0} }
+
+.wp-mode-panel{display:none}
+.wp-mode-panel.active{display:block}

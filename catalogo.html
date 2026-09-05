@@ -138,7 +138,7 @@ if (META_PIXEL_ID) {
     <div class="sec-head reveal">
       <span class="eyebrow">Cotizador</span>
       <h2>Armá tu presupuesto</h2>
-      <p>Calculá deck por forma del espacio, wall panel por superficie de paño y perfilería por metro lineal, separación o cantidad. Sumá todo al presupuesto y mandánoslo por WhatsApp.</p>
+      <p>Si ya sabés los metros cuadrados, cargalos y listo. Y si no, calculamos por la forma del espacio, por medidas del paño o por separación entre perfiles. Sumá todo al presupuesto y mandánoslo por WhatsApp.</p>
     </div>
 
     <div class="ct-calc reveal">
@@ -155,7 +155,8 @@ if (META_PIXEL_ID) {
       <!-- DECK -->
       <div class="ct-panel active" id="panel-deck">
         <div class="ct-shapes">
-          <button class="ct-shape active" onclick="selForma('rectangle',this)">Rectángulo</button>
+          <button class="ct-shape active" onclick="selForma('m2',this)">Sé los m²</button>
+          <button class="ct-shape" onclick="selForma('rectangle',this)">Rectángulo</button>
           <button class="ct-shape" onclick="selForma('square',this)">Cuadrado</button>
           <button class="ct-shape" onclick="selForma('lshape',this)">Forma en L</button>
           <button class="ct-shape" onclick="selForma('ushape',this)">Forma en U</button>
@@ -168,12 +169,7 @@ if (META_PIXEL_ID) {
         <div class="ct-cols">
           <div>
             <p class="ct-hint" id="forma-desc"></p>
-            <div class="ct-examples">
-              <span>¿No sabés por dónde empezar?</span>
-              <button onclick="ejemplo(3,4,this)">Galería 3 × 4 m</button>
-              <button onclick="ejemplo(8,4,this)">Borde de pileta 8 × 4 m</button>
-              <button onclick="ejemplo(2,5,this)">Balcón 2 × 5 m</button>
-            </div>
+            <div class="ct-examples" id="forma-ejemplos"></div>
             <div class="ct-fields" id="forma-fields"></div>
             <div class="ct-fields">
               <label class="ct-field"><span>Color</span><select id="dk-color"></select></label>
@@ -196,11 +192,27 @@ if (META_PIXEL_ID) {
       <div class="ct-panel" id="panel-wallpanel">
         <div class="ct-cols">
           <div>
-            <p class="ct-hint">Panel de 2,90 m × 0,22 m — rinde 0,638 m² por unidad. Cargá el ancho y el alto del paño; si tenés varios paños iguales, sumá la cantidad.</p>
+            <div class="ct-modes">
+              <button class="ct-mode ct-mode-wp active" onclick="selModoWP('m2',this)">Sé los m²</button>
+              <button class="ct-mode ct-mode-wp" onclick="selModoWP('medidas',this)">Por medidas del paño</button>
+            </div>
+            <p class="ct-hint">Panel de 2,90 m × 0,22 m — rinde 0,638 m² por unidad.</p>
+
+            <div class="wp-mode-panel active" id="wp-mode-m2">
+              <div class="ct-fields">
+                <label class="ct-field"><span>Metros cuadrados (m²)</span><input type="number" inputmode="decimal" id="wp-m2" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
+              </div>
+            </div>
+
+            <div class="wp-mode-panel" id="wp-mode-medidas">
+              <div class="ct-fields">
+                <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" inputmode="decimal" id="wp-w" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
+                <label class="ct-field"><span>Alto del paño (m)</span><input type="number" inputmode="decimal" id="wp-h" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
+                <label class="ct-field"><span>Cantidad de paños</span><input type="number" inputmode="decimal" id="wp-panos" value="1" min="1" step="1" oninput="calcWP()"></label>
+              </div>
+            </div>
+
             <div class="ct-fields">
-              <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" inputmode="decimal" id="wp-w" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
-              <label class="ct-field"><span>Alto del paño (m)</span><input type="number" inputmode="decimal" id="wp-h" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
-              <label class="ct-field"><span>Cantidad de paños</span><input type="number" inputmode="decimal" id="wp-panos" value="1" min="1" step="1" oninput="calcWP()"></label>
               <label class="ct-field"><span>Desperdicio %</span><input type="number" inputmode="decimal" id="wp-waste" value="10" min="0" max="40" step="1" oninput="calcWP()"><small>Cortes y ajustes. 10% es lo normal.</small></label>
               <label class="ct-field"><span>Color</span><select id="wp-color"></select></label>
               <label class="ct-field"><span>Terminación</span><select id="wp-term"></select></label>
