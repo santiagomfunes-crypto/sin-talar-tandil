@@ -329,3 +329,14 @@ Los 5 son `is_organic=false` (todos de pauta, ninguno es test propio).
   aunque el dominio ya estaba propagado. `configurar-dominio.sh` ahora pregunta a 1.1.1.1/8.8.8.8.
 - Pendiente manual de Santi: (1) URL de privacidad en la app de Meta →
   `https://wpctandil.com.ar/privacidad.html`; (2) dominio en las bios de IG y FB.
+
+## 5 sep 2026 — Instagram: PUBLICANDO POR API (funciona)
+- Token de `.env.meta` es **SYSTEM_USER y NO expira** (`expires_at=0`) y ya trae **`instagram_content_publish`**. No hace falta regenerarlo para publicar.
+- ❌ **Facebook NO se puede publicar por API**: falta `pages_manage_posts`. La Página se carga a mano (o se agrega el permiso en la app).
+- **La API de IG no sube archivos**: descarga el video de una **URL pública**. Por eso los mp4 van a `media/ig/` del repo (público) y los sirve GitHub Pages en `https://santiagomfunes-crypto.github.io/sin-talar-tandil/media/ig/<slug>.mp4`. `remotion/out/` está gitignoreado, por eso hay que **copiar** el archivo ahí antes.
+- ⏱ GitHub Pages tarda ~1-3 min en servir el archivo nuevo. Verificar con `curl -I` que devuelva `200 video/mp4` **antes** de crear el contenedor, o Meta rechaza.
+- Script: **`meta-api/publicar-ig.py <slug> <caption.txt>`** → crea contenedor REELS, espera el `status_code=FINISHED` (tarda ~30-40 s) y publica.
+- Cupo: 100 publicaciones cada 24 h. Sobra.
+- **Estado de la cuenta antes de empezar: `media_count = 0`, 19 seguidores.** El perfil estaba literalmente vacío mientras la pauta traía gente.
+- ✅ Publicado #12 `wpc-6` (medición sin cargo) → https://www.instagram.com/reel/Dc6Ka5pDCCi/
+- Falta: #11 wpc-5 (tarde del día 1) y del #10 al #2 según el calendario de `marketing/plan-feed.md`.
