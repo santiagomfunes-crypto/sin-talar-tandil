@@ -168,15 +168,21 @@ if (META_PIXEL_ID) {
         <div class="ct-cols">
           <div>
             <p class="ct-hint" id="forma-desc"></p>
+            <div class="ct-examples">
+              <span>¿No sabés por dónde empezar?</span>
+              <button onclick="ejemplo(3,4,this)">Galería 3 × 4 m</button>
+              <button onclick="ejemplo(8,4,this)">Borde de pileta 8 × 4 m</button>
+              <button onclick="ejemplo(2,5,this)">Balcón 2 × 5 m</button>
+            </div>
             <div class="ct-fields" id="forma-fields"></div>
             <div class="ct-fields">
               <label class="ct-field"><span>Color</span><select id="dk-color"></select></label>
               <label class="ct-field"><span>Terminación</span><select id="dk-term"></select></label>
-              <label class="ct-field"><span>Desperdicio %</span><input type="number" id="dk-waste" value="10" min="0" max="40" step="1" oninput="calcDeck()"></label>
+              <label class="ct-field"><span>Desperdicio %</span><input type="number" inputmode="decimal" id="dk-waste" value="10" min="0" max="40" step="1" oninput="calcDeck()"><small>Cortes y ajustes. 10% es lo normal, 15% si el espacio es irregular.</small></label>
             </div>
             <div class="ct-result" id="dk-result"><div class="ct-ph">Cargá las medidas para ver el cálculo.</div></div>
             <button class="btn btn-block" onclick="addDeck()">Agregar al presupuesto</button>
-            <p class="ct-note">Cálculo orientativo. La cotización final puede variar según cortes, estructura de apoyo, instalación y logística.</p>
+            <p class="ct-note">Los clips son una referencia de compra: no están incluidos en el total. El cálculo es orientativo y puede variar según cortes, estructura de apoyo, instalación y logística.</p>
           </div>
           <div class="ct-visual">
             <h4>Vista técnica</h4>
@@ -192,10 +198,10 @@ if (META_PIXEL_ID) {
           <div>
             <p class="ct-hint">Panel de 2,90 m × 0,22 m — rinde 0,638 m² por unidad. Cargá el ancho y el alto del paño; si tenés varios paños iguales, sumá la cantidad.</p>
             <div class="ct-fields">
-              <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" id="wp-w" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
-              <label class="ct-field"><span>Alto del paño (m)</span><input type="number" id="wp-h" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
-              <label class="ct-field"><span>Cantidad de paños</span><input type="number" id="wp-panos" value="1" min="1" step="1" oninput="calcWP()"></label>
-              <label class="ct-field"><span>Desperdicio %</span><input type="number" id="wp-waste" value="10" min="0" max="40" step="1" oninput="calcWP()"></label>
+              <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" inputmode="decimal" id="wp-w" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
+              <label class="ct-field"><span>Alto del paño (m)</span><input type="number" inputmode="decimal" id="wp-h" min="0" step="0.01" placeholder="0.00" oninput="calcWP()"></label>
+              <label class="ct-field"><span>Cantidad de paños</span><input type="number" inputmode="decimal" id="wp-panos" value="1" min="1" step="1" oninput="calcWP()"></label>
+              <label class="ct-field"><span>Desperdicio %</span><input type="number" inputmode="decimal" id="wp-waste" value="10" min="0" max="40" step="1" oninput="calcWP()"><small>Cortes y ajustes. 10% es lo normal.</small></label>
               <label class="ct-field"><span>Color</span><select id="wp-color"></select></label>
               <label class="ct-field"><span>Terminación</span><select id="wp-term"></select></label>
             </div>
@@ -223,43 +229,43 @@ if (META_PIXEL_ID) {
       <!-- PERFILES -->
       <div class="ct-panel" id="panel-perfiles">
         <div class="ct-modes">
-          <button class="ct-mode active" onclick="selModoPerfil('linear',this)">Metro lineal</button>
-          <button class="ct-mode" onclick="selModoPerfil('separacion',this)">Separación fija</button>
-          <button class="ct-mode" onclick="selModoPerfil('cantidad',this)">Cantidad fija</button>
+          <button class="ct-mode active" onclick="selModoPerfil('linear',this)">Ya sé los metros</button>
+          <button class="ct-mode" onclick="selModoPerfil('separacion',this)">Sé el paño y la separación</button>
+          <button class="ct-mode" onclick="selModoPerfil('cantidad',this)">Sé cuántos perfiles van</button>
         </div>
         <div class="ct-cols">
           <div>
-            <p class="ct-hint">Para pérgolas, cerramientos, fachadas ventiladas, cielorrasos y separadores. Elegí el perfil, la cara que queda a la vista y cómo querés calcular.</p>
+            <p class="ct-hint" id="pr-hint"></p>
             <div class="ct-fields">
               <label class="ct-field"><span>Perfil</span><select id="pr-prod" onchange="actualizarCaras()"><option value="perfil6042">Perfil 60×42</option><option value="perfil4023">Perfil 42×22</option></select></label>
-              <label class="ct-field"><span>Cara visible</span><select id="pr-face" onchange="calcPR()"></select></label>
-              <label class="ct-field"><span>Largo comercial (m)</span><input type="number" id="pr-barlen" value="2.9" min="0.5" step="0.1" oninput="calcPR()"></label>
-              <label class="ct-field"><span>Desperdicio %</span><input type="number" id="pr-waste" value="10" min="0" max="40" step="1" oninput="calcPR()"></label>
+              <label class="ct-field"><span>Cara visible</span><select id="pr-face" onchange="calcPR()"></select><small>El lado del perfil que se ve de frente.</small></label>
+              <label class="ct-field"><span>Largo comercial (m)</span><input type="number" inputmode="decimal" id="pr-barlen" value="2.9" min="0.5" step="0.1" oninput="calcPR()"><small>La barra viene de fábrica de 2,90 m.</small></label>
+              <label class="ct-field"><span>Desperdicio %</span><input type="number" inputmode="decimal" id="pr-waste" value="10" min="0" max="40" step="1" oninput="calcPR()"></label>
               <label class="ct-field"><span>Color</span><select id="pr-color"></select></label>
               <label class="ct-field"><span>Terminación</span><select id="pr-term" onchange="calcPR()"></select></label>
             </div>
 
             <div class="pr-mode-panel active" id="pr-mode-linear">
               <div class="ct-fields">
-                <label class="ct-field"><span>Metros lineales necesarios</span><input type="number" id="pr-ml" min="0" step="0.1" placeholder="0.0" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Metros lineales necesarios</span><input type="number" inputmode="decimal" id="pr-ml" min="0" step="0.1" placeholder="0.0" oninput="calcPR()"></label>
               </div>
             </div>
 
             <div class="pr-mode-panel" id="pr-mode-separacion">
               <div class="ct-fields">
-                <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" id="pr-sep-w" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
-                <label class="ct-field"><span>Alto del paño (m)</span><input type="number" id="pr-sep-h" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" inputmode="decimal" id="pr-sep-w" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Alto del paño (m)</span><input type="number" inputmode="decimal" id="pr-sep-h" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
                 <label class="ct-field"><span>Orientación</span><select id="pr-sep-orient" onchange="calcPR()"><option value="vertical">Vertical</option><option value="horizontal">Horizontal</option></select></label>
-                <label class="ct-field"><span>Separación deseada (cm)</span><input type="number" id="pr-sep-gap" value="5" min="0" step="0.5" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Separación deseada (cm)</span><input type="number" inputmode="decimal" id="pr-sep-gap" value="5" min="0" step="0.5" oninput="calcPR()"></label>
               </div>
             </div>
 
             <div class="pr-mode-panel" id="pr-mode-cantidad">
               <div class="ct-fields">
-                <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" id="pr-fix-w" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
-                <label class="ct-field"><span>Alto del paño (m)</span><input type="number" id="pr-fix-h" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Ancho del paño (m)</span><input type="number" inputmode="decimal" id="pr-fix-w" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Alto del paño (m)</span><input type="number" inputmode="decimal" id="pr-fix-h" min="0" step="0.01" placeholder="0.00" oninput="calcPR()"></label>
                 <label class="ct-field"><span>Orientación</span><select id="pr-fix-orient" onchange="calcPR()"><option value="vertical">Vertical</option><option value="horizontal">Horizontal</option></select></label>
-                <label class="ct-field"><span>Cantidad de perfiles</span><input type="number" id="pr-fix-count" min="1" step="1" placeholder="0" oninput="calcPR()"></label>
+                <label class="ct-field"><span>Cantidad de perfiles</span><input type="number" inputmode="decimal" id="pr-fix-count" min="1" step="1" placeholder="0" oninput="calcPR()"></label>
               </div>
             </div>
 
@@ -328,6 +334,16 @@ if (META_PIXEL_ID) {
 <a class="wa-float" href="https://wa.me/5492494209464?text=Hola!%20Quiero%20consultar%20por%20WPC" target="_blank" aria-label="WhatsApp" onclick="if(window.fbq)fbq('track','Contact')">
   <svg width="27" height="27" viewBox="0 0 24 24" fill="#0b2b16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
+
+<div class="ct-sticky" id="sticky">
+  <div class="wrap">
+    <div class="ct-sticky-info"><b id="sticky-count">0 ítems</b><span id="sticky-total">$0</span></div>
+    <div class="ct-sticky-actions">
+      <button class="btn btn-sm btn-ghost" onclick="irA('presupuesto')">Ver el detalle</button>
+      <button class="btn btn-sm btn-wa" onclick="enviarWA()">Enviar por WhatsApp</button>
+    </div>
+  </div>
+</div>
 
 <div class="bnav">
   <button class="bnav-item" onclick="irA('productos')"><span>▦</span>Productos</button>

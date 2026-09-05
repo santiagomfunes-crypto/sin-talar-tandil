@@ -252,6 +252,15 @@ function selForma(f,btn){
   calcDeck();
 }
 
+function ejemplo(a,b,btn){
+  selForma('rectangle', document.querySelector('.ct-shape'));
+  document.getElementById('dk-m0').value=a;
+  document.getElementById('dk-m1').value=b;
+  calcDeck();
+  document.querySelectorAll('.ct-examples button').forEach(function(x){x.classList.remove('on');});
+  if(btn) btn.classList.add('on');
+}
+
 function renderCamposForma(){
   var cfg=FORMAS[formaActual];
   document.getElementById('forma-desc').textContent=cfg.desc;
@@ -356,8 +365,14 @@ function actualizarCaras(){
     : '<option value="42">Visible 42 mm</option><option value="22">Visible 22 mm</option>';
   calcPR();
 }
+var PR_HINT={
+  linear:'Si ya sabés cuántos metros de perfil necesitás, cargalos acá y te decimos cuántas barras comprar.',
+  separacion:'Para pérgolas, cerramientos y parasoles: cargá el paño y qué separación querés entre perfiles, y calculamos cuántos entran.',
+  cantidad:'Si ya definiste cuántos perfiles van, cargá el paño y la cantidad, y te decimos qué separación real queda entre uno y otro.'
+};
 function selModoPerfil(m,btn){
   modoPerfil=m;
+  var hint=document.getElementById('pr-hint'); if(hint) hint.textContent=PR_HINT[m]||'';
   document.querySelectorAll('.ct-mode').forEach(function(b){b.classList.remove('active');});
   if(btn) btn.classList.add('active');
   document.querySelectorAll('.pr-mode-panel').forEach(function(p){p.classList.remove('active');});
@@ -472,6 +487,7 @@ function renderCart(){
     box.innerHTML='<div class="ct-empty"><b>Tu presupuesto está vacío</b><p>Agregá productos desde el cotizador de arriba.</p></div>';
     if(tot) tot.textContent='$0';
     var d0=document.getElementById('cart-iva'); if(d0) d0.innerHTML='';
+    actualizarBarra(0);
     return;
   }
   box.innerHTML = cart.map(function(i){
@@ -484,9 +500,17 @@ function renderCart(){
   }).join('');
   var total=cart.reduce(function(a,i){return a+i.totalARS;},0);
   if(tot) tot.textContent='$'+fmt(total);
+  actualizarBarra(total);
   var det=document.getElementById('cart-iva');
   if(det) det.innerHTML='<div><span>IVA 21%</span><span>$'+fmt(total*IVA)+'</span></div>'
                       + '<div><span>Total con IVA</span><span>$'+fmt(conIva(total))+'</span></div>';
+}
+
+function actualizarBarra(total){
+  document.body.classList.toggle('has-cart', cart.length>0);
+  var c=document.getElementById('sticky-count'), t=document.getElementById('sticky-total');
+  if(c) c.textContent=cart.length+(cart.length===1?' ítem':' ítems');
+  if(t) t.textContent='$'+fmt(total)+' sin IVA';
 }
 
 function textoPresupuesto(){
@@ -558,6 +582,7 @@ document.addEventListener('DOMContentLoaded', function(){
   initSelects();
   renderProductos(); renderColores(); renderTerminaciones();
   renderCamposForma(); actualizarCaras();
+  var ph=document.getElementById('pr-hint'); if(ph) ph.textContent=PR_HINT.linear;
   cargar(); repreciarCart(); renderCart();
   document.getElementById('bna-display').textContent='$'+fmt(BNA);
   var pd=document.getElementById('print-date');

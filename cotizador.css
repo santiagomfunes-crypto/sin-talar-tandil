@@ -304,3 +304,38 @@ footer .wrap{align-items:flex-start}
 .ct-iva-box{margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.14);display:flex;flex-direction:column;gap:6px}
 .ct-iva-box div{display:flex;justify-content:space-between;gap:12px;font-size:13.5px;color:rgba(244,241,230,.72)}
 .ct-iva-box div:last-child{color:#fff;font-weight:600;font-size:15px}
+
+/* Ayudas bajo los campos que son jerga de obra */
+.ct-field small{font-size:11.5px;color:var(--mut);line-height:1.45;opacity:.85}
+
+/* Ejemplos de un toque, para no arrancar de cero */
+.ct-examples{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px}
+.ct-examples span{font-size:12.5px;color:var(--mut);margin-right:2px}
+.ct-examples button{background:#fff;border:1px dashed var(--line);border-radius:100px;padding:7px 14px;font-size:12.5px;font-weight:500;color:var(--mut);cursor:pointer;transition:.15s}
+.ct-examples button:hover{border-color:var(--amber-l);color:var(--ink)}
+.ct-examples button.on{background:var(--amber);border-style:solid;border-color:var(--amber);color:#fff}
+
+/* Barra fija con el total: aparece recién cuando hay algo cargado */
+.ct-sticky{position:fixed;left:0;right:0;bottom:0;z-index:220;background:var(--dark);color:#f4f1e6;transform:translateY(110%);transition:transform .28s ease;padding:12px 0 calc(12px + env(safe-area-inset-bottom));box-shadow:0 -10px 34px rgba(0,0,0,.22)}
+body.has-cart .ct-sticky{transform:none}
+.ct-sticky .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.ct-sticky-info{display:flex;flex-direction:column;line-height:1.25}
+.ct-sticky-info b{font-size:13px;color:rgba(244,241,230,.65);font-weight:600}
+.ct-sticky-info span{font-size:21px;font-weight:700;color:#fff}
+.ct-sticky-actions{display:flex;gap:9px;flex-wrap:wrap}
+.ct-sticky .btn-ghost{color:#f4f1e6;border-color:rgba(255,255,255,.26)}
+body.has-cart{padding-bottom:82px}
+/* En celular la barra reemplaza al nav inferior: hacen lo mismo */
+@media(max-width:900px){
+  body.has-cart .bnav{display:none}
+  body.has-cart .wa-float{bottom:104px}
+  .ct-sticky .wrap{gap:10px}
+  .ct-sticky-info span{font-size:19px}
+  .ct-sticky-actions{flex:1;justify-content:flex-end}
+}
+@media(max-width:480px){
+  .ct-sticky .wrap{flex-direction:column;align-items:stretch}
+  .ct-sticky-info{flex-direction:row;align-items:baseline;gap:8px;justify-content:space-between}
+  .ct-sticky-actions .btn{flex:1}
+}
+@media print{ .ct-sticky{display:none!important} body.has-cart{padding-bottom:0} }
