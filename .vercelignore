@@ -16,9 +16,7 @@ sesiones/
 .netlify/
 .github/
 
-# de out/ solo se publica el video de la landing
-out/*
-!out/deck-install.mp4
+out/
 
 # fuentes pesadas y fotos que el sitio no usa
 img/gen*

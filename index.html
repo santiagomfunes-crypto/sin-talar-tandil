@@ -92,16 +92,6 @@ section.pad{padding:96px 0}
 .sec-head p{color:var(--mut);font-size:18px}
 
 /* VIDEO */
-.videosec{background:var(--dark);color:#f2ebdf}
-.videosec .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:90px 24px}
-.videosec .eyebrow{color:var(--amber-l)}.videosec .eyebrow::before{background:var(--amber-l)}
-.videosec h2{color:#fff;font-size:clamp(32px,4.4vw,48px);margin-bottom:16px}
-.videosec p{color:#c9bca7;font-size:17px;margin-bottom:26px}
-.videobox{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.5);aspect-ratio:9/16;max-height:640px;margin:0 auto;background:#0c0a08}
-.videobox video{width:100%;height:100%;object-fit:cover}
-.vlist{list-style:none;display:flex;flex-direction:column;gap:12px}
-.vlist li{display:flex;gap:12px;font-size:16px;color:#e6dccd;align-items:flex-start}
-.vlist li::before{content:"→";color:var(--amber-l);font-weight:800}
 
 /* BENEFITS */
 .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
@@ -205,7 +195,7 @@ footer a{color:var(--amber-l)}
   .nav-links{position:fixed;inset:70px 0 auto 0;background:var(--bg);flex-direction:column;padding:22px;gap:18px;border-bottom:1px solid var(--line);display:none}
   .nav-links.open{display:flex}
   .menu-btn{display:block}
-  .videosec .wrap,.tandil .wrap{grid-template-columns:1fr;gap:36px}
+  .tandil .wrap{grid-template-columns:1fr;gap:36px}
   .benefits,.swatches{grid-template-columns:repeat(2,1fr)}
   .products,.steps{grid-template-columns:1fr}
   .stats .wrap{grid-template-columns:repeat(2,1fr);gap:30px}
@@ -228,7 +218,6 @@ footer a{color:var(--amber-l)}
   <div class="wrap">
     <div class="brand" style="display:flex;align-items:center;gap:11px"><img src="img/logo-wpc-green.png" alt="WPC" style="height:30px;display:block"><span>Tandil</span></div>
     <div class="nav-links" id="navlinks">
-      <a href="#video">El deck</a>
       <a href="#beneficios">Por qué WPC</a>
       <a href="#productos">Productos</a>
       <a href="catalogo.html">Precios y cotizador</a>
@@ -269,25 +258,6 @@ footer a{color:var(--amber-l)}
   </div>
 </div>
 
-<!-- VIDEO -->
-<section class="videosec" id="video">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="eyebrow">Tabla por tabla</span>
-      <h2>Mirá cómo se arma tu deck.</h2>
-      <p>Un sistema simple de perfilería y tablas que se encastra sobre cualquier base. En una instalación queda listo — y no lo tocás nunca más.</p>
-      <ul class="vlist">
-        <li>Se monta sobre rastreles, sin obra húmeda.</li>
-        <li>Terminación antideslizante, fresca al pie.</li>
-        <li>Cero mantenimiento: ni lija, ni barniz, ni pintura.</li>
-      </ul>
-      <div style="margin-top:30px"><a class="btn btn-lg" href="#contacto">Quiero uno así</a></div>
-    </div>
-    <div class="videobox reveal">
-      <video src="out/deck-install.mp4" poster="img/life-deck.jpg" autoplay muted loop playsinline preload="auto"></video>
-    </div>
-  </div>
-</section>
 
 <!-- BENEFITS -->
 <section class="pad" id="beneficios">
