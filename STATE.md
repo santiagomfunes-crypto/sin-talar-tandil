@@ -457,3 +457,12 @@ El CPL de USD 3,73 era un espejismo. Causa raíz encontrada en el formulario (`1
 2. **Decir el piso económico en el anuncio.** ⚠️ **Esto corrige la recomendación del 4-5/sep** (donde dije que el precio visible baja la calidad del lead): ese consejo aplica cuando los leads ya son buenos y querés protegerlos. Acá el problema es el inverso —5 de 5 sin calificar— así que el precio funciona de FILTRO. Dato disponible: material USD 85,36/m² sin IVA.
 3. **NO subir el presupuesto a USD 27/día.** Con la calidad rota, escalar solo compra más de lo mismo, más rápido.
 4. Fix más profundo (a futuro): optimizar por un evento que cueste esfuerzo — mensaje de WhatsApp (bloqueado por el candado de la Página) o cotización completada en el cotizador de la landing (el pixel ya está vivo). A USD 10/día ese evento es demasiado raro para optimizar; primero el formulario.
+
+## 5 sep 2026 — Chequeo de salud + hallazgo del WhatsApp
+**Nada roto.** Cuenta ACTIVA (saldo USD 323), campaña de formulario ACTIVE, **10 anuncios ACTIVE, cero rechazos, cero `issues_info`**. Entrega por día: 4/sep $4,74 · 1.019 impr · 0 leads → 5/sep **$19,12 · 3.165 impr · 24 clics · 5 leads** (el mejor día).
+⚠️ **CORRECCIÓN de presupuesto:** son **DOS conjuntos activos a $10 = USD 20/día**, no 10. Rehecha la cuenta del learning phase: a CPL 3,73 son ~37 leads/semana = 75% del umbral de 50 (no 38% como decía antes).
+**Hallazgo:** el número **+54 9 249 420-9464** (el de la landing y el de los anuncios) está en la WhatsApp Business Platform bajo la WABA **"Santiago Funes | Real Estate"** (id 1364101685398268), y ese es su `verified_name`. Estado: `CONNECTED`, calidad GREEN, `name_status: AVAILABLE_WITHOUT_REVIEW` (o sea: el nombre para mostrar se puede cambiar SIN revisión).
+Dos consecuencias:
+1. Es la causa de fondo del candado: un número dado de alta en la WhatsApp Business Platform **no se puede vincular a la Página** como número común. `probe-wa.py` sigue devolviendo STILL_FAILING. Cambiarle el nombre no lo destraba.
+2. Quien escribe desde un anuncio de WPC ve **"Santiago Funes | Real Estate"** como nombre del negocio: marca equivocada en el momento de mayor intención.
+Los números están consistentes: landing (live y local) y `config.json` usan 5492494209464.
