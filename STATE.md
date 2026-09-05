@@ -359,3 +359,21 @@ Tres ángulos que los 8 actuales no tocan, con prompt de Flow en el estilo corre
 Del catálogo: **deck USD 85,36/m²**, **wall panel USD 50,13/m²** (material, sin IVA, sin instalación).
 Recordatorio: entran de a UNO contra el ganador, no los tres juntos.
 🚧 Secret `META_TOKEN` sigue sin cargar (el clasificador de permisos bloquea que lo haga Claude). Sin eso el feed automático no corre.
+
+## 5 sep 2026 — Los presupuestos de la web se guardan y se ven
+- **Problema que resuelve:** si alguien armaba un presupuesto de $7M y no apretaba enviar, se
+  perdía entero. Era el tráfico más caliente del sitio yéndose sin dejar rastro.
+- Tabla **`wpc_cotizaciones`** en Supabase `pgnmpxqljxrpnvexcygh`. Append-only: una fila por
+  evento; la más reciente de cada `sesion` es la foto final.
+- **Seguridad:** RLS con una sola política, INSERT para `anon`. La clave que viaja al navegador
+  es la **publicable** (el repo es público). Verificado: con esa clave, `SELECT` devuelve `[]`.
+  La service key para leer vive en `meta-api/.env.meta`, gitignoreado.
+- Se guarda al agregar/quitar un ítem, al completar los datos de contacto, al enviar por
+  WhatsApp y al cerrar la pestaña (**sendBeacon** — `fetch` no llega si la página se está yendo).
+- Campo **Teléfono** en el resumen + aviso visible "guardamos tu presupuesto". El aviso no es
+  decorativo: sin él, llamar a alguien que tipeó el número y no lo mandó es gris con la ley 25.326.
+- Dashboard (`localhost:8124`): sección **"Presupuestos armados en la web"** con armados /
+  enviados / sin enviar / con teléfono, y botón "Escribirle" por fila. Sincronizado a `~/wpc-pauta`.
+- **De paso resuelve el problema de los m²:** mucha gente no sabe cuántos tiene, pero el cotizador
+  se lo calcula y ese número queda guardado. Es el dato de calificación que el formulario de Meta
+  no pide (solo pide nombre y teléfono).
