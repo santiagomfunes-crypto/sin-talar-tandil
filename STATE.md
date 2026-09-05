@@ -340,3 +340,13 @@ Los 5 son `is_organic=false` (todos de pauta, ninguno es test propio).
 - **Estado de la cuenta antes de empezar: `media_count = 0`, 19 seguidores.** El perfil estaba literalmente vacío mientras la pauta traía gente.
 - ✅ Publicado #12 `wpc-6` (medición sin cargo) → https://www.instagram.com/reel/Dc6Ka5pDCCi/
 - Falta: #11 wpc-5 (tarde del día 1) y del #10 al #2 según el calendario de `marketing/plan-feed.md`.
+
+## 5 sep 2026 — Feed de IG AUTOMATIZADO (GitHub Actions)
+- **Cola:** `marketing/cola-feed.json` — 10 piezas pendientes (#11 → #2), cada una con archivo, tipo, caption y `publicado` (null hasta que sale). El #12 ya salió a mano.
+- **Publicador:** `meta-api/publicar-siguiente.py` — toma la PRIMERA pendiente, verifica que la URL de GitHub Pages devuelva 200, crea el contenedor (REELS o imagen), espera `FINISHED` y publica. Después escribe el permalink en el JSON. Tiene `--dry-run`.
+- **Workflow:** `.github/workflows/feed-ig.yml` — cron `0 13 * * *` y `0 22 * * *` (UTC) = **10:00 y 19:00 de Argentina**. Publica UNA por corrida y commitea el JSON actualizado. Cuando la cola se vacía, sale sin hacer nada. Tiene `workflow_dispatch` con input `dry_run`.
+- **Assets:** todo en `media/ig/` (servido por GitHub Pages, los 10 verificados con 200 y content-type correcto). ⚠️ **Instagram solo acepta JPEG en imágenes**: los PNG se convirtieron con `sips` (la comparativa además bajada a 1440px).
+- Se cambió el arranque del POST 3 en `posts-presentacion.md`: abría con el mismo gancho que el reel wpc-1 ("¿Otra primavera lijando...") y se iban a pisar con 2 días de diferencia.
+- 🚧 **FALTA (solo lo puede hacer Santi):** cargar el secret `META_TOKEN` en el repo. Sin eso el workflow falla en el primer paso.
+  `gh secret set META_TOKEN --repo santiagomfunes-crypto/sin-talar-tandil` (pegando el token de `meta-api/.env.meta`), o por la web en Settings → Secrets and variables → Actions.
+  Después: `gh workflow run feed-ig.yml -f dry_run=true` para probar sin publicar.
