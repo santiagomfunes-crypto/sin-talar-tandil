@@ -1,67 +1,47 @@
 # wpctandil.com.ar — cómo se conecta
 
-Estado al 5-sep-2026: **registrado en NIC.ar, sin delegar** (`dig NS wpctandil.com.ar` no
-devuelve nada). Vence el 5-sep-2027.
+Estado al 5-sep-2026: **registrado en NIC.ar, sin delegar.** Vence el 5-sep-2027.
 
 NIC.ar **no hospeda registros DNS**: solo te deja apuntar el dominio a los nameservers de otro.
-Por eso hace falta un DNS en el medio. Va Cloudflare, que es gratis y ya tenés cuenta (la usás
-para Legarreta).
+Va por **Vercel**, igual que `santiagofunes.com.ar` y `redactacontratos.com.ar` — los dos ya
+delegados a `ns1/ns2.vercel-dns.com`.
 
----
+## Ya está hecho
+- Proyecto **`wpc-tandil`** en Vercel, sirviendo el sitio: https://wpc-tandil.vercel.app
+- Conectado al repo de GitHub: **cada push a `main` deploya solo**, igual que antes.
+- Dominios `wpctandil.com.ar` y `www.wpctandil.com.ar` agregados al proyecto.
+- `.vercelignore`: el dominio público sirve **solo** landing, catálogo, cotizador y privacidad.
+  Lo interno (pauta, dashboard de gasto, guiones, fuentes de video, los `.md`) **no se publica**.
+  Verificado: `/dashboard/data.json` y `/STATE.md` dan 404.
 
-## Lo que tenés que hacer vos (10 minutos, dos pantallas)
+## Lo único que falta, y lo tenés que hacer vos
+En **tramitesadistancia.gob.ar** → Mis dominios → `wpctandil.com.ar` → botón **DELEGAR**, y cargá:
 
-### 1. Cloudflare — dar de alta el dominio
-1. dash.cloudflare.com → **Add a site** → `wpctandil.com.ar` → plan **Free**.
-2. Te va a dar **dos nameservers**, del estilo `xxx.ns.cloudflare.com`. Copialos.
-3. En **DNS → Records**, cargá esto:
+```
+ns1.vercel-dns.com
+ns2.vercel-dns.com
+```
 
-| Tipo | Nombre | Contenido | Proxy |
-|---|---|---|---|
-| A | `@` | `185.199.108.153` | **DNS only** (nube gris) |
-| A | `@` | `185.199.109.153` | **DNS only** |
-| A | `@` | `185.199.110.153` | **DNS only** |
-| A | `@` | `185.199.111.153` | **DNS only** |
-| CNAME | `www` | `santiagomfunes-crypto.github.io` | **DNS only** |
+Son exactamente los mismos que ya usás en tus otros dos dominios. La columna "Delegado" pasa de
+NO a SI. Vercel emite el certificado HTTPS solo, sin que toques nada.
 
-### 2. NIC.ar — delegar
-tramitesadistancia.gob.ar → Mis dominios → `wpctandil.com.ar` → **DELEGAR** → pegá los dos
-nameservers de Cloudflare. Ahí la columna "Delegado" pasa de NO a SI.
+Para ver cómo viene:
+```bash
+dig +short NS wpctandil.com.ar          # tiene que devolver ns1/ns2.vercel-dns.com
+vercel domains inspect wpctandil.com.ar
+```
 
-### 3. Avisame
-Cuando esté, corro `./configurar-dominio.sh` y queda listo: CNAME del repo, las URLs absolutas
-al dominio nuevo, dominio y HTTPS en GitHub Pages, y verificación de que responde.
+## Cuando resuelva
+Corré `./configurar-dominio.sh`: pasa el canonical y las URLs de compartir al dominio propio,
+actualiza la política de privacidad que usan los scripts de Meta, y verifica que todo responda.
 
----
-
-## ⛔ La trampa: el SSL de Cloudflare
-
-En Legarreta usás **Flexible**. Con GitHub Pages, Flexible provoca un **bucle infinito de
-redirects** y el sitio no abre: GitHub fuerza HTTPS y Cloudflare le habla por HTTP, así que se
-redirigen entre sí para siempre.
-
-Por eso arriba va todo en **DNS only (nube gris)**: GitHub necesita ver el origen real para
-emitir su certificado de Let's Encrypt. Una vez que `https://wpctandil.com.ar` abra bien, si
-querés el proxy de Cloudflare (caché, analytics), prendelo **con SSL en Full**, nunca Flexible.
-
----
-
-## Qué cambia cuando se corte
-
-- El sitio pasa a `wpctandil.com.ar` y la URL vieja de GitHub **redirige sola**, no se rompe
-  ningún link que hayas mandado.
-- Ojo con esto: hoy el sitio vive en `.../sin-talar-tandil/`, un subdirectorio. Con dominio
-  propio pasa a la **raíz**: `wpctandil.com.ar/catalogo.html`. Todos los links internos son
-  relativos, así que no hay nada que tocar.
-- El **pixel de Meta** (`1063781786398885`) sigue funcionando; empieza a registrar el dominio
-  nuevo. No hace falta recrearlo.
-- La **política de privacidad** que la app de Meta tiene cargada apunta a la URL de GitHub.
-  Sigue andando por el redirect, pero conviene actualizarla a
-  `https://wpctandil.com.ar/privacidad.html` en developers.facebook.com → app "wpc tandil ads"
-  → Settings → Basic.
-- Los scripts de `meta-api/` que usan la landing y la privacidad se actualizan solos con el
-  script de corte.
-
-## Después del corte, opcional
-- Mandar el sitio a Google Search Console con el dominio nuevo.
-- Poner `wpctandil.com.ar` en las bios de IG y FB, que hoy no tienen link propio.
+## Detalles
+- **GitHub Pages queda vivo** como espejo. No se apaga porque la app de Meta todavía apunta ahí
+  para la política de privacidad. El `canonical` le va a decir a Google cuál es el sitio real,
+  así que no hay problema de contenido duplicado.
+- El sitio deja de vivir en `/sin-talar-tandil/` y pasa a la **raíz** del dominio. Todos los links
+  internos son relativos: no se rompe nada.
+- El **pixel de Meta** (`1063781786398885`) sigue igual, empieza a registrar el dominio nuevo.
+- Pendiente manual después: cambiar la URL de privacidad en developers.facebook.com → app
+  "wpc tandil ads" → Settings → Basic, a `https://wpctandil.com.ar/privacidad.html`. Y poner el
+  dominio en las bios de IG y FB.

@@ -1,0 +1,35 @@
+# El dominio público sirve SOLO el sitio: landing, catálogo, cotizador y privacidad.
+# Todo lo interno (pauta, dashboards, guiones, fuentes de video) queda afuera.
+
+remotion/
+clips/
+media/
+placas/
+anuncios/
+piezas/
+marketing/
+meta-api/
+dashboard/
+sesiones/
+.agents/
+.claude/
+.netlify/
+.github/
+
+# de out/ solo se publica el video de la landing
+out/*
+!out/deck-install.mp4
+
+# fuentes pesadas y fotos que el sitio no usa
+img/gen*
+img/reales/
+img/logo-wpc.jpeg
+
+# documentos y herramientas internas
+*.md
+*.sh
+*.py
+skills-lock.json
+creativos.html
+estrategia-pauta.html
+guionario.html
