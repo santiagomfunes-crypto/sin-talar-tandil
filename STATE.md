@@ -377,3 +377,53 @@ Recordatorio: entran de a UNO contra el ganador, no los tres juntos.
 - **De paso resuelve el problema de los m²:** mucha gente no sabe cuántos tiene, pero el cotizador
   se lo calcula y ese número queda guardado. Es el dato de calificación que el formulario de Meta
   no pide (solo pide nombre y teléfono).
+
+## 5 sep 2026 (tarde) — Feed encendido + hallazgo: la infra de WhatsApp ya existe
+- ✅ **Secret `META_TOKEN` cargado.** Ojo al nombre: en `.env.meta` la variable es `META_ADS_TOKEN`,
+  pero el secret de GitHub se llama `META_TOKEN` (el script acepta los dos). Dry-run en Actions OK:
+  token válido en CI, `wpc-5.mp4` sirve 200. **El feed publica solo desde hoy 19:00.**
+- Aviso de leads por push CONSTRUIDO pero **sin pushear** (Santi frenó para ir por el bot):
+  `meta-api/avisar-leads.py` + `.github/workflows/avisar-leads.yml`. Descubre los formularios solos
+  derivando un Page Token; pide SOLO `created_time` (el repo es público y los logs de Actions
+  también → nunca nombre ni teléfono). Tópico ntfy en `.env.meta`. Hay **6 leads**, no 5.
+- 🔎 **HALLAZGO: el portfolio `wpc.tandil` ya tiene WABA** (`1364101685398268`) con el número
+  **+5492494209464** en **CLOUD_API**, `CONNECTED`, calidad **GREEN**, 0 templates. Es la infra de
+  Sofía, parada desde junio. **Por eso rebotaba el CTWA**: el número no está como WhatsApp común de
+  la Página, está en la Plataforma. `code_verification_status: NOT_VERIFIED` (posible 2do candado).
+- La app "wpc tandil ads" (`1381570386825161`) **ya está suscripta al WABA**, y el token tiene
+  `whatsapp_business_messaging` + `whatsapp_business_management` sin target_ids. No falta permiso.
+  También aparece suscripta "Business Agent" (IA de Meta) — revisar si intercepta.
+- ❌ **`pages_manage_posts` NO está en el token** — confirmado con `debug_token`. Ese es el motivo
+  exacto por el que no se puede publicar en Facebook por API. Se agrega el scope al system user;
+  no debería requerir App Review porque la Página es propia.
+- **DECISIÓN (Santi): el bot de WPC va en un NÚMERO NUEVO.** Un número en Cloud API no se puede usar
+  a la vez desde la app del celular, y +5492494209464 está en la landing, en el perfil y en los 6 leads.
+  Además el `verified_name` actual dice "Santiago Funes | Real Estate", que no sirve para WPC.
+- **Principio de diseño del bot: NO inventa precios, ejecuta el cotizador.** El motor de
+  `cotizador.js` (rinde, desperdicio, separación, dólar BNA) se extrae a un módulo compartido que
+  usan el navegador y el webhook. Una sola verdad de precios. El LLM entiende y redacta; la plata
+  la calcula el código. Es lo que hace defendible este bot y no el de Sofía (allá cada respuesta era
+  un juicio; acá es una cuenta).
+- ⚠️ **ACLARACIÓN (Santi, mismo día): NO se cambia el número todavía.** El +5492494209464 sigue tal
+  cual en landing, bio de IG/FB y anuncios. La línea nueva entra como **segundo número del mismo
+  WABA** (una WABA soporta varios, cada uno con su propio `verified_name`), así que es aditivo:
+  el bot arranca en la línea nueva y el número de siempre queda intacto. Cuándo (y si) se pasa el
+  tráfico público al número del bot es una decisión POSTERIOR y aparte.
+
+## 5 sep 2026 — Embudo: en qué paso se cae la gente
+- 8 pasos marcados en el cotizador: abrió el catálogo · llegó al cotizador · cargó una medida ·
+  **vio el total** · agregó al presupuesto · llegó al resumen · completó sus datos · mandó por
+  WhatsApp. Se guarda el más lejano de cada visita, con el segundo en que lo alcanzó.
+- **Lo que se estaba perdiendo:** el que calculaba y se iba SIN agregar nada no dejaba fila, y es
+  el segmento más grande. Ahora se guarda desde que ve un precio, con `calculo_suelto`: lo último
+  que vio en pantalla ("80 m² de deck, $11.496.342, lo calculó y no lo agregó").
+- La distinción que importa: *vio el total y se fue* = problema de **precio** (→ conversación de
+  cuotas). *Completó los datos y no mandó* = problema del **formulario**.
+- Dashboard: barra de embudo (llegaron / se quedaron acá por paso) + el escalón que más pierde +
+  por fila el paso donde se cortó, el tiempo en la página y cuántas veces recalculó (recalcular
+  mucho = está tanteando presupuesto).
+- ⚠️ **Base del embudo:** son las visitas que llegaron a ver un precio. El que entra y nunca
+  calcula no deja fila — para eso está el pixel, no esta tabla.
+- Columnas nuevas: `paso_max`, `paso_label`, `pasos`, `segundos`, `calculos`, `calculo_suelto`.
+  Ojo: `dashboard-data.py` pide columnas por nombre en el `select=` — si se agrega una, hay que
+  sumarla ahí o llega vacía al dashboard.
