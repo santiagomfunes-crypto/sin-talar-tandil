@@ -427,3 +427,33 @@ Recordatorio: entran de a UNO contra el ganador, no los tres juntos.
 - Columnas nuevas: `paso_max`, `paso_label`, `pasos`, `segundos`, `calculos`, `calculo_suelto`.
   Ojo: `dashboard-data.py` pide columnas por nombre en el `select=` — si se agrega una, hay que
   sumarla ahí o llega vacía al dashboard.
+- **Número del bot: +54 9 249 420-9659** (celular, chip nuevo). Script `meta-api/alta-numero.py`
+  (estado / agregar / codigo / verificar / registrar).
+- ⛔ **VERIFICADO 5-sep: NO se puede agregar un número por API.** `POST /{WABA}/phone_numbers`
+  devuelve `code 200000 / subcode 3095008` con y sin el 9 — no es el formato. Esa ruta es solo para
+  Solution Partners (BSP); el negocio `wpc.tandil` es directo (`verification_status: not_verified`,
+  creado 31-ago-2026). Confirmado contra la doc oficial de Meta: un negocio directo agrega números
+  por App Dashboard → WhatsApp → API Setup, o por WhatsApp Manager. El límite de números NO es el
+  problema (permite 2, hay 1).
+  **Lo que SÍ es API**: `register` en Cloud API, webhooks, y todo el bot.
+- ✅ **CORRECCIÓN al párrafo anterior:** el alta por API SÍ funciona. El `subcode 3095008` no era la
+  restricción de Solution Partner sino **número ocupado**: el +5492494209659 tenía registrado un bot
+  viejo de Santi. Contra la WABA `wpc.tandil` (vacía) y con un número libre, `POST /{WABA}/phone_numbers`
+  entra sin drama. Regla práctica: **3095008 = el número está en uso en otro lado.** Para liberarlo,
+  registrarlo en la app de WhatsApp (eso lo expulsa de la Plataforma) y después borrar la cuenta.
+- **Número definitivo del bot: +54 9 249 420-5273** — `phone_number_id 1226671373873063`, en la WABA
+  `1822250112458981` (`wpc.tandil`). El PIN de 2 pasos está en `.env.meta` como `WPC_WA_PIN`.
+  ⚠ Esa WABA NO tiene la app suscripta → sin `alta-numero.py suscribir` no llegan webhooks.
+
+## 5 sep 2026 — Santi llamó a los leads: NINGUNO CALIFICADO. Diagnóstico.
+El CPL de USD 3,73 era un espejismo. Causa raíz encontrada en el formulario (`1798619054495337`):
+- Solo pide **FULL_NAME y PHONE**, y Meta los **autocompleta** del perfil → completarlo son dos toques y cero tipeo.
+- **`is_optimized_for_quality: False`** = está en modo "más volumen", no en "mayor intención".
+- **Mecanismo:** optimizamos por `LEAD_GENERATION` sobre el formulario más fácil que Meta permite. El algoritmo hizo exactamente lo pedido: encontró a la gente más propensa a **tocar dos veces**. Esa población no es la que compra un deck.
+- (Al 5/sep el formulario ya va por **7 leads**, no 5.)
+
+**Fixes por orden de palanca:**
+1. **Formulario nuevo** — los lead forms de Meta son INMUTABLES: no se editan, hay que crear otro. Con `is_optimized_for_quality: True` (agrega paso de confirmación) + preguntas propias que exijan tipear/elegir: metros aproximados, cuándo lo va a hacer, localidad, si es casa propia.
+2. **Decir el piso económico en el anuncio.** ⚠️ **Esto corrige la recomendación del 4-5/sep** (donde dije que el precio visible baja la calidad del lead): ese consejo aplica cuando los leads ya son buenos y querés protegerlos. Acá el problema es el inverso —5 de 5 sin calificar— así que el precio funciona de FILTRO. Dato disponible: material USD 85,36/m² sin IVA.
+3. **NO subir el presupuesto a USD 27/día.** Con la calidad rota, escalar solo compra más de lo mismo, más rápido.
+4. Fix más profundo (a futuro): optimizar por un evento que cueste esfuerzo — mensaje de WhatsApp (bloqueado por el candado de la Página) o cotización completada en el cotizador de la landing (el pixel ya está vivo). A USD 10/día ese evento es demasiado raro para optimizar; primero el formulario.
