@@ -350,3 +350,12 @@ Los 5 son `is_organic=false` (todos de pauta, ninguno es test propio).
 - 🚧 **FALTA (solo lo puede hacer Santi):** cargar el secret `META_TOKEN` en el repo. Sin eso el workflow falla en el primer paso.
   `gh secret set META_TOKEN --repo santiagomfunes-crypto/sin-talar-tandil` (pegando el token de `meta-api/.env.meta`), o por la web en Settings → Secrets and variables → Actions.
   Después: `gh workflow run feed-ig.yml -f dry_run=true` para probar sin publicar.
+
+## 5 sep 2026 — Tanda 2 de anuncios (`marketing/anuncios-tanda-2.md`)
+Tres ángulos que los 8 actuales no tocan, con prompt de Flow en el estilo corregido (1 clip 8s, ~250 palabras, sin checklist de negativos) + texto de anuncio:
+- **N1 · La cuenta** — ⚠️ tiene un `[MONTO]` sin llenar: cuánto sale por año mantener un deck de madera de ~20 m². No se inventa.
+- **N2 · El calor (honesto)** — admite la contra. Es el más raro y probablemente el mejor.
+- **N3 · Deseo, no defensa** — hora dorada, sin objeción ni comparación. El ángulo que falta para construir marca.
+Del catálogo: **deck USD 85,36/m²**, **wall panel USD 50,13/m²** (material, sin IVA, sin instalación).
+Recordatorio: entran de a UNO contra el ganador, no los tres juntos.
+🚧 Secret `META_TOKEN` sigue sin cargar (el clasificador de permisos bloquea que lo haga Claude). Sin eso el feed automático no corre.
