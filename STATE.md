@@ -523,3 +523,18 @@ Los números están consistentes: landing (live y local) y `config.json` usan 54
 - Corregidas las dos plantillas de `dashboard/index.html` (contactar lead y contactar presupuesto
   abandonado). Los links de la landing y del cotizador nunca tuvieron emoji.
 
+
+## 8 sep 2026 — PAUTA PAUSADA (decisión de Santi)
+Ambas campañas en PAUSED. Cierre de la de formulario:
+| día | gasto | impr | leads |
+|---|---:|---:|---:|
+| 4/sep | 4,74 | 1.019 | 0 |
+| 5/sep | 24,27 | 4.535 | 7 |
+| 6/sep | 17,65 | 4.673 | 1 |
+| 7/sep | 17,94 | 4.948 | 1 |
+| 8/sep | 15,31 | 4.677 | 5 |
+| **TOTAL** | **79,91** | **19.852** | **14** |
+15 leads en el formulario · **costo real por lead USD 5,33**. Saldo de la cuenta al pausar: USD 11,34.
+**Por qué se pausó:** los leads no califican (Santi llamó a los primeros 5: ninguno servía). Gastar más sin arreglar la calidad era comprar más de lo mismo. El diagnóstico y los fixes están en la entrada del 5/sep: formulario nuevo con `is_optimized_for_quality: True` + preguntas calificadoras + piso económico en el anuncio.
+**Al retomar, en este orden:** (1) formulario nuevo (los de Meta son inmutables), (2) precio como filtro en el creativo, (3) recién ahí pensar presupuesto. NO reactivar tal cual está.
+El feed de Instagram sigue corriendo: es independiente de la pauta y no se tocó.
